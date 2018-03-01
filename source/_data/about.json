@@ -1,0 +1,25 @@
+{
+    "avatar": "http://ww2.sinaimg.cn/small/74990035jw1f1rjkd681bj20rs0rsdhg.jpg",
+    "name": "蔡永龙",
+	"tag": "java/Android",
+    "desc": "比较宅，喜欢听歌，热爱移动开发",
+    "skills": {
+        "Android": 7,
+		"Java": 5,
+		"html": 3,
+		"php": 3,
+		"javasript": 2,
+		"mysql": 2
+		
+    },
+    "projects": [{
+		"name": "湖科音乐",
+		"image": "",
+		"tags": ["2016年", "App" ],
+		"description": "一款音乐社区音乐分享的APP",
+		"link_text": "github链接",
+		"link": "https://github.com/caiyonglong/Music_hnust"
+	}],
+	"reward": [
+	]
+}

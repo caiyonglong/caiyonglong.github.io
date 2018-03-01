@@ -1,0 +1,29 @@
+{
+    "define": {
+	    "readed": "已读",
+        "reading": "在读",
+        "wanted": "想读"
+    },
+    "contents": {
+        "readed": [
+            {
+            "title": "第一行代码",
+            "cover": "https://img3.doubanio.com/lpic/s28351121.jpg",
+            "review": "入门",
+            "score": "8",
+            "doubanLink": "https://book.douban.com/subject/26410861/"
+            },
+            {
+            "title": "疯狂Android讲义",
+            "cover": "https://img1.doubanio.com/lpic/s28351119.jpg",
+            "review": "入门",
+            "score": "7",
+            "doubanLink": "https://book.douban.com/subject/25942191/"
+            }
+        ],
+		
+		"reading": [],
+
+        "wanted": []
+    }
+}

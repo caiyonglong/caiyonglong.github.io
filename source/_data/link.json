@@ -1,0 +1,12 @@
+{
+    "social": {
+        "weibo": "http://weibo.com/1956184117",
+        "github": "https://github.com/caiyonglong",
+		"rss": "/atom.xml"
+    },
+    "extern": {
+    	"Suen的博客": "http://zzsun.cc/",
+	    "Fly俊的博客": "https://qious.cn/",
+		"trumi的博客": "http://trumi.cn/"
+    }
+}
