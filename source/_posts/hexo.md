@@ -8,7 +8,7 @@ toc: true 文章目录
 author:
 comments:
 original:
-permalink: /404
+permalink: 
 ---
 
 <!--more-->
