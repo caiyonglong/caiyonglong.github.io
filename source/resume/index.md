@@ -1,21 +1,23 @@
 ---
 title: 个人简介
-date: 2016-05-31 00:30:53
+date: 2018-03-28 00:30:53
 comments: true
 noDate: true
 ---
-## 基本信息
----
+# 联系方式
+- 手机：17688734455
+- Email：caiyonglong@live.com 
+- QQ/微信号：643872807/caiyonglong0
 
-* 个人信息： 男 / 1994生 / 2017年6月毕业 / 湖南科技大学 / 计算机学院信息安全专业
-* 自评：有很强的学习能力和代码基础，能吃苦耐劳，有较好的团队精神
-* 联系方式: 15573275970
-* GitHub地址：[github.com/caiyonglong](https://github.com/caiyonglong)
-* 个人博客: [hkcyl.cn](http://hkcyl.cn)
-* 电子邮箱: caiyonglong@live.com
-* Q Q: 643872807
 
----
+# 个人信息
+
+ - 蔡永龙/男/1994 
+ - 本科/湖南科技大学计算机学院 
+ - 工作年限：两年Android应用开发经验，1年工作经验。
+ - 技术博客：http://caiyonglong.github.io /
+ - Github：https://github.com/caiyonglong
+
 
 ## 技能清单
 ---
@@ -31,32 +33,32 @@ noDate: true
  * 有ACM经历，获得过校赛奖，了解基本的算法，担任过C程序设计课程助教
 
  ---
-
-## 主要项目经历
----
- ### 基于LBS的音乐社区APP开发(独立完成)(2015.7-2016.4)
-
- * 开发环境：Android Studio
- * 项目描述：校科研创新计划项目，将科大的校园地图与音乐软件结合 * 起来。项目包含客户端和服务端，客户端通过学号进行登录，用户可 * 以发布动态，查看动态，评论，创建本地歌单，分享歌单内容，地图 * 定位，查询科大地图，本地音乐播放，在线听歌，下载歌曲，摇一摇 * 搜索听歌的人等功能。
- * 服务端通过PHP+MySQL实现，为客户端提供 HTTP + JSON 的API
- * 客户端实现的主要技术有：json格式的数据解析，第三方类库  * Volley + floatingactionbutton+ android-async-http+ RecyclerView +CardView，高德地图android平台,自定义View,  * 属性动画，Handler，MediaPlay，viewpage+fragment，多线程断点续传 * 下载...等
- * 上线：目前已在安卓市场、91安卓下载、百度手机助手上线
-
----
-
- ### 淘宝Web (2016.5)
-
- *  此项目为JavaWeb项目。小组合作完成，负责人。使用技术java，jsp，servlet，mysql等。实现功能：项目的后台开发，项目的整合，以及界面的一些优化。采用jsp+servlet+javabean 开发模式。
  
- ---
 
- ### 班级通讯录/新闻客户端 (2016.1)
- *  班级通讯录为android应用，主要使用对android手机中的通讯录进行操作，使用listview 展示列表。
- *  新闻客户端为android应用，一个新闻类app，新闻数据来源是使用天行数据api，使用的技术有viewpage+listview+webview+SwipeRefreshLayout等,使用AsyncHttpClient 获取服务器数据，SmartImageView显示网络图片。
- 
----
- 
- ### 企业行文内部管理系统 (2015.6)
- *  此项目为Java桌面应用。个人独立完成。使用技术java、sql server、swing等。实现功能：员工注册登录、数据库增删查改等。
+# 工作经历
 
----
+## 西可德信通信技术设备有限公司  （ 2017年7月 ~ 至今 ）
+
+### 自动化测试Aopk 
+这是一个Android系统应用。主要功能是方便测试人员进行Android系统自动化测试，目前主要有自动填充测试、通话测试、多媒体测试、传感器测试等功能，通过软件实现测试自动化，方便测试部人员对手机进行测试。主要负责传感器测试模块的开发。
+项目经验：参与项目的定义、设计和开发流程。与需求人员沟通需求。软件基于MVC架构，git进行代码管理。使用Android Studio编写软件，然后在部署到Android系统源码中，学习了Android.mk编译
+对手机自带的传感器实时采集数据，然后将数据保存，导出到excel表中。
+
+### MTK平台的Android系统开发
+负责Android系统软件的开发和维护，负责Android系统客户化定制，定位和解决Launcher模块、statusbar模块bug。遇到最难的问题是对于Android源码不熟悉，通过阅读Android源码，最后了解了Android源码的代码结构，能更加快速的定位到bug位置。维护Android系统分支，定时按需求发布相应的软件版本，对于git的使用更加熟练。
+
+## 西可德信通信技术设备有限公司  （ 2016年7月 ~ 2017年9月 ）
+
+### 微商城、壳牌知识库
+基于jQuery，javascript编写的微信端网页应用。
+项目经验：参与项目中功能的实现和维护工作，使用jQuery和javascript。
+
+# 开源项目和作品
+
+## 开源项目
+
+  - [音乐湖](https://github.com/caiyonglong/MusicLake)：音乐播放器，Android 音乐播放器，基于MVP + Retrofit + Rxjava2 框架实现，支持百度音乐，QQ音乐，虾米音乐，网易云音乐。具体功能有。
+  - [玩Android](https://github.com/caiyonglong/WanAndroid)：基于鸿洋大神的提供的wanandroid接口，实现相应的功能，采用MVP + Retrofit + Rxjava2 +dagger2架构。
+  - [WallPaperApp](https://github.com/caiyonglong/WallPaperApp)：通过fiddler抓取爱壁纸应用的图片接口，kotlin实现
+  - [LiveApp](https://github.com/caiyonglong/LiveApp)：毕业设计项目湖科大直播平台Android客户端。
+

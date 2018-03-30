@@ -3,66 +3,56 @@ layout: about
 ---
 大家好，欢迎来到我的博客。总结、归纳、演绎！
 
-## 基本信息
----
 
-* 个人信息： 男 / 1994生 / 2017年6月毕业 / 湖南科技大学 / 计算机学院信息安全专业
-* 自评：有很强的学习能力和代码基础，能吃苦耐劳，有较好的团队精神
-* 联系方式: 15573275970
-* GitHub地址：[github.com/caiyonglong](https://github.com/caiyonglong)
-* 个人博客: [hkcyl.cn](http://hkcyl.cn)
-* 电子邮箱: caiyonglong@live.com
-* Q Q: 643872807
+# 联系方式
+- 手机：17688734455
+- Email：caiyonglong@live.com 
+- QQ/微信号：643872807/caiyonglong0
 
----
+
+# 个人信息
+
+ - 蔡永龙/男/1994 
+ - 本科/湖南科技大学计算机学院 
+ - 工作年限：两年Android应用开发经验，1年工作经验。
+ - 技术博客：http://caiyonglong.github.io / https://blog.csdn.net/u014296677
+ - Github：https://github.com/caiyonglong
 
 ## 技能清单
----
+- Android：Java/Kotlin
+- Web开发：PHP/H5/jQuery/JavaScript/json
+- 前端工具：postman/sublime
+- 数据库相关：MySQL/SQLite/navicat for mysql
+- 版本管理、文档和自动化部署工具：Git
+- 第三方开源库：熟练使用主流的Glide，Rxjava，Retrofit，Dagger2，GSON，litepal等
 
-* 语言基础：Java、Android、JavaScript、PHP、MySql、H5、jQuery、Json
-* 熟练Android开发、四大组件及其通信、动画机制
-* 熟悉HTTP网络通信
-* 熟悉sqlite数据库操作和基本的sql语句
-* 熟悉JQuery、JQuery的DOM操作
-* 熟悉Json数据解析
-* 熟悉Java多线程、网络通信等操作 
-* 熟悉github的基本使用,有使用Git和Github托管项目源码的经验
+# 工作经历
 
+## 西可德信通信技术设备有限公司  （ 2017年7月 ~ 至今 ）
 
- ---
+### 自动化测试App
+这是一个Android系统应用。主要功能是方便测试人员进行Android系统自动化测试，目前主要有自动填充测试、通话测试、多媒体测试、传感器测试等功能，通过软件实现测试自动化，方便测试部人员对手机进行测试。主要负责传感器测试模块的开发。
+项目经验：参与项目的定义、设计和开发流程。与需求人员沟通需求。软件基于MVC架构，git进行代码管理。使用Android Studio编写软件，然后在部署到Android系统源码中，学习了Android.mk编译
+对手机自带的传感器实时采集数据，然后将数据保存，导出到excel表中。
 
-## 主要项目经历
+### MTK平台的Android系统开发
+工作职责：负责Android系统软件的开发和维护，负责Android系统客户化定制，定位和解决Launcher模块、statusbar模块bug。
+经验：遇到最难的问题是对于Android源码不熟悉，通过阅读Android源码，最后了解了Android源码的代码结构，能更加快速的定位到bug位置。维护Android系统分支，定时按需求发布相应的软件版本，对于git的使用更加熟练。
 
----
+## 用友网络科技股份有限公司  （ 2016年7月 ~ 2017年9月 ）
 
- ### 壳牌知识库(2016.8-2016.9)(实习期间的工作)
+### 微商城、壳牌知识库
+基于jQuery，javascript编写的微信端网页应用。
+项目职责：参与微商城后期的bug修改工作、参与壳牌知识库中app端和pc网页端的评论模块开发。
+项目经验：熟悉敏捷软件开发的流程以及开发中前端和后台的协调配合。根据需求实现相应的功能。熟悉jQuery中的使用，分页的编写，熟悉团体中git的使用。
 
- * 项目描述：为了指导DSR更好的开展销售工作，由市场和总部技术部对知识点进行收集、梳理，沉淀成知识库；在DSR需要的时候能够方便的获取到想要的知识点。
- * 项目职责；参与项目lapp端的评论模块开发，参与项目pc端的评论模块开发。
- * 项目经验：熟悉开发的流程以及开发中前台和后台的协调配合。根据需求实现相应的功能。熟悉jquery中的使用，分页的编写，熟悉团体中git的使用。
+# 开源项目和作品
 
----
- ### 微商城(2016.7-2016.8)(实习期间的工作)
+## 开源项目
 
- * 项目描述：微信公众号中的微商城开发。
- * 项目职责；参与项目中后期的bug修改工作。
- * 项目经验：熟悉jquery的使用。
-
----
- ### 基于LBS的音乐社区APP开发(独立完成)
-
- * 开发环境：Android Studio
- * 项目描述：校科研创新计划项目。项目包含客户端和服务端，客户端通过学号进行登录，用户可以发布动态，查看动态，评论，创建本地歌单，分享歌单内容，地图定位，查询科大地图，本地音乐播 放，在线听歌，下载歌曲，摇一摇搜索听歌的人等功能。
- * 项目经验：作为项目小组长,根据产品功能需求设计，负责主要功能代码的实现，让整个程序能够正常 的运行。并且编写设计开发及实现文档。负责项目90%工作。至今已完成了3个更新版本的迭代。  
- * 使用到的技术有：android的基本控件、android5.0的新特性，使用Material Design控件作为UI的主要 构成元素、Sqlite、Viewpager和Fragment的使用、一些框架(Volley、okhttputils、Universal­ImageLoader等)、使用高德地图实现定位功能以及地图定位。 上线：目前已在安卓市场、91安卓下载、百度手机助手上线
-
----
-
- ### 其他小项目
-
- * jQuery瀑布流
- * 班级通讯录
- * 新闻客户端
- * 企业行文内部管理系统
-
----
+  - [音乐湖](https://github.com/caiyonglong/MusicLake)：音乐播放器，Android 音乐播放器，支持百度音乐，QQ音乐，虾米音乐，网易云音乐。
+  基于MVP + Retrofit + Rxjava2 框架实现，经过多次重构。
+  - [玩Android](https://github.com/caiyonglong/WanAndroid)：基于鸿洋大神的提供的wanandroid接口，实现相应的功能，采用MVP + Retrofit + Rxjava2 +dagger2架构。
+  - [WallPaperApp](https://github.com/caiyonglong/WallPaperApp)：通过fiddler抓取爱壁纸应用的图片接口，kotlin实现
+  - [LiveApp](https://github.com/caiyonglong/LiveApp)：毕业设计项目湖科大直播平台Android客户端。
+  - [Wifi_hnust](https://github.com/caiyonglong/Wifi_hnust)：基于数据抓包，实现校园网登录自连功能
