@@ -1,6 +1,6 @@
 ---
 title: 个人简介
-date: 2016-05-31 00:30:53
+date: 2018-03-05 00:30:53
 comments: true
 noDate: true
 ---
@@ -11,7 +11,7 @@ noDate: true
 * 自评：有很强的学习能力和代码基础，能吃苦耐劳，有较好的团队精神
 * 联系方式: 15573275970
 * GitHub地址：[github.com/caiyonglong](https://github.com/caiyonglong)
-* 个人博客: [hkcyl.cn](http://hkcyl.cn)
+* 个人博客: [caiyonglong.github.io](http://caiyonglong.github.io/)
 * 电子邮箱: caiyonglong@live.com
 * Q Q: 643872807
 
@@ -34,12 +34,18 @@ noDate: true
 
 ## 主要项目经历
 ---
+ ### 测试Apk
+
+ * 开发环境：Android Studio
+ * 项目描述：手机测试apk，满足测试需求，多人开发协作，通过git管理，根据需求实现相应的功能，主要方便测试自动化，然后部署到手机上。
+
+---
  ### 基于LBS的音乐社区APP开发(独立完成)(2015.7-2016.4)
 
  * 开发环境：Android Studio
  * 项目描述：校科研创新计划项目，将科大的校园地图与音乐软件结合 * 起来。项目包含客户端和服务端，客户端通过学号进行登录，用户可 * 以发布动态，查看动态，评论，创建本地歌单，分享歌单内容，地图 * 定位，查询科大地图，本地音乐播放，在线听歌，下载歌曲，摇一摇 * 搜索听歌的人等功能。
  * 服务端通过PHP+MySQL实现，为客户端提供 HTTP + JSON 的API
- * 客户端实现的主要技术有：json格式的数据解析，第三方类库  * Volley + floatingactionbutton+ android-async-http+ RecyclerView +CardView，高德地图android平台,自定义View,  * 属性动画，Handler，MediaPlay，viewpage+fragment，多线程断点续传 * 下载...等
+ * 客户端主要技术：使用主流框架，MVP+Retrofit+Rxjava2.
  * 上线：目前已在安卓市场、91安卓下载、百度手机助手上线
 
 ---
