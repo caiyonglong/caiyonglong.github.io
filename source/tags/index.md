@@ -1,7 +1,6 @@
 ---
-title: 蔡永龙的博客
-date: 2016-05-30 00:22:52
-type: "tags"
-noDate: true
+title: tags
+date: 2018-04-24 00:39:22
+layout: tags
 comments: false
 ---
