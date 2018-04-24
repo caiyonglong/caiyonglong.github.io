@@ -1,7 +1,7 @@
 ---
 title: Android 源码Launcher模块分析
 date: 2017-12-13 14:00:16
-tags: [android,Launcher]
+tags: [android,Launcher,源码分析]
 categories: 2017
 description: Launcher
 toc: true 文章目录
@@ -10,7 +10,20 @@ comments:
 original:
 permalink: 
 ---
+## 提纲
+1.什么是Launcher ,Launcher2 和 Launcher3的区别
 
+2.Android 开机启动到Launcher运行的主要流程
+
+3.Launcher 主要类介绍
+
+4.Launcher 主要布局xml介绍
+
+5.Launcher 一般主要需修改的地方
+
+6.Launcher 动画，widget等
+
+7.Launcher 主菜单界面UI
 
 ## Launcher启动的主要流程
 手机开机->init进程->zygote进程->SystemServer->ActivityManagerService
