@@ -2,7 +2,7 @@
 title: git使用---修改历史提交记录
 date: 2018-2-02 21:34:25
 description: 
-categories: 2018
+categories: 开发工具
 tags: [git]
 author:
 comments:

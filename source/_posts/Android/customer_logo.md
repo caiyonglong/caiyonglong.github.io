@@ -2,8 +2,8 @@
 title: 客户化定制开机logo、开机动画
 date: 2017-11-02 21:34:25
 description: 
-categories: 2017
-tags: [Android,custom]
+categories: Android
+tags: [定制]
 author:
 comments:
 original:

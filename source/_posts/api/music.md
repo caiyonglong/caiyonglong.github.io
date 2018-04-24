@@ -1,7 +1,7 @@
 ---
 title: 音乐接口
 tags: [api]
-categories: 2016
+categories: 接口
 date: 2016-08-25 08:21:16
 description: 音乐接口总结
 toc: true 文章目录

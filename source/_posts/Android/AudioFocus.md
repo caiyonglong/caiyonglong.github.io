@@ -1,12 +1,13 @@
 ---
 title: 音频焦点管理
 date: 2018-04-24 10:04:02
-tags:
+categories: Android
+tags: [源码分析,AudioFocus]
 ---
 
 #前言
 随着Android版本的升级，以前用的一些api都提过时，项目中使用
-AudioCocusRequest 顾名思义是一个音频焦点请求类。
+AudioFocusRequest 顾名思义是一个音频焦点请求类。
 
 
 一个封装音频焦点请求信息的类,AudioFocusRequest通过Builder实例化，有两个方法requestAudioFocus和abandonAudioFocusRequest。

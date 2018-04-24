@@ -1,9 +1,8 @@
 ---
 title: 音乐湖项目遇到的问题
-tags: [Android , MusicLake]
-categories: 2018
+tags: [MusicLake]
 date: 2018-04-23 18:21:16
-description: 具体问题
+categories: Android
 toc: true 文章目录
 author:
 comments:

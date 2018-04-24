@@ -1,7 +1,7 @@
 ---
 title: 音乐湖应用介绍
-tags: [Android , MusicLake]
-categories: 2018
+tags: [MusicLake]
+categories: Android
 date: 2018-04-23 18:21:16
 description: 项目具体功能介绍
 toc: true 文章目录

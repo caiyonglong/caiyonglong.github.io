@@ -1,8 +1,9 @@
 ---
 title: RecyclerView和ListView的区别
 date: 2016-10-20 16:21:17
-tags: [android,RecyclerView,ListView]
+tags: [RecyclerView,ListView]
 toc: true 文章目录
+categories: Android
 ---
 # RecyclerView是什么?
 >RecyclerView is a more advanced and flexible version of ListView. This 

@@ -2,7 +2,7 @@
 title: hexo常用命令
 date: 2016-05-29 13:49:34
 tags: [hexo]
-categories: 2016
+categories: 博客
 description:
 toc: true 文章目录
 author:
