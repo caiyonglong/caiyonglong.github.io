@@ -1,8 +1,7 @@
-title: 关于
+title: 关于我
 layout: about
+comments: true
 ---
-大家好，欢迎来到我的博客。总结、归纳、演绎！
-
 
 # 联系方式
 - 手机：17688734455
@@ -18,41 +17,39 @@ layout: about
  - 技术博客：http://caiyonglong.github.io / https://blog.csdn.net/u014296677
  - Github：https://github.com/caiyonglong
 
-## 技能清单
-- Android：Java/Kotlin
-- Web开发：PHP/H5/jQuery/JavaScript/json
-- 前端工具：postman/sublime
-- 数据库相关：MySQL/SQLite/navicat for mysql
+# 技能清单
+- 语言基础：Android、Java、Kotlin、js、php
+- 数据库相关：mysql、sqlite
+- 熟悉Android 消息传递、进程间通信、网络通信等通信机制
+- 熟悉自定义View、动画、View事件分发机制
+- 熟悉常用的设计模式、数据结构和算法
+- 熟悉网络编程，Json数据解析，以及fiddler数据抓包
+- 第三方开源库：熟练使用主流的Glide，Rxjava，Retrofit，Dagger2，litepal等
 - 版本管理、文档和自动化部署工具：Git
-- 第三方开源库：熟练使用主流的Glide，Rxjava，Retrofit，Dagger2，GSON，litepal等
 
 # 工作经历
+- 2017/7-至今 西可通信技术设备有限公司 Android开发工程师
+  - 工作描述：负责Android系统测试工具apk的开发,维护Android系统客制化，按需编译并发布系统软件，定位和解决应用层bug。
+   
+- 2016/7-2016/9 用友网络科技股份有限公司 Android开发实习生
+  - 工作内容：担任Android开发实习生，因业务需要，使用js/JQuery开发和维护H5应用
 
-## 西可德信通信技术设备有限公司  （ 2017年7月 ~ 至今 ）
+# 项目经验
 
-### 自动化测试App
-这是一个Android系统应用。主要功能是方便测试人员进行Android系统自动化测试，目前主要有自动填充测试、通话测试、多媒体测试、传感器测试等功能，通过软件实现测试自动化，方便测试部人员对手机进行测试。主要负责传感器测试模块的开发。
-项目经验：参与项目的定义、设计和开发流程。与需求人员沟通需求。软件基于MVC架构，git进行代码管理。使用Android Studio编写软件，然后在部署到Android系统源码中，学习了Android.mk编译
-对手机自带的传感器实时采集数据，然后将数据保存，导出到excel表中。
+- [音乐湖](https://github.com/caiyonglong/MusicLake)
+ - 项目描述：在线音乐Andorid客户端。项目包含客户端和服务端，客户端能够登录注册，用户可以发布动态，查看动态，评论等社区功能，创建本地歌单，分享歌单内容，地图定位，查询科大地图，本地音乐播放，在线听歌，下载歌曲，摇一摇搜索听歌的人等功能。服务端主要是提供客户端需要的一些接口数据。
+ - 项目经验：独立开发项目，参与整个项目的设计与开发流程，从界面UI设计到功能的实现。使用MVP+retrofit2+rxjava2+rxbus2进行代码架构，有项目重 构经验，熟练使用sql语句，界面优化和性能优化，以及引入新的音乐api。github托管，自定义View，集成过百度地图、QQ三方登录。
+ - 版本迭代：经过多次重构，优化代码结构，界面以及性能，软件从mvc模式转换到mvp架构，替换图片请求和网络请求框架等。
 
-### MTK平台的Android系统开发
-工作职责：负责Android系统软件的开发和维护，负责Android系统客户化定制，定位和解决Launcher模块、statusbar模块bug。
-经验：遇到最难的问题是对于Android源码不熟悉，通过阅读Android源码，最后了解了Android源码的代码结构，能更加快速的定位到bug位置。维护Android系统分支，定时按需求发布相应的软件版本，对于git的使用更加熟练。
 
-## 用友网络科技股份有限公司  （ 2016年7月 ~ 2017年9月 ）
+- MTK平台的Android系统开发
+ - 工作职责：基于MTK的Android系统源码，实现客户定制化需求
+项目经验：使用git管理维护Android系统源码，熟悉Android系统源码结构，能快速定位应用层bug，熟悉Launcher的源码。
 
-### 微商城、壳牌知识库
-基于jQuery，javascript编写的微信端网页应用。
-项目职责：参与微商城后期的bug修改工作、参与壳牌知识库中app端和pc网页端的评论模块开发。
-项目经验：熟悉敏捷软件开发的流程以及开发中前端和后台的协调配合。根据需求实现相应的功能。熟悉jQuery中的使用，分页的编写，熟悉团体中git的使用。
-
-# 开源项目和作品
-
-## 开源项目
-
-  - [音乐湖](https://github.com/caiyonglong/MusicLake)：音乐播放器，Android 音乐播放器，支持百度音乐，QQ音乐，虾米音乐，网易云音乐。
-  基于MVP + Retrofit + Rxjava2 框架实现，经过多次重构。
-  - [玩Android](https://github.com/caiyonglong/WanAndroid)：基于鸿洋大神的提供的wanandroid接口，实现相应的功能，采用MVP + Retrofit + Rxjava2 +dagger2架构。
-  - [WallPaperApp](https://github.com/caiyonglong/WallPaperApp)：通过fiddler抓取爱壁纸应用的图片接口，kotlin实现
-  - [LiveApp](https://github.com/caiyonglong/LiveApp)：毕业设计项目湖科大直播平台Android客户端。
-  - [Wifi_hnust](https://github.com/caiyonglong/Wifi_hnust)：基于数据抓包，实现校园网登录自连功能
+- 自动化测试App
+ - 项目描述：一个Android系统级自动化测试项目，使用Android Studio编写，使用了MVC架构，然后集成到Android源码中去。适配Android 7.0、8.0系统，满足了测试部的自动化测试需求。
+ - 项目经验：团队模块开发，我主要负责传感器模块的设计和开发，熟悉Android系统应用的部署和编译，Android导出excel，熟练git使用。
+                  
+- [LiveApp](https://github.com/caiyonglong/LiveApp)
+ - 项目描述：这是基于校园的一个直播平台。3人团队开发，项目包括Android客户端，网页客户端以及后台接口三部分。用户可以通过注册登录、QQ三方登录、观看直播，送礼物，签到领金币，聊天室，直播弹幕，直播认证等。Android端采用主流框架mvp+retrofit+rxjava开发
+ - 项目经验：参与项目功能的架构和设计，负责Android端的界面布局设计,界面优化和逻辑代码的开发。使用直播rtmp推流技术，直播流服务器nginx+rtmp，socket.io搭建聊天室功能。

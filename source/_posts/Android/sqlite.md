@@ -1,7 +1,7 @@
 ---
 title: 8-25
 date: 2016-08-25 08:21:16
-tags: [Sqlite]
+tags: [基础]
 categories: Android
 description: Android中的数据库操作
 toc: true 文章目录

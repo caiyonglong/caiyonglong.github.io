@@ -1,7 +1,7 @@
 ---
 title: RecyclerView和ListView的区别
 date: 2016-10-20 16:21:17
-tags: [RecyclerView,ListView]
+tags: [基础]
 toc: true 文章目录
 categories: Android
 ---
