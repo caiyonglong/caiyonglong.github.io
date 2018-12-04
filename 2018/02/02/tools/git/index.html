@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>git使用---修改历史提交记录 | 蔡永龙的博客 | One step at a time</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+    <meta name="keywords" content="git">
+    <meta name="description" content="git使用 总结@(总结)[git] 总结一下当前工作中经常使用的git命令 ##日常使用 git初始化和拉取git分支12git initgit clone ... 修改&amp;amp;提交对于只有修改前先pull 一下代码，修改完成后再push123git add -u / -A git commit git push 分支管理123git branch git branch newbranchgi">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git使用---修改历史提交记录">
+<meta property="og:url" content="http://caiyonglong.github.io/2018/02/02/tools/git/index.html">
+<meta property="og:site_name" content="蔡永龙的博客">
+<meta property="og:description" content="git使用 总结@(总结)[git] 总结一下当前工作中经常使用的git命令 ##日常使用 git初始化和拉取git分支12git initgit clone ... 修改&amp;amp;提交对于只有修改前先pull 一下代码，修改完成后再push123git add -u / -A git commit git push 分支管理123git branch git branch newbranchgi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-04T15:22:02.607Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git使用---修改历史提交记录">
+<meta name="twitter:description" content="git使用 总结@(总结)[git] 总结一下当前工作中经常使用的git命令 ##日常使用 git初始化和拉取git分支12git initgit clone ... 修改&amp;amp;提交对于只有修改前先pull 一下代码，修改完成后再push123git add -u / -A git commit git push 分支管理123git branch git branch newbranchgi">
+    
+        <link rel="alternate" type="application/atom+xml" title="蔡永龙的博客" href="../../../../../atom.xml">
+    
+    <link rel="shortcut icon" href="../../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../../css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(../../../../../img/brand.jpg)">
+      <div class="brand">
+        <a href="../../../../../index.html" class="avatar waves-effect waves-circle waves-light">
+          <img src="../../../../../img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">蔡永龙</h5>
+          <a href="mailto:643872807@qq.com" title="643872807@qq.com" class="mail">643872807@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="../../../../../index.html">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="../../../../../archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="../../../../../tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="../../../../../categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="../../../../../about">
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/caiyonglong" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/hkcyl" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">git使用---修改历史提交记录</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">git使用---修改历史提交记录</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-02-02T13:34:25.000Z" itemprop="datePublished" class="page-time">
+  2018-02-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="../../../../../categories/开发工具/">开发工具</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git使用-总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">git使用 总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git初始化和拉取git分支"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">git初始化和拉取git分支</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改-amp-提交"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">修改&amp;提交</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分支管理"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">分支管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查看状态-amp-历史记录"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">查看状态&amp;历史记录</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#移植"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">移植</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常用命令"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">常用命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-log"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">git log</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-status"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">git status</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-add"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">git add</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-commit"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">git commit</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-checkout"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">git checkout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-branch"><span class="post-toc-number">1.1.6.</span> <span class="post-toc-text">git branch</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-reset"><span class="post-toc-number">1.1.7.</span> <span class="post-toc-text">git reset</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-clean"><span class="post-toc-number">1.1.8.</span> <span class="post-toc-text">git clean</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-pull"><span class="post-toc-number">1.1.9.</span> <span class="post-toc-text">git pull</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-push"><span class="post-toc-number">1.1.10.</span> <span class="post-toc-text">git push</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-cherry-pick"><span class="post-toc-number">1.1.11.</span> <span class="post-toc-text">git cherry-pick</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-merge"><span class="post-toc-number">1.1.12.</span> <span class="post-toc-text">git merge</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-diff"><span class="post-toc-number">1.1.13.</span> <span class="post-toc-text">git diff</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-tag"><span class="post-toc-number">1.1.14.</span> <span class="post-toc-text">git tag</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-rebase"><span class="post-toc-number">1.1.15.</span> <span class="post-toc-text">git rebase</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-stash"><span class="post-toc-number">1.1.16.</span> <span class="post-toc-text">git stash</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#gitk-图形界面"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">gitk 图形界面</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-tools/git" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">git使用---修改历史提交记录</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-02-02 21:34:25" datetime="2018-02-02T13:34:25.000Z" itemprop="datePublished">2018-02-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="../../../../../categories/开发工具/">开发工具</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="git使用-总结"><a href="#git使用-总结" class="headerlink" title="git使用 总结"></a>git使用 总结</h1><p>@(总结)[git]</p>
+<p>总结一下当前工作中经常使用的git命令</p>
+<p>##日常使用</p>
+<h3 id="git初始化和拉取git分支"><a href="#git初始化和拉取git分支" class="headerlink" title="git初始化和拉取git分支"></a>git初始化和拉取git分支</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git clone ...</span><br></pre></td></tr></table></figure>
+<h3 id="修改-amp-提交"><a href="#修改-amp-提交" class="headerlink" title="修改&amp;提交"></a>修改&amp;提交</h3><p>对于只有修改前先pull 一下代码，修改完成后再push<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add -u / -A </span><br><span class="line">git commit </span><br><span class="line">git push</span><br></pre></td></tr></table></figure></p>
+<h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch </span><br><span class="line">git branch newbranch</span><br><span class="line">git checkout newbranch</span><br></pre></td></tr></table></figure>
+<h3 id="查看状态-amp-历史记录"><a href="#查看状态-amp-历史记录" class="headerlink" title="查看状态&amp;历史记录"></a>查看状态&amp;历史记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git log</span><br></pre></td></tr></table></figure>
+<h3 id="移植"><a href="#移植" class="headerlink" title="移植"></a>移植</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick </span><br><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h3><ul>
+<li>git log 查看 <strong>当前分支</strong> 的提交记录</li>
+<li>git log –stat</li>
+<li>git log -5 –pretty –oneline 显示过去5次提交</li>
+<li>git log –follow <path> 显示某个文件的版本历史，包括文件改名</path></li>
+</ul>
+<h3 id="git-status"><a href="#git-status" class="headerlink" title="git status"></a>git status</h3><p>显示git状态<br>主要分为工作区和暂存区两个，其中工作区又分为git 监控的和未被监控的两个区域。</p>
+<h3 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h3><ul>
+<li>git add filename </li>
+<li>git add -A/.  添加当前目录 all tracked and untracked files 到暂存区</li>
+<li>git add -u 添加当前目录的tracked files 到暂存区</li>
+</ul>
+<h3 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a>git commit</h3><p>将暂存区的提交当分支上</p>
+<ul>
+<li>git commit -m “the commit message” 提交</li>
+<li>git commit –amend 增补提交. 会使用与当前提交节点相同的父节点进行一次新的提交,旧的提交将会被取消.</li>
+</ul>
+<h3 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h3><p>可以移出<strong>暂存区</strong>的文件、可以切换分支也可以切换到tag节点。</p>
+<ul>
+<li>git checkout branch 检出分支</li>
+<li>git checkout tag_name 检出当前tag</li>
+<li>git checkout file_name 放弃对文件的修改</li>
+</ul>
+<h3 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h3><p>可以用来创建、删除、查看分支，不管是远程的还是本地的都可以。</p>
+<ul>
+<li>git branch 显示本地仓库分支</li>
+<li>git branch -a 查看本地远程仓库所有分支</li>
+<li>git branch -r 显示远程仓库分支</li>
+<li>git branch -D master 删除master分支</li>
+<li>git branch master 新建master分支</li>
+</ul>
+<h3 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a>git reset</h3><p>用来回退版本，例如从当前commit 回退到历史提交中</p>
+<ul>
+<li>git reset –hard <commit> 重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致</commit></li>
+<li>git reset –soft <commit> 不会改变暂存区，仅仅将commit回退到了指定的提交</commit></li>
+<li>git reset –mixed <commit> 重置当前分支的HEAD为指定commit，工作区commit之后的全部放入暂存区</commit></li>
+</ul>
+<h3 id="git-clean"><a href="#git-clean" class="headerlink" title="git clean"></a>git clean</h3><p>可以用来清理工作区中 Untracked files。 </p>
+<ul>
+<li>git clean -n 显示 将要 删除的 文件 和  目录</li>
+<li>git clean -f 删除 文件</li>
+<li>git clean -df 删除 文件 和 目录</li>
+</ul>
+<h3 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h3><p>从服务器拉取代码，也有些说法不推荐使用pull拉取代码，因为拉取的代码有可能会污染本地的提交记录。</p>
+<h3 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h3><p>将本地分支推送到服务器上</p>
+<ul>
+<li>git push origin master 将本地分支推送到master远程分支</li>
+</ul>
+<h3 id="git-cherry-pick"><a href="#git-cherry-pick" class="headerlink" title="git cherry-pick"></a>git cherry-pick</h3><p>将其他分支的提交修改剪切到当前分支，cherry-pick 后面带上需要剪切移植的commit ID。当遇到cherry-pick冲突后，<br>需要解决冲突，然后使用 git commit –amend 修改提交信息即可。</p>
+<ul>
+<li>git cherry-pick <commit> 剪切过来提交过来后，直接提交到当前分支</commit></li>
+<li>git cherry-pick –no-commit <commit> 不直接提交当前分支，在暂存区可见修改记录的文件。</commit></li>
+</ul>
+<h3 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h3><ul>
+<li>git merge master 当前分支合并 master分支</li>
+</ul>
+<h3 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h3><p>显示暂存区和工作区的差异</p>
+<h3 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h3><ul>
+<li>git tag <tag> 新建一个tag在当前commit</tag></li>
+<li>git tag <tag> <commit> 新建一个tag在指定commit</commit></tag></li>
+<li>git tag -d <tag> 删除本地tag</tag></li>
+<li>git push origin :refs/tags/<tag> 删除远程tag</tag></li>
+</ul>
+<h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><ul>
+<li>git stash save -a “message” 将当前改动保存到一个</li>
+<li>git stash list 显示所有临时区的stash id</li>
+<li>git stash pop  </li>
+<li>git stash drop  </li>
+</ul>
+<h2 id="gitk-图形界面"><a href="#gitk-图形界面" class="headerlink" title="gitk 图形界面"></a>gitk 图形界面</h2><p><strong>gitk</strong> 是一个图形界面，可用用来查看提交记录和修改记录。<br>也可以使用其他的git 管理工具，例如source tree。感觉挺好用的。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-12-04T15:22:02.607Z" itemprop="dateUpdated">2018-12-04 23:22:02</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="" target="_blank" rel="external">http://caiyonglong.github.io/2018/02/02/tools/git/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://caiyonglong.github.io">
+            <img src="../../../../../img/avatar.jpg" alt="蔡永龙">
+            蔡永龙
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../../tags/git/">git</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2018/02/02/tools/git/&title=《git使用---修改历史提交记录》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2018/02/02/tools/git/&title=《git使用---修改历史提交记录》 — 蔡永龙的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2018/02/02/tools/git/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《git使用---修改历史提交记录》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2018/02/02/tools/git/&via=http://caiyonglong.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2018/02/02/tools/git/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="../../../../04/23/project/musiclake-buglist/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">音乐湖项目遇到的问题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="../git_rebase/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">git使用---修改历史提交记录</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="../../../../../img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="../../../../../img/wechat.jpg" data-alipay="../../../../../img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数<span id="busuanzi_value_site_uv"></span>人次<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量<span id="busuanzi_value_site_pv"></span>次<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="../../../../../atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>蔡永龙 &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2018/02/02/tools/git/&title=《git使用---修改历史提交记录》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2018/02/02/tools/git/&title=《git使用---修改历史提交记录》 — 蔡永龙的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2018/02/02/tools/git/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《git使用---修改历史提交记录》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2018/02/02/tools/git/&via=http://caiyonglong.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2018/02/02/tools/git/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://caiyonglong.github.io/2018/02/02/tools/git/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="../../../../../js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="../../../../../js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '大神指点指点！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '蔡永龙的博客';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

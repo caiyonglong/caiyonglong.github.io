@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Android面试 | 蔡永龙的博客 | One step at a time</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="Android面试1、Android 常用的设计模式有哪些，适配器模式单例模式、适配器模式、工厂方法模式、Builder模式、2、Android Studio 常用的一些优化方案优化编译速度，修改配置文件，gradle本地本地构建 3、手写mvp模式的一种实现方案我目前写的mvp主要是 契约类定义View和Presenter的一些方法接口，然后present类实现契约类里面的preseter接口，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android面试">
+<meta property="og:url" content="http://caiyonglong.github.io/2018/04/27/面试/hr面试.1/index.html">
+<meta property="og:site_name" content="蔡永龙的博客">
+<meta property="og:description" content="Android面试1、Android 常用的设计模式有哪些，适配器模式单例模式、适配器模式、工厂方法模式、Builder模式、2、Android Studio 常用的一些优化方案优化编译速度，修改配置文件，gradle本地本地构建 3、手写mvp模式的一种实现方案我目前写的mvp主要是 契约类定义View和Presenter的一些方法接口，然后present类实现契约类里面的preseter接口，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-04T15:22:02.610Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android面试">
+<meta name="twitter:description" content="Android面试1、Android 常用的设计模式有哪些，适配器模式单例模式、适配器模式、工厂方法模式、Builder模式、2、Android Studio 常用的一些优化方案优化编译速度，修改配置文件，gradle本地本地构建 3、手写mvp模式的一种实现方案我目前写的mvp主要是 契约类定义View和Presenter的一些方法接口，然后present类实现契约类里面的preseter接口，">
+    
+        <link rel="alternate" type="application/atom+xml" title="蔡永龙的博客" href="../../../../../atom.xml">
+    
+    <link rel="shortcut icon" href="../../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../../css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(../../../../../img/brand.jpg)">
+      <div class="brand">
+        <a href="../../../../../index.html" class="avatar waves-effect waves-circle waves-light">
+          <img src="../../../../../img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">蔡永龙</h5>
+          <a href="mailto:643872807@qq.com" title="643872807@qq.com" class="mail">643872807@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="../../../../../index.html">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="../../../../../archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="../../../../../tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="../../../../../categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="../../../../../about">
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/caiyonglong" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/hkcyl" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Android面试</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Android面试</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-04-27T15:37:10.000Z" itemprop="datePublished" class="page-time">
+  2018-04-27
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Android面试"><span class="post-toc-number">1.</span> <span class="post-toc-text">Android面试</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-面试/hr面试.1" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Android面试</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-04-27 23:37:10" datetime="2018-04-27T15:37:10.000Z" itemprop="datePublished">2018-04-27</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="Android面试"><a href="#Android面试" class="headerlink" title="Android面试"></a>Android面试</h2><p>1、Android 常用的设计模式有哪些，适配器模式<br>单例模式、适配器模式、工厂方法模式、Builder模式、<br>2、Android Studio 常用的一些优化方案<br>优化编译速度，修改配置文件，gradle本地本地构建</p>
+<p>3、手写mvp模式的一种实现方案<br>我目前写的mvp主要是 契约类定义View和Presenter的一些方法接口，<br>然后present类实现契约类里面的preseter接口，实现具体的方法，处理数据逻辑，并调用view的接口方法<br>activity 实现契约类 view的方法。</p>
+<p>4、Android内存优化方案</p>
+<p>单例导致内存泄露<br>静态变量导致内存泄露<br>非静态内部类导致内存泄露<br>未取消注册或回调导致内存泄露<br>Timer和TimerTask导致内存泄露<br>集合中的对象未清理造成内存泄露<br>资源未关闭或释放导致内存泄露<br>属性动画造成内存泄露<br>WebView造成内存泄露</p>
+<p>构造单例的时候尽量别用Activity的引用；<br>静态引用时注意应用对象的置空或者少用静态引用；<br>使用静态内部类+软引用代替非静态内部类；<br>及时取消广播或者观察者注册；<br>耗时任务、属性动画在Activity销毁时记得cancel；<br>文件流、Cursor等资源及时关闭；<br>Activity销毁时WebView的移除和销毁。</p>
+<p>5、自定义View的绘制流程</p>
+<ol>
+<li><p>自定义View的属性；</p>
+</li>
+<li><p>在View的构造方法中获得自定义的属性；</p>
+</li>
+<li><p>重写onMeasure()； –&gt; 并不是必须的，大部分的时候还需要覆写</p>
+</li>
+<li><p>重写onDraw()；</p>
+</li>
+</ol>
+<p>6、View的事件分发机制</p>
+<p>Activity-&gt; ViewGroup -&gt;View<br>dispatchTouchEvent() 负责分发 =&gt;true被消费掉 -&gt; false继续往下传递 </p>
+<p>7、使用了哪些三方框架 </p>
+<p>8、谈一下Android的动画<br><a href="https://www.jianshu.com/p/2412d00a0ce4" target="_blank" rel="noopener">https://www.jianshu.com/p/2412d00a0ce4</a><br>9、rxbus2 是怎么实现的<br>基于rxjava的flowable ,观察着模式<br>10、Activity的启动流程<br>桌面上点击会调用Launcher的startActivity，=&gt;最后调用系统的startactivityforResult 然后在通过Binder与AMS进行进程间通信，ams fork一个新的进程出来<br>11、侧滑菜单的实现原理</p>
+<p>12、service的两种启动方式<br>13、fragment与activity的通信方式<br>14、ArrayList 和 LinkList的区别<br>ArrayList 内部使用数组的形式实现了存储，实现了RandomAccess接口，利用数组的下面进行元素的访问，因此对元素的随机访问速度非常快。<br>LinkedList：内部使用双向链表的结构实现存储，LinkedList有一个内部类作为存放元素的单元，里面有三个属性，用来存放元素本身以及前后2个单元的引用，另外LinkedList内部还有一个header属性，用来标识起始位置，LinkedList的第一个单元和最后一个单元都会指向header，因此形成了一个双向的链表结构。</p>
+<p>15、abstract 和 interface </p>
+<p>相同点：<br>1.两者都是抽象类，都不能实例化<br>2.interface 实现类及abstract class 的子类都必须要实现已经声明的抽象方法。<br>不同点：<br>1.interface 实现，要用implements，而abstract class的实现，要用extends.<br>2.一个类可以实现多个interface,但一个类只能继承一个abstract class.<br>3.interface强调特定功能的实现，而abstract class强调所属关系<br>4.尽管interface实现类及abstract class的子类都必须要实现相应的抽象方法，但实现的形式不同。interface中的每一个方法都是抽象方法，都只是声明的（declaration,没有方法体），必须要实现。而abstract class的子类可以有选择地实现。</p>
+<p>抽象类的这个选择有两点含义：一是Abstract class中并非所有的方法都是抽象的，只有那些冠有abstract的方法才是抽象的，子类必须实现。那些没有abstract class的方法，在abstract class中必须定义方法体。二是abstract class的子类在继承它时，对非抽象方法即可以直接继承，也可以覆盖；而对抽象方法，可以选择实现，也可以通过再次声明其方法为抽象的方式，无需实现，留给其子类来实现，但此类必须也声明为抽象类，即是抽象类，当然也不能实例化。<br>interface是完全抽象的，只能声明方法，而且只能声明public的方法，不能声明private 及protected的方法，不能定义方法体，也不能声明实例变量。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-12-04T15:22:02.610Z" itemprop="dateUpdated">2018-12-04 23:22:02</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="" target="_blank" rel="external">http://caiyonglong.github.io/2018/04/27/面试/hr面试.1/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://caiyonglong.github.io">
+            <img src="../../../../../img/avatar.jpg" alt="蔡永龙">
+            蔡永龙
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2018/04/27/面试/hr面试.1/&title=《Android面试》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2018/04/27/面试/hr面试.1/&title=《Android面试》 — 蔡永龙的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2018/04/27/面试/hr面试.1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android面试》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2018/04/27/面试/hr面试.1/&via=http://caiyonglong.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2018/04/27/面试/hr面试.1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="../../../../05/06/Android/codingstandards/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Android编码规范</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="../android-exp/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Android面试</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="../../../../../img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="../../../../../img/wechat.jpg" data-alipay="../../../../../img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数<span id="busuanzi_value_site_uv"></span>人次<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量<span id="busuanzi_value_site_pv"></span>次<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="../../../../../atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>蔡永龙 &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2018/04/27/面试/hr面试.1/&title=《Android面试》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2018/04/27/面试/hr面试.1/&title=《Android面试》 — 蔡永龙的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2018/04/27/面试/hr面试.1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android面试》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2018/04/27/面试/hr面试.1/&via=http://caiyonglong.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2018/04/27/面试/hr面试.1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://caiyonglong.github.io/2018/04/27/面试/hr面试.1/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="../../../../../js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="../../../../../js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '大神指点指点！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '蔡永龙的博客';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
