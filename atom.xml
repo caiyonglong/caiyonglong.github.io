@@ -180,31 +180,6 @@
   
   <entry>
     <title>git使用---修改历史提交记录</title>
-    <link href="http://caiyonglong.github.io/2018/02/02/tools/git_rebase/"/>
-    <id>http://caiyonglong.github.io/2018/02/02/tools/git_rebase/</id>
-    <published>2018-02-02T13:34:25.000Z</published>
-    <updated>2018-12-04T15:22:02.607Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="git-cherry-pick所遇到的问题"><a href="#git-cherry-pick所遇到的问题" class="headerlink" title="git cherry-pick所遇到的问题"></a>git cherry-pick所遇到的问题</h1><p>使用git 也有很长一段时间了，所以想总结一下git 的使用。其中，在日常工作中copy代码（搬砖）是常有的事情。对于git 管理的分支来说，git cherry-pick就是另类的copy。说的正式点就是 <strong>移植</strong>。</p><p>而<strong>cherry-pick</strong> 就是移植命令。</p><p>–对于git cherry-pick过来的提交记录，有些是因为一点小错误导致重复提交的，还有一些是一个功能分了好几次提交，对于这些记录，如果全部按原来分支的提交记录提交，就感觉很麻烦，到底有没有一种方法能够合并几条提交记录呢？</p><p>还有就是当cherry-pick多条记录后，突然想修改其中一条修改记录时。发现很难办。这时 git rebase 就很轻松了解决掉了这些难处。</p><p>当然网上也有很多类似的介绍，也可以去借阅一下。</p><h2 id="1-合并多条修改"><a href="#1-合并多条修改" class="headerlink" title="1. 合并多条修改"></a>1. 合并多条修改</h2><p>初始时，通过git log 查看 提交记录，记录一下commit hash值。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@ubuntu:~/work/git$ git log</span><br><span class="line">commit e916213e3c4cc9c977ec20902ae27ae45352eef3</span><br><span class="line">Date:   Tue Feb 6 20:05:32 2018 +0800</span><br><span class="line"></span><br><span class="line">    Third commit</span><br><span class="line"></span><br><span class="line">commit 358371a2b2b15d847bf89e44e94e7b926fed2da0</span><br><span class="line">Date:   Tue Feb 6 20:04:48 2018 +0800</span><br><span class="line"></span><br><span class="line">    Second commit</span><br><span class="line"></span><br><span class="line">commit ba82e7007559afab14ff124ea51e19772dedfe2c</span><br><span class="line">Date:   Tue Feb 6 20:03:32 2018 +0800</span><br><span class="line"></span><br><span class="line">    First commit</span><br></pre></td></tr></table></figure><p>然后通过 git rebase -i commit-id 命令编辑提交记录。</p><ul><li>git rebase  -i commit-id 表示，修改commit-id以后的提交记录，</li><li>也可以用git rebase -i HEAD ~n. n表示倒数第几条记录。</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pick 358371a Second commit</span><br><span class="line">pick e916213 Third commit</span><br><span class="line"></span><br><span class="line"># Rebase ba82e70..e916213 onto ba82e70</span><br><span class="line">#</span><br><span class="line"># Commands:</span><br><span class="line">#  p, pick = use commit</span><br><span class="line">#  r, reword = use commit, but edit the commit message</span><br><span class="line">#  e, edit = use commit, but stop for amending</span><br><span class="line">#  s, squash = use commit, but meld into previous commit</span><br><span class="line">#  f, fixup = like &quot;squash&quot;, but discard this commit&apos;s log message</span><br><span class="line">#  x, exec = run command (the rest of the line) using shell</span><br><span class="line">#</span><br><span class="line"># If you remove a line here THAT COMMIT WILL BE LOST.</span><br><span class="line"># However, if you remove everything, the rebase will be aborted.</span><br><span class="line">#</span><br></pre></td></tr></table></figure><p>其中</p><ul><li>pick 使用这条提交（保持不变）</li><li>reword 使用这条提交，可以编辑当前commit信息</li><li>edit 使用这条提交，放弃当前commit信息</li><li>squash 使用这条提交，合并前一条提交</li><li>fixup 和squash一样，但会放弃当前这个提交的信息</li><li>exec </li></ul><p>合并修改使用，将 e916213 Third commit 前的pick 改成squash 即可，然后保存退出。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pick 358371a Second commit</span><br><span class="line">squash e916213 Third commit</span><br></pre></td></tr></table></figure><p>修改完成后再次查看git log，已经合并到一起了。因为使用squash，所以两条记录得message都会合在一起。如果 使用fixup，则会放弃Third commit 的commit 信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">commit 940fec9ea88c69a195c546d48e5209c4cdb6abec</span><br><span class="line">Date:   Tue Feb 6 20:04:48 2018 +0800</span><br><span class="line"></span><br><span class="line">    Second commit</span><br><span class="line">    </span><br><span class="line">    Third commit</span><br><span class="line"></span><br><span class="line">commit ba82e7007559afab14ff124ea51e19772dedfe2c</span><br><span class="line">Date:   Tue Feb 6 20:03:32 2018 +0800</span><br><span class="line"></span><br><span class="line">    First commit</span><br></pre></td></tr></table></figure></p><h2 id="2-修改提交记录中的commit-信息"><a href="#2-修改提交记录中的commit-信息" class="headerlink" title="2. 修改提交记录中的commit 信息"></a>2. 修改提交记录中的commit 信息</h2><p>同上面，只要在需要修改的记录前 将pick 换成reword，即可进入编辑界面，编辑commit message，然后保存退出。这样就修改完成了。</p><p>当使用edit时，虽然也可以修改，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Stopped at 3af42b9... reword Second commit</span><br><span class="line">You can amend the commit now, with</span><br><span class="line"></span><br><span class="line">git commit --amend</span><br><span class="line"></span><br><span class="line">Once you are satisfied with your changes, run</span><br><span class="line"></span><br><span class="line">git rebase --continue</span><br></pre></td></tr></table></figure></p><ul><li>再使用<strong>git commit –amend</strong> 进入编辑界面修改。</li><li>保存，使用<strong>git rebase –continue</strong> 返回到最新节点。</li></ul><p>可以实际操作一下，如果怕玩坏工作分支，可以自己新建一个分支玩一玩。<br>这个git rebase 真的很神奇。对于rebase的其他功能也很强大。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;git-cherry-pick所遇到的问题&quot;&gt;&lt;a href=&quot;#git-cherry-pick所遇到的问题&quot; class=&quot;headerlink&quot; title=&quot;git cherry-pick所遇到的问题&quot;&gt;&lt;/a&gt;git cherry-pick所遇到的问题&lt;/
-      
-    
-    </summary>
-    
-      <category term="开发工具" scheme="http://caiyonglong.github.io/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="git" scheme="http://caiyonglong.github.io/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>git使用---修改历史提交记录</title>
     <link href="http://caiyonglong.github.io/2018/02/02/tools/git/"/>
     <id>http://caiyonglong.github.io/2018/02/02/tools/git/</id>
     <published>2018-02-02T13:34:25.000Z</published>
@@ -219,6 +194,31 @@
         &lt;h1 id=&quot;git使用-总结&quot;&gt;&lt;a href=&quot;#git使用-总结&quot; class=&quot;headerlink&quot; title=&quot;git使用 总结&quot;&gt;&lt;/a&gt;git使用 总结&lt;/h1&gt;&lt;p&gt;@(总结)[git]&lt;/p&gt;
 &lt;p&gt;总结一下当前工作中经常使用的git命令&lt;/p&gt;
 &lt;p&gt;#
+      
+    
+    </summary>
+    
+      <category term="开发工具" scheme="http://caiyonglong.github.io/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="git" scheme="http://caiyonglong.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git使用---修改历史提交记录</title>
+    <link href="http://caiyonglong.github.io/2018/02/02/tools/git_rebase/"/>
+    <id>http://caiyonglong.github.io/2018/02/02/tools/git_rebase/</id>
+    <published>2018-02-02T13:34:25.000Z</published>
+    <updated>2018-12-04T15:22:02.607Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="git-cherry-pick所遇到的问题"><a href="#git-cherry-pick所遇到的问题" class="headerlink" title="git cherry-pick所遇到的问题"></a>git cherry-pick所遇到的问题</h1><p>使用git 也有很长一段时间了，所以想总结一下git 的使用。其中，在日常工作中copy代码（搬砖）是常有的事情。对于git 管理的分支来说，git cherry-pick就是另类的copy。说的正式点就是 <strong>移植</strong>。</p><p>而<strong>cherry-pick</strong> 就是移植命令。</p><p>–对于git cherry-pick过来的提交记录，有些是因为一点小错误导致重复提交的，还有一些是一个功能分了好几次提交，对于这些记录，如果全部按原来分支的提交记录提交，就感觉很麻烦，到底有没有一种方法能够合并几条提交记录呢？</p><p>还有就是当cherry-pick多条记录后，突然想修改其中一条修改记录时。发现很难办。这时 git rebase 就很轻松了解决掉了这些难处。</p><p>当然网上也有很多类似的介绍，也可以去借阅一下。</p><h2 id="1-合并多条修改"><a href="#1-合并多条修改" class="headerlink" title="1. 合并多条修改"></a>1. 合并多条修改</h2><p>初始时，通过git log 查看 提交记录，记录一下commit hash值。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@ubuntu:~/work/git$ git log</span><br><span class="line">commit e916213e3c4cc9c977ec20902ae27ae45352eef3</span><br><span class="line">Date:   Tue Feb 6 20:05:32 2018 +0800</span><br><span class="line"></span><br><span class="line">    Third commit</span><br><span class="line"></span><br><span class="line">commit 358371a2b2b15d847bf89e44e94e7b926fed2da0</span><br><span class="line">Date:   Tue Feb 6 20:04:48 2018 +0800</span><br><span class="line"></span><br><span class="line">    Second commit</span><br><span class="line"></span><br><span class="line">commit ba82e7007559afab14ff124ea51e19772dedfe2c</span><br><span class="line">Date:   Tue Feb 6 20:03:32 2018 +0800</span><br><span class="line"></span><br><span class="line">    First commit</span><br></pre></td></tr></table></figure><p>然后通过 git rebase -i commit-id 命令编辑提交记录。</p><ul><li>git rebase  -i commit-id 表示，修改commit-id以后的提交记录，</li><li>也可以用git rebase -i HEAD ~n. n表示倒数第几条记录。</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pick 358371a Second commit</span><br><span class="line">pick e916213 Third commit</span><br><span class="line"></span><br><span class="line"># Rebase ba82e70..e916213 onto ba82e70</span><br><span class="line">#</span><br><span class="line"># Commands:</span><br><span class="line">#  p, pick = use commit</span><br><span class="line">#  r, reword = use commit, but edit the commit message</span><br><span class="line">#  e, edit = use commit, but stop for amending</span><br><span class="line">#  s, squash = use commit, but meld into previous commit</span><br><span class="line">#  f, fixup = like &quot;squash&quot;, but discard this commit&apos;s log message</span><br><span class="line">#  x, exec = run command (the rest of the line) using shell</span><br><span class="line">#</span><br><span class="line"># If you remove a line here THAT COMMIT WILL BE LOST.</span><br><span class="line"># However, if you remove everything, the rebase will be aborted.</span><br><span class="line">#</span><br></pre></td></tr></table></figure><p>其中</p><ul><li>pick 使用这条提交（保持不变）</li><li>reword 使用这条提交，可以编辑当前commit信息</li><li>edit 使用这条提交，放弃当前commit信息</li><li>squash 使用这条提交，合并前一条提交</li><li>fixup 和squash一样，但会放弃当前这个提交的信息</li><li>exec </li></ul><p>合并修改使用，将 e916213 Third commit 前的pick 改成squash 即可，然后保存退出。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pick 358371a Second commit</span><br><span class="line">squash e916213 Third commit</span><br></pre></td></tr></table></figure><p>修改完成后再次查看git log，已经合并到一起了。因为使用squash，所以两条记录得message都会合在一起。如果 使用fixup，则会放弃Third commit 的commit 信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">commit 940fec9ea88c69a195c546d48e5209c4cdb6abec</span><br><span class="line">Date:   Tue Feb 6 20:04:48 2018 +0800</span><br><span class="line"></span><br><span class="line">    Second commit</span><br><span class="line">    </span><br><span class="line">    Third commit</span><br><span class="line"></span><br><span class="line">commit ba82e7007559afab14ff124ea51e19772dedfe2c</span><br><span class="line">Date:   Tue Feb 6 20:03:32 2018 +0800</span><br><span class="line"></span><br><span class="line">    First commit</span><br></pre></td></tr></table></figure></p><h2 id="2-修改提交记录中的commit-信息"><a href="#2-修改提交记录中的commit-信息" class="headerlink" title="2. 修改提交记录中的commit 信息"></a>2. 修改提交记录中的commit 信息</h2><p>同上面，只要在需要修改的记录前 将pick 换成reword，即可进入编辑界面，编辑commit message，然后保存退出。这样就修改完成了。</p><p>当使用edit时，虽然也可以修改，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Stopped at 3af42b9... reword Second commit</span><br><span class="line">You can amend the commit now, with</span><br><span class="line"></span><br><span class="line">git commit --amend</span><br><span class="line"></span><br><span class="line">Once you are satisfied with your changes, run</span><br><span class="line"></span><br><span class="line">git rebase --continue</span><br></pre></td></tr></table></figure></p><ul><li>再使用<strong>git commit –amend</strong> 进入编辑界面修改。</li><li>保存，使用<strong>git rebase –continue</strong> 返回到最新节点。</li></ul><p>可以实际操作一下，如果怕玩坏工作分支，可以自己新建一个分支玩一玩。<br>这个git rebase 真的很神奇。对于rebase的其他功能也很强大。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;git-cherry-pick所遇到的问题&quot;&gt;&lt;a href=&quot;#git-cherry-pick所遇到的问题&quot; class=&quot;headerlink&quot; title=&quot;git cherry-pick所遇到的问题&quot;&gt;&lt;/a&gt;git cherry-pick所遇到的问题&lt;/
       
     
     </summary>
@@ -326,17 +326,17 @@
   </entry>
   
   <entry>
-    <title>状态模式</title>
-    <link href="http://caiyonglong.github.io/2017/10/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://caiyonglong.github.io/2017/10/13/设计模式/状态模式/</id>
+    <title>适配器模式</title>
+    <link href="http://caiyonglong.github.io/2017/10/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://caiyonglong.github.io/2017/10/13/设计模式/适配器模式/</id>
     <published>2017-10-13T06:00:16.000Z</published>
-    <updated>2018-12-04T15:22:02.609Z</updated>
+    <updated>2018-12-04T15:22:02.610Z</updated>
     
-    <content type="html"><![CDATA[<p>#状态模式<br>状态模式中的行为是由状态来决定的，不同的状态下有不同的行为。<br>状态模式和策略模式的机构几乎完全一样，但是它们的目的、本质却完全不一样。<br>状态模式的行为是平行的、不可替代的，策略模式的行为是彼此独立、可相互替换的。<br>用一句话来表述，状态模式把对象的行为包装在不同的状态对象里，每一个状态对象都有一个共同的抽象状态基类。状态模式的意图是让一个对象在其内部状态改变的时候，其行为也随之改变。</p><p>###定义<br>当一个对象的内在状态改变时允许改变其行为，这个对象看起来像是改变了其类。</p><p>###使用场景<br>1、一个对象的行为取决于它的状态，并且它必须在运行时根据状态改变它的行为。<br>2、代码中包含大量与对象状态相关的条件语句，例如，一个操作类中含有庞大的多分支语句（if-else 或者switch-case），且这些分支依赖于该对象的状态。<br>状态模式将每一个条件分支放入一个独立的类中，这使得你可以根据对象自身的情况将对象的状态作为一个对象，这一对象可以不依赖与其他对象而独立变化，这样通过多态来去除过多的，重复的if-else等分支语句。</p><p>###实战<br><a href="https://github.com/hehonghui/android_dp_analysis_code/tree/master/android_dp_state" target="_blank" rel="noopener">用户登录系统</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>说实话网上有很多介绍，那么为什么还要自己在写一遍呢？因为在网上看一遍容易忘掉，如果自己再重新写一遍，印象会深一点。</p><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>适配器模式（Adapter Pattern）是作为两个不兼容的接口之间的桥梁。这种类型的设计模式属于结构型模式，它结合了两个独立接口的功能。</p>]]></content>
     
     <summary type="html">
     
-      状态模式
+      适配器模式
     
     </summary>
     
@@ -392,17 +392,17 @@
   </entry>
   
   <entry>
-    <title>组合模式</title>
-    <link href="http://caiyonglong.github.io/2017/10/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://caiyonglong.github.io/2017/10/13/设计模式/组合模式/</id>
+    <title>状态模式</title>
+    <link href="http://caiyonglong.github.io/2017/10/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://caiyonglong.github.io/2017/10/13/设计模式/状态模式/</id>
     <published>2017-10-13T06:00:16.000Z</published>
-    <updated>2018-12-04T15:22:02.610Z</updated>
+    <updated>2018-12-04T15:22:02.609Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h1><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>表示对象的部分-整体层次结构时。<br>从一个整体中能独立出部分模块或功能的场景。</p><h3 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h3><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>用到的比较少，一般更适用于对一些界面UI的架构设计上。<br>优点<br>组合模式可以清楚地定义分层次的复杂对象，表示对象的全部或部分层次，它让高层模块忽略了层次的差异，简化了高层模块的代码。<br>缺点</p>]]></content>
+    <content type="html"><![CDATA[<p>#状态模式<br>状态模式中的行为是由状态来决定的，不同的状态下有不同的行为。<br>状态模式和策略模式的机构几乎完全一样，但是它们的目的、本质却完全不一样。<br>状态模式的行为是平行的、不可替代的，策略模式的行为是彼此独立、可相互替换的。<br>用一句话来表述，状态模式把对象的行为包装在不同的状态对象里，每一个状态对象都有一个共同的抽象状态基类。状态模式的意图是让一个对象在其内部状态改变的时候，其行为也随之改变。</p><p>###定义<br>当一个对象的内在状态改变时允许改变其行为，这个对象看起来像是改变了其类。</p><p>###使用场景<br>1、一个对象的行为取决于它的状态，并且它必须在运行时根据状态改变它的行为。<br>2、代码中包含大量与对象状态相关的条件语句，例如，一个操作类中含有庞大的多分支语句（if-else 或者switch-case），且这些分支依赖于该对象的状态。<br>状态模式将每一个条件分支放入一个独立的类中，这使得你可以根据对象自身的情况将对象的状态作为一个对象，这一对象可以不依赖与其他对象而独立变化，这样通过多态来去除过多的，重复的if-else等分支语句。</p><p>###实战<br><a href="https://github.com/hehonghui/android_dp_analysis_code/tree/master/android_dp_state" target="_blank" rel="noopener">用户登录系统</a></p>]]></content>
     
     <summary type="html">
     
-      组合模式
+      状态模式
     
     </summary>
     
@@ -415,10 +415,12 @@
   
   <entry>
     <title>组合模式</title>
-    <link href="http://caiyonglong.github.io/2017/10/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://caiyonglong.github.io/2017/10/13/设计模式/访问者模式/</id>
+    <link href="http://caiyonglong.github.io/2017/10/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://caiyonglong.github.io/2017/10/13/设计模式/组合模式/</id>
     <published>2017-10-13T06:00:16.000Z</published>
     <updated>2018-12-04T15:22:02.610Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h1><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>表示对象的部分-整体层次结构时。<br>从一个整体中能独立出部分模块或功能的场景。</p><h3 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h3><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>用到的比较少，一般更适用于对一些界面UI的架构设计上。<br>优点<br>组合模式可以清楚地定义分层次的复杂对象，表示对象的全部或部分层次，它让高层模块忽略了层次的差异，简化了高层模块的代码。<br>缺点</p>]]></content>
     
     <summary type="html">
     
@@ -454,17 +456,15 @@
   </entry>
   
   <entry>
-    <title>适配器模式</title>
-    <link href="http://caiyonglong.github.io/2017/10/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://caiyonglong.github.io/2017/10/13/设计模式/适配器模式/</id>
+    <title>组合模式</title>
+    <link href="http://caiyonglong.github.io/2017/10/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://caiyonglong.github.io/2017/10/13/设计模式/访问者模式/</id>
     <published>2017-10-13T06:00:16.000Z</published>
     <updated>2018-12-04T15:22:02.610Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>说实话网上有很多介绍，那么为什么还要自己在写一遍呢？因为在网上看一遍容易忘掉，如果自己再重新写一遍，印象会深一点。</p><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>适配器模式（Adapter Pattern）是作为两个不兼容的接口之间的桥梁。这种类型的设计模式属于结构型模式，它结合了两个独立接口的功能。</p>]]></content>
-    
     <summary type="html">
     
-      适配器模式
+      组合模式
     
     </summary>
     
