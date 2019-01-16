@@ -81,7 +81,7 @@ theme: indigo
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
-#deploy:
+# deploy:
 #  type: git
 #  repo: https://github.com/caiyonglong/caiyonglong.github.io.git
 #  branch: master
