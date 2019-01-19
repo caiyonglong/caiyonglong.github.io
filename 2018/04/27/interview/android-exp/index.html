@@ -14,20 +14,22 @@
     
     
     
-    <title>Android编码规范 | 蔡永龙的博客 | One step at a time</title>
+    <title>Android面试 | 蔡永龙的博客 | One step at a time</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     
-    <meta name="keywords" content="基础">
-    <meta name="keywords" content="基础">
+    <meta name="keywords" content="">
+    <meta name="description" content="面试总结概述对于经历的面试，总结一下面试题。不同的公司因为有自己的招聘要求，所以有时会侧重问某一方面。 Android面试1、Android 常用的设计模式有哪些2、Android Studio 常用的一些优化方案3、手写mvp模式的一种实现方案4、Android内存优化方案5、自定义View的绘制流程6、View的事件分发机制7、使用了哪些三方框架8、谈一下Android的动画9、rxbus2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android编码规范">
-<meta property="og:url" content="http://caiyonglong.github.io/2018/05/06/Android/codingstandards/index.html">
+<meta property="og:title" content="Android面试">
+<meta property="og:url" content="http://caiyonglong.github.io/2018/04/27/interview/android-exp/index.html">
 <meta property="og:site_name" content="蔡永龙的博客">
+<meta property="og:description" content="面试总结概述对于经历的面试，总结一下面试题。不同的公司因为有自己的招聘要求，所以有时会侧重问某一方面。 Android面试1、Android 常用的设计模式有哪些2、Android Studio 常用的一些优化方案3、手写mvp模式的一种实现方案4、Android内存优化方案5、自定义View的绘制流程6、View的事件分发机制7、使用了哪些三方框架8、谈一下Android的动画9、rxbus2">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-04T15:22:02.605Z">
+<meta property="og:updated_time" content="2019-01-17T15:41:48.365Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android编码规范">
+<meta name="twitter:title" content="Android面试">
+<meta name="twitter:description" content="面试总结概述对于经历的面试，总结一下面试题。不同的公司因为有自己的招聘要求，所以有时会侧重问某一方面。 Android面试1、Android 常用的设计模式有哪些2、Android Studio 常用的一些优化方案3、手写mvp模式的一种实现方案4、Android内存优化方案5、自定义View的绘制流程6、View的事件分发机制7、使用了哪些三方框架8、谈一下Android的动画9、rxbus2">
     
         <link rel="alternate" type="application/atom+xml" title="蔡永龙的博客" href="../../../../../atom.xml">
     
@@ -43,7 +45,7 @@
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu">
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -122,7 +124,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Android编码规范</div>
+        <div class="flex-col header-title ellipsis">Android面试</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -144,15 +146,13 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Android编码规范</h1>
+        <h1 class="title">Android面试</h1>
         <h5 class="subtitle">
             
-                <time datetime="2018-05-06T14:17:33.000Z" itemprop="datePublished" class="page-time">
-  2018-05-06
+                <time datetime="2018-04-27T15:37:10.000Z" itemprop="datePublished" class="page-time">
+  2018-04-27
 </time>
 
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="../../../../../categories/Android/">Android</a></li></ul>
 
             
         </h5>
@@ -166,17 +166,22 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#面试总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">面试总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#概述"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Android面试"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Android面试</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
 
-<article id="post-Android/codingstandards" class="post-article article-type-post fade" itemprop="blogPost">
+
+<article id="post-interview/android-exp" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Android编码规范</h1>
+        <h1 class="post-card-title">Android面试</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-05-06 22:17:33" datetime="2018-05-06T14:17:33.000Z" itemprop="datePublished">2018-05-06</time>
+            <time class="post-time" title="2018-04-27 23:37:10" datetime="2018-04-27T15:37:10.000Z" itemprop="datePublished">2018-04-27</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="../../../../../categories/Android/">Android</a></li></ul>
-
 
 
             
@@ -187,20 +192,22 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            
+            <h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>对于经历的面试，总结一下面试题。不同的公司因为有自己的招聘要求，所以有时会侧重问某一方面。</p>
+<h2 id="Android面试"><a href="#Android面试" class="headerlink" title="Android面试"></a>Android面试</h2><p>1、Android 常用的设计模式有哪些<br>2、Android Studio 常用的一些优化方案<br>3、手写mvp模式的一种实现方案<br>4、Android内存优化方案<br>5、自定义View的绘制流程<br>6、View的事件分发机制<br>7、使用了哪些三方框架<br>8、谈一下Android的动画<br>9、rxbus2 是怎么实现的<br>10、Activity的启动流程<br>11、侧滑菜单的实现原理<br>12、service的两种启动方式<br>13、fragment与activity的通信方式<br>14、</p>
+<p>项目相关<br>1、对于自己做的项目，遇到了哪些问题，是怎么解决的<br>2、公司主要的工作、测试apk<br>3、为什么要替换图片请求框架<br>4、有接入过三方的平台的经验吗，接入友盟推送<br>5、知道哪些数据库框架吗，<br>6、音频焦点</p>
+<p>编译相关<br>1、怎么优化Android studio的编译速度<br>2、build.gradle<br>3、Android studio的目录结构<br>4、64K问题</p>
+<p>JAVA基础<br>1、StringBuilder和StringBuffer 的区别<br>2、Java IO流<br>3、常用的数据结构有哪些</p>
+<p>数据库相关<br>新增1w条数据，采用事务方式插入，查询倒序DESC 升序 ASC<br>因为数据库操作的本质是对文件的读写操作，所以会有一定的延迟性</p>
+<p>===============================分割线=================================<br>面试的具体题目，还得看公司的具体要求，如果有些公司的招聘要求上特别强调某一点，就需要对这强调的一点准备充分。</p>
+<p>笔试题</p>
+<p>View的绘制流程<br>屏幕适配方案<br>内存优化方案</p>
+<p>请求后台接口的对策</p>
+<p>Android：Activity与Fragment通信(99%)完美解决方案<br><a href="https://www.jianshu.com/p/1b824e26105b" target="_blank" rel="noopener">https://www.jianshu.com/p/1b824e26105b</a></p>
+<p>fragment的作用</p>
+
         </div>
 
         <blockquote class="post-copyright">
-    
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2018-12-04T15:22:02.605Z" itemprop="dateUpdated">2018-12-04 23:22:02</time>
-</span><br>
-
-
-        
-    </div>
     
     <footer>
         <a href="http://caiyonglong.github.io">
@@ -219,8 +226,6 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../../tags/基础/">基础</a></li></ul>
-
 
             
 <div class="page-share-wrap">
@@ -229,7 +234,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2018/05/06/Android/codingstandards/&title=《Android编码规范》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2018/04/27/interview/android-exp/&title=《Android面试》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -239,22 +244,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2018/05/06/Android/codingstandards/&title=《Android编码规范》 — 蔡永龙的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2018/04/27/interview/android-exp/&title=《Android面试》 — 蔡永龙的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2018/05/06/Android/codingstandards/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2018/04/27/interview/android-exp/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android编码规范》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2018/05/06/Android/codingstandards/&via=http://caiyonglong.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android面试》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2018/04/27/interview/android-exp/&via=http://caiyonglong.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2018/05/06/Android/codingstandards/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2018/04/27/interview/android-exp/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -286,7 +291,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="../../../../04/27/面试/android-exp/" id="post-next" class="post-nav-link">
+      <a href="../interview-2018/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">Android面试</h4>
       </a>
@@ -387,7 +392,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2018/05/06/Android/codingstandards/&title=《Android编码规范》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2018/04/27/interview/android-exp/&title=《Android面试》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -397,22 +402,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2018/05/06/Android/codingstandards/&title=《Android编码规范》 — 蔡永龙的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2018/04/27/interview/android-exp/&title=《Android面试》 — 蔡永龙的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2018/05/06/Android/codingstandards/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2018/04/27/interview/android-exp/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android编码规范》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2018/05/06/Android/codingstandards/&via=http://caiyonglong.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android面试》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2018/04/27/interview/android-exp/&via=http://caiyonglong.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2018/05/06/Android/codingstandards/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2018/04/27/interview/android-exp/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -423,7 +428,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://caiyonglong.github.io/2018/05/06/Android/codingstandards/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://caiyonglong.github.io/2018/04/27/interview/android-exp/" alt="微信分享二维码">
 </div>
 
 
