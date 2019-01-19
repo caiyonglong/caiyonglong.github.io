@@ -1,8 +1,11 @@
 ---
 title: Android 源码Launcher模块分析
 date: 2017-12-13 14:00:16
-tags: [Launcher,源码分析]
-categories: Android
+tags: 
+ - Launcher
+ - 源码分析
+categories: 
+ - Android
 description: Launcher
 toc: true 文章目录
 author:

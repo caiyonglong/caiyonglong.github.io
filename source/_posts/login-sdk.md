@@ -1,10 +1,10 @@
 ---
-layout: api
-tags: [api]
+layout: post
+tags: 
+ - api
 categories: 接口
 title: 接入Google、FaceBook第三方登录
 date: 2019-01-16 23:16:43
-tags:
 ---
 
 # 通过Firebase接入Google、FaceBook等第三方登录
