@@ -24,10 +24,10 @@ comments: true
 
 # 项目经验
 - 游戏应用SDK
-    - 项目描述：多款游戏提供Android SDK配置
+    - 项目描述：为多款游戏提供Android SDK配置，主要包括Unity与Android交互，Google，Facebook登录，分享，广告模块等
     - 技术栈：Unity、sdk
 - icash、iscratch
-    - 项目描述：海外网赚类应用。主要包括转盘，刮刮乐等小游戏，三方登录、广告、商品兑换等功能
+    - 项目描述：海外网赚类应用。主要包括转盘，刮刮乐等小游戏，三方登录、广告、兑换等功能
     - 技术栈：Flutter、WebSocket
     - 架构：MVVM+Glide
 
