@@ -10,37 +10,58 @@ comments:
 original:
 permalink:
 ---
-# MusicLake
-Android 音乐播放器，基于MVP + Retrofit + Rxjava2 框架。代码重构了一次，还是发现还有很多不足的地方。
 
-# 已完成功能
+# MusicLake ![](https://travis-ci.org/caiyonglong/MusicLake.svg?branch=develop)
+[项目地址](https://travis-ci.org/caiyonglong/MusicLake)
 
-- [x] 本地听歌。按专辑、歌手、文件夹分类
-- [x] 在线听歌。百度音乐，QQ音乐、虾米音乐、网易云音乐
-- [x] 本地歌单
-- [x] 播放历史
-- [x] 播放队列
-- [x] 网络歌曲下载
-- [x] 播放歌词、桌面歌词
-- [x] 通知栏控制，线控播放
-- [x] 音频焦点控制
-- [x] QQ登录、在线歌单同步
+  
+# 功能版本
+- Android 音乐播放器(本地/在线播放) （最低支持Android版本5.0）
+- 支持多平台音乐源，百度音乐，虾米音乐、网易云音乐、Youtube（需要翻墙）
+- 歌词播放、桌面歌词、桌面小控件
+- 通知栏控制、线控播放、音频焦点控制
+- QQ登录、微博登陆、在线歌单同步
+- 网易云热门歌手，百度电台列表，网易云mv排行榜，mv播放评论
+- 酷狗歌词搜索、修改歌词样式、歌词翻译
+- 精力有限，需求不饱和都会逐步完善
+- [PC端](https://github.com/sunzongzheng/music)
 
-# 计划
-- [ ] 优化项目架构
-- [ ] 验证，修复bug
-- [ ] 考虑将音乐播放封装成一个库
-- [ ] 封装api
+- [交流群:549939157](https://jq.qq.com/?_wv=1027&k=5XrNrCJ) 加群需要问题验证，正确回答：github
 
-# release note
-[点这下载](https://github.com/caiyonglong/MusicLake/releases)
+![功能](/images/features.png)
 
-# 音乐来源
-- 绝大部分来源于[Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)和[LIU9293/musicAPI](https://github.com/LIU9293/musicAPI)等
-- [sunzongzheng/musicApi](https://github.com/sunzongzheng/musicApi)
 
-# 项目经历
-- 因为接口的问题，通过github，发现一些音乐资源开源库（py,js），通过分析这些调用，用java实现了一个类似的接口。
-- 项目重构经验，解决重构项目时遇到的问题也是一种进步。
-- 项目一开始是一个基于LBS的音乐社区软件，由于服务器方面问题，后台接口全部用不了，所以为了能够使软件正常运行，
-将涉及后台社区以及地图方面的功能全不裁剪了，只剩下音乐播放的功能，功能虽然看起来比较少。但是作为一个练手项目，也足够了。
+### 开源不易，有兴趣可给个star，支持一下哦！
+持续更新，有什么问题可以提[issues](https://github.com/caiyonglong/MusicLake/issues)！
+
+# 相关项目|音乐API
+- [客户端音乐API](https://github.com/caiyonglong/MusicApi)
+- [客户端/PC音乐共用API](https://github.com/sunzongzheng/musicApi)
+- [后台/云歌单API](https://github.com/sunzongzheng/player-be)
+- [三方/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
+
+# 第三方库
+
+- [rxjava](https://github.com/ReactiveX/RxJava)
+- [retrofit](https://github.com/square/retrofit)
+- [dagger2](https://github.com/google/dagger)
+- [Glide](https://github.com/bumptech/glide)
+- [LitePal](https://github.com/LitePalFramework/LitePal)
+- [DSBridge](https://github.com/wendux/DSBridge-Android)
+- [BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
+- [More..](https://github.com/caiyonglong/MusicLake/blob/develop/app/build.gradle)
+
+# 软件运行截图
+<p>
+<img src="/images/preview1.png" width="225" height="400"/><img src="/images/preview2.png" width="225" height="400"/><img src="/images/preview3.png" width="225" height="400"/><img src="/images/preview4.png" width="225" height="400"/><img src="/images/preview5.png" width="225" height="400"/><img src="/images/preview6.png" width="225" height="400"/><img src="/images/preview7.png" width="225" height="400"/><img src="/images/preview8.png" width="225" height="400"/><img src="/images/preview9.png" width="225" height="400"/><img src="/images/preview10.png" width="225" height="400"/><img src="/images/preview11.png" width="225" height="400"/><img src="/images/preview12.png" width="225" height="400"/>
+<img src="/images/preview13.png" width="225" height="400"/>
+</p>
+
+# 夜间模式相关截图
+<p>
+<img src="/images/dark_preview1.png" width="225" height="400"/>
+<img src="/images/dark_preview2.png" width="225" height="400"/>
+<img src="/images/dark_preview3.png" width="225" height="400"/>
+<img src="/images/dark_preview4.png" width="225" height="400"/>
+<img src="/images/dark_preview5.png" width="225" height="400"/>
+</p>

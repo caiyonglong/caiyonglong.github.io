@@ -1,3 +1,10 @@
+---
+title: Dagger2 分析
+date: 2019-08-15 10:04:02
+categories: Android
+tags: 
+---
+
 
 # Dagger2 是什么？
 Dagger2是Dagger的升级版，是一个依赖注入框架,第一代由大名鼎鼎的Square公司共享出来，第二代则是由谷歌接手后推出的，现在由Google接手维护.

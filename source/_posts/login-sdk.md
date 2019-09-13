@@ -63,7 +63,6 @@ private void signIn() {
 - 4、测试OK
 
 
-
 ### Firebase集成接入google,facebook登录
 如果项目中已经集成了Firebase，则推荐使用这种方式
 
