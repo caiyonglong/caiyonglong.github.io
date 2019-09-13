@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="蔡永龙的博客">
 <meta property="og:description" content="状态模式">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-04T15:22:02.609Z">
+<meta property="og:updated_time" content="2019-09-13T18:40:53.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="状态模式">
 <meta name="twitter:description" content="状态模式">
@@ -169,6 +169,13 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#状态模式"><span class="post-toc-number">1.</span> <span class="post-toc-text">状态模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#定义"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">定义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用场景"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">使用场景</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实战"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">实战</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
 
 <article id="post-设计模式/状态模式" class="post-article article-type-post fade" itemprop="blogPost">
 
@@ -190,10 +197,10 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>#状态模式<br>状态模式中的行为是由状态来决定的，不同的状态下有不同的行为。<br>状态模式和策略模式的机构几乎完全一样，但是它们的目的、本质却完全不一样。<br>状态模式的行为是平行的、不可替代的，策略模式的行为是彼此独立、可相互替换的。<br>用一句话来表述，状态模式把对象的行为包装在不同的状态对象里，每一个状态对象都有一个共同的抽象状态基类。状态模式的意图是让一个对象在其内部状态改变的时候，其行为也随之改变。</p>
-<p>###定义<br>当一个对象的内在状态改变时允许改变其行为，这个对象看起来像是改变了其类。</p>
-<p>###使用场景<br>1、一个对象的行为取决于它的状态，并且它必须在运行时根据状态改变它的行为。<br>2、代码中包含大量与对象状态相关的条件语句，例如，一个操作类中含有庞大的多分支语句（if-else 或者switch-case），且这些分支依赖于该对象的状态。<br>状态模式将每一个条件分支放入一个独立的类中，这使得你可以根据对象自身的情况将对象的状态作为一个对象，这一对象可以不依赖与其他对象而独立变化，这样通过多态来去除过多的，重复的if-else等分支语句。</p>
-<p>###实战<br><a href="https://github.com/hehonghui/android_dp_analysis_code/tree/master/android_dp_state" target="_blank" rel="noopener">用户登录系统</a></p>
+            <h1 id="状态模式"><a href="#状态模式" class="headerlink" title="状态模式"></a>状态模式</h1><p>状态模式中的行为是由状态来决定的，不同的状态下有不同的行为。<br>状态模式和策略模式的机构几乎完全一样，但是它们的目的、本质却完全不一样。<br>状态模式的行为是平行的、不可替代的，策略模式的行为是彼此独立、可相互替换的。<br>用一句话来表述，状态模式把对象的行为包装在不同的状态对象里，每一个状态对象都有一个共同的抽象状态基类。状态模式的意图是让一个对象在其内部状态改变的时候，其行为也随之改变。</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>当一个对象的内在状态改变时允许改变其行为，这个对象看起来像是改变了其类。</p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>1、一个对象的行为取决于它的状态，并且它必须在运行时根据状态改变它的行为。<br>2、代码中包含大量与对象状态相关的条件语句，例如，一个操作类中含有庞大的多分支语句（if-else 或者switch-case），且这些分支依赖于该对象的状态。<br>状态模式将每一个条件分支放入一个独立的类中，这使得你可以根据对象自身的情况将对象的状态作为一个对象，这一对象可以不依赖与其他对象而独立变化，这样通过多态来去除过多的，重复的if-else等分支语句。</p>
+<h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><p><a href="https://github.com/hehonghui/android_dp_analysis_code/tree/master/android_dp_state" target="_blank" rel="noopener">用户登录系统</a></p>
 
         </div>
 
@@ -274,9 +281,9 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="../../../../11/02/Android/customer_logo/" id="post-prev" class="post-nav-link">
+      <a href="../适配器模式/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">客户化定制开机logo、开机动画</h4>
+        <h4 class="title">适配器模式</h4>
       </a>
     </div>
   
