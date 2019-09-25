@@ -1,7 +1,7 @@
 ---
-title: Dagger2 分析
+title: 常用第三方库源码分析——Dagger2
 date: 2019-08-15 10:04:02
-categories: Android
+categories: 源码分析
 tags: 
 ---
 

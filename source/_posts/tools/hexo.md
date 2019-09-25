@@ -59,3 +59,9 @@ hexo d #部署 #可与hexo g合并为 hexo d -g
 ```
 
 以上都是一些常用的命令，命令详细请访问[官网](https://hexo.io/docs/commands.html)
+
+# indigo样式修改
+修改文章页面卡片宽 将 contentWidth的原始值960px改为90%
+```
+../themes/indigo/source/css/_partial/variable.less
+```

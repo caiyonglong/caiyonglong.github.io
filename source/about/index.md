@@ -53,7 +53,7 @@ comments: true
     - 技术栈:自定义View、bmob后台接口、友盟统计 架构:MVP、Glide、RxJava2、Gagger2
 
 - [音乐湖](https://github.com/caiyonglong/MusicLake)
-    - Github开源项目，到目前为止有 1.3k Star 200+ fork
+    - Github开源项目，到目前为止有 1.4k Star 200+ fork
     - 在线音乐播放器，支持网易云音乐、qq音乐、虾米音乐、百度音乐等
     - 负责这个项目的开发、框架设计和功能实现，实现了在线歌单，mv，歌词，搜索，下载，聊天室等功能。
     - 技术栈:MediaPlayer、dsbridge、socket.io、EventBus等

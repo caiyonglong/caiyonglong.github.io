@@ -32,6 +32,15 @@
             </li>
         <% } %>
       </ul>
+      <div class="bottom" style="text-align: center;">
+        <p>&copy;<%if (theme.since_year && theme.since_year < date(new Date(), 'YYYY')) {%><%- theme.since_year %> - <%}%><%- date(new Date(), 'YYYY') %></p>
+            <p>
+                <% if(theme.ICP_license) {%>
+                <a href="http://www.miitbeian.gov.cn/" target="_blank"><%- theme.ICP_license %></a><br>
+                <% } %>
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+        </p>
+    </div>
     </div>
   </div>
 </aside>
