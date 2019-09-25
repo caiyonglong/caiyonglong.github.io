@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://caiyonglong.github.io/"/>
-  <updated>2019-09-25T03:57:00.919Z</updated>
+  <updated>2019-09-25T03:57:43.072Z</updated>
   <id>http://caiyonglong.github.io/</id>
   
   <author>
@@ -15,6 +15,74 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Handler消息机制</title>
+    <link href="http://caiyonglong.github.io/2019/09/22/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/Hander%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/"/>
+    <id>http://caiyonglong.github.io/2019/09/22/源码分析/Hander消息机制/</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2019-09-25T03:57:43.072Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>平时工作中缺乏总结，写博客不是为别人，而是为自己，虽然网上很多类似的，但是自己还是得写一遍加深印象</p><h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><p>消息机制包含 Handler、MessageQueue、Message、Looper</p><p>拖欠图</p><p>Handler 发送消息，消息存入到消息队列中，然后Looper 循环执行消息队列。</p><h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="Handler-为什么会造成内存泄漏"><a href="#Handler-为什么会造成内存泄漏" class="headerlink" title="Handler 为什么会造成内存泄漏"></a>Handler 为什么会造成内存泄漏</h2><p>因为在Activity中，handler内部类引用了它，而该handler实例可能被MessageQueue引用着。比如发送了一个延时消息到队列中，那么就可能在队列中存在很长时间，而消息队列（MessageQueue）的生命周期等于它所在的线程。当大到Activity被finish()了后还在队列中时，就满足了上面的短生命周期引用长生命周期的条件。根据Java GC的规则，Activity的引用计数不为0，故不会回收</p><ul><li><p>解决办法</p><p>  1、保证Activity被finish()时该线程的消息队列没有这个Activity的handler内部类的引用<br>  2、要么让这个handler不持有Activity等外部组件实例，让该Handler成为静态内部类。（静态内部类是不持有外部类的实例的，因而也就调用不了外部的实例方法了）<br>  3、在2方法的基础上，为了能调用外部的实例方法，传递一个外部的弱引用进来</p></li></ul><h2 id="为什么消息Handler能实现跨线程通信"><a href="#为什么消息Handler能实现跨线程通信" class="headerlink" title="为什么消息Handler能实现跨线程通信"></a>为什么消息Handler能实现跨线程通信</h2><h2 id="为什么Looper循环不会导致ANR"><a href="#为什么Looper循环不会导致ANR" class="headerlink" title="为什么Looper循环不会导致ANR"></a>为什么Looper循环不会导致ANR</h2><p>ANR的基本概念</p><pre><code>1：5s内无法响应用户输入事件(例如键盘输入, 触摸屏幕等)2：BroadcastReceiver在10s内无法结束3：ServiceTimeout(20s) --小概率类型，Service在特定的时间内无法处理完成</code></pre><p>主线程Looper在哪里初始化</p><p>ActivityThread 类里面</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">       Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, &quot;ActivityThreadMain&quot;);</span><br><span class="line"></span><br><span class="line">       // CloseGuard defaults to true and can be quite spammy.  We</span><br><span class="line">       // disable it here, but selectively enable it later (via</span><br><span class="line">       // StrictMode) on debug builds, but using DropBox, not logs.</span><br><span class="line">       CloseGuard.setEnabled(false);</span><br><span class="line"></span><br><span class="line">       Environment.initForCurrentUser();</span><br><span class="line"></span><br><span class="line">       // Set the reporter for event logging in libcore</span><br><span class="line">       EventLogger.setReporter(new EventLoggingReporter());</span><br><span class="line"></span><br><span class="line">       // Make sure TrustedCertificateStore looks in the right place for CA certificates</span><br><span class="line">       final File configDir = Environment.getUserConfigDirectory(UserHandle.myUserId());</span><br><span class="line">       TrustedCertificateStore.setDefaultUserDirectory(configDir);</span><br><span class="line"></span><br><span class="line">       Process.setArgV0(&quot;&lt;pre-initialized&gt;&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       Looper.prepareMainLooper();</span><br><span class="line"></span><br><span class="line">       // Find the value for &#123;@link #PROC_START_SEQ_IDENT&#125; if provided on the command line.</span><br><span class="line">       // It will be in the format &quot;seq=114&quot;</span><br><span class="line">       long startSeq = 0;</span><br><span class="line">       if (args != null) &#123;</span><br><span class="line">           for (int i = args.length - 1; i &gt;= 0; --i) &#123;</span><br><span class="line">               if (args[i] != null &amp;&amp; args[i].startsWith(PROC_START_SEQ_IDENT)) &#123;</span><br><span class="line">                   startSeq = Long.parseLong(</span><br><span class="line">                           args[i].substring(PROC_START_SEQ_IDENT.length()));</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       ActivityThread thread = new ActivityThread();</span><br><span class="line">       thread.attach(false, startSeq);</span><br><span class="line"></span><br><span class="line">       if (sMainThreadHandler == null) &#123;</span><br><span class="line">           sMainThreadHandler = thread.getHandler();</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       if (false) &#123;</span><br><span class="line">           Looper.myLooper().setMessageLogging(new</span><br><span class="line">                   LogPrinter(Log.DEBUG, &quot;ActivityThread&quot;));</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       // End of event ActivityThreadMain.</span><br><span class="line">       Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</span><br><span class="line">       Looper.loop();</span><br><span class="line"></span><br><span class="line">       throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;平时工作中缺乏总结，写博客不是为别人，而是为自己，虽然网上很多类似的，但是自己还是得写一遍加深印象&lt;/p&gt;
+&lt;h1 id=&quot;基本原理&quot;&gt;&lt;a
+      
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://caiyonglong.github.io/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Handler" scheme="http://caiyonglong.github.io/tags/Handler/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常用网络请求库对比——Volley、Okhttp、Retrofit对比</title>
+    <link href="http://caiyonglong.github.io/2019/09/22/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/volley%E3%80%81okhttp%E3%80%81retrofit%E5%88%86%E6%9E%90/"/>
+    <id>http://caiyonglong.github.io/2019/09/22/源码分析/volley、okhttp、retrofit分析/</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2019-09-25T03:56:12.597Z</updated>
+    
+    <content type="html"><![CDATA[<p>Volley、Okhttp、Retrofit三大网络请求库分析</p><h1 id="1-原生"><a href="#1-原生" class="headerlink" title="1. 原生"></a>1. 原生</h1><p>Android 原生使用HttpUrlConnection</p><h1 id="2-Volley"><a href="#2-Volley" class="headerlink" title="2. Volley"></a>2. Volley</h1><p>Volley 是 Google 官方出的一套小而巧的异步请求库，该框架封装的扩展性很强，支持 HttpClient、HttpUrlConnection，甚至支持 OkHttp，具体方法可以看 Jake 大神的这个 Gist 文件</p><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>在BasicNetwork中判断了statusCode(statusCode &lt; 200 || statusCode &gt; 299)，如何符合条件直接抛出IOException()，不够合理</p><p>导致401等其他状态抛出IOException<br>解决方案 :<br><a href="http://blog.csdn.net/kufeiyun/article/details/44646145" target="_blank" rel="noopener">http://blog.csdn.net/kufeiyun/article/details/44646145</a><br><a href="http://stackoverflow.com/questions/30476584/android-volley-strange-error-with-http-code-401-java-io-ioexception-no-authe" target="_blank" rel="noopener">http://stackoverflow.com/questions/30476584/android-volley-strange-error-with-http-code-401-java-io-ioexception-no-authe</a></p><p>图片加载性能一般</p><p>对大资源下载支持不够</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Volley、Okhttp、Retrofit三大网络请求库分析&lt;/p&gt;
+&lt;h1 id=&quot;1-原生&quot;&gt;&lt;a href=&quot;#1-原生&quot; class=&quot;headerlink&quot; title=&quot;1. 原生&quot;&gt;&lt;/a&gt;1. 原生&lt;/h1&gt;&lt;p&gt;Android 原生使用HttpUrlCo
+      
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://caiyonglong.github.io/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>常用第三方库源码分析——Okhttp</title>
+    <link href="http://caiyonglong.github.io/2019/09/22/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/Okhttp%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    <id>http://caiyonglong.github.io/2019/09/22/源码分析/Okhttp源码分析/</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2019-09-25T03:21:32.816Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://caiyonglong.github.io/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Okhttp" scheme="http://caiyonglong.github.io/tags/Okhttp/"/>
+    
+  </entry>
   
   <entry>
     <title>常用第三方库源码分析——Glide</title>
@@ -82,74 +150,6 @@
     
     
       <category term="Eventbus" scheme="http://caiyonglong.github.io/tags/Eventbus/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>常用网络请求库对比——Volley、Okhttp、Retrofit对比</title>
-    <link href="http://caiyonglong.github.io/2019/09/22/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/volley%E3%80%81okhttp%E3%80%81retrofit%E5%88%86%E6%9E%90/"/>
-    <id>http://caiyonglong.github.io/2019/09/22/源码分析/volley、okhttp、retrofit分析/</id>
-    <published>2019-09-21T16:00:00.000Z</published>
-    <updated>2019-09-25T03:56:12.597Z</updated>
-    
-    <content type="html"><![CDATA[<p>Volley、Okhttp、Retrofit三大网络请求库分析</p><h1 id="1-原生"><a href="#1-原生" class="headerlink" title="1. 原生"></a>1. 原生</h1><p>Android 原生使用HttpUrlConnection</p><h1 id="2-Volley"><a href="#2-Volley" class="headerlink" title="2. Volley"></a>2. Volley</h1><p>Volley 是 Google 官方出的一套小而巧的异步请求库，该框架封装的扩展性很强，支持 HttpClient、HttpUrlConnection，甚至支持 OkHttp，具体方法可以看 Jake 大神的这个 Gist 文件</p><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>在BasicNetwork中判断了statusCode(statusCode &lt; 200 || statusCode &gt; 299)，如何符合条件直接抛出IOException()，不够合理</p><p>导致401等其他状态抛出IOException<br>解决方案 :<br><a href="http://blog.csdn.net/kufeiyun/article/details/44646145" target="_blank" rel="noopener">http://blog.csdn.net/kufeiyun/article/details/44646145</a><br><a href="http://stackoverflow.com/questions/30476584/android-volley-strange-error-with-http-code-401-java-io-ioexception-no-authe" target="_blank" rel="noopener">http://stackoverflow.com/questions/30476584/android-volley-strange-error-with-http-code-401-java-io-ioexception-no-authe</a></p><p>图片加载性能一般</p><p>对大资源下载支持不够</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Volley、Okhttp、Retrofit三大网络请求库分析&lt;/p&gt;
-&lt;h1 id=&quot;1-原生&quot;&gt;&lt;a href=&quot;#1-原生&quot; class=&quot;headerlink&quot; title=&quot;1. 原生&quot;&gt;&lt;/a&gt;1. 原生&lt;/h1&gt;&lt;p&gt;Android 原生使用HttpUrlCo
-      
-    
-    </summary>
-    
-      <category term="源码分析" scheme="http://caiyonglong.github.io/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>常用第三方库源码分析——Okhttp</title>
-    <link href="http://caiyonglong.github.io/2019/09/22/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/Okhttp%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    <id>http://caiyonglong.github.io/2019/09/22/源码分析/Okhttp源码分析/</id>
-    <published>2019-09-21T16:00:00.000Z</published>
-    <updated>2019-09-25T03:21:32.816Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="源码分析" scheme="http://caiyonglong.github.io/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="Okhttp" scheme="http://caiyonglong.github.io/tags/Okhttp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Handler消息机制</title>
-    <link href="http://caiyonglong.github.io/2019/09/22/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/Hander%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/"/>
-    <id>http://caiyonglong.github.io/2019/09/22/源码分析/Hander消息机制/</id>
-    <published>2019-09-21T16:00:00.000Z</published>
-    <updated>2019-09-25T03:57:43.072Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>平时工作中缺乏总结，写博客不是为别人，而是为自己，虽然网上很多类似的，但是自己还是得写一遍加深印象</p><h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><p>消息机制包含 Handler、MessageQueue、Message、Looper</p><p>拖欠图</p><p>Handler 发送消息，消息存入到消息队列中，然后Looper 循环执行消息队列。</p><h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="Handler-为什么会造成内存泄漏"><a href="#Handler-为什么会造成内存泄漏" class="headerlink" title="Handler 为什么会造成内存泄漏"></a>Handler 为什么会造成内存泄漏</h2><p>因为在Activity中，handler内部类引用了它，而该handler实例可能被MessageQueue引用着。比如发送了一个延时消息到队列中，那么就可能在队列中存在很长时间，而消息队列（MessageQueue）的生命周期等于它所在的线程。当大到Activity被finish()了后还在队列中时，就满足了上面的短生命周期引用长生命周期的条件。根据Java GC的规则，Activity的引用计数不为0，故不会回收</p><ul><li><p>解决办法</p><p>  1、保证Activity被finish()时该线程的消息队列没有这个Activity的handler内部类的引用<br>  2、要么让这个handler不持有Activity等外部组件实例，让该Handler成为静态内部类。（静态内部类是不持有外部类的实例的，因而也就调用不了外部的实例方法了）<br>  3、在2方法的基础上，为了能调用外部的实例方法，传递一个外部的弱引用进来</p></li></ul><h2 id="为什么消息Handler能实现跨线程通信"><a href="#为什么消息Handler能实现跨线程通信" class="headerlink" title="为什么消息Handler能实现跨线程通信"></a>为什么消息Handler能实现跨线程通信</h2><h2 id="为什么Looper循环不会导致ANR"><a href="#为什么Looper循环不会导致ANR" class="headerlink" title="为什么Looper循环不会导致ANR"></a>为什么Looper循环不会导致ANR</h2><p>ANR的基本概念</p><pre><code>1：5s内无法响应用户输入事件(例如键盘输入, 触摸屏幕等)2：BroadcastReceiver在10s内无法结束3：ServiceTimeout(20s) --小概率类型，Service在特定的时间内无法处理完成</code></pre><p>主线程Looper在哪里初始化</p><p>ActivityThread 类里面</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">       Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, &quot;ActivityThreadMain&quot;);</span><br><span class="line"></span><br><span class="line">       // CloseGuard defaults to true and can be quite spammy.  We</span><br><span class="line">       // disable it here, but selectively enable it later (via</span><br><span class="line">       // StrictMode) on debug builds, but using DropBox, not logs.</span><br><span class="line">       CloseGuard.setEnabled(false);</span><br><span class="line"></span><br><span class="line">       Environment.initForCurrentUser();</span><br><span class="line"></span><br><span class="line">       // Set the reporter for event logging in libcore</span><br><span class="line">       EventLogger.setReporter(new EventLoggingReporter());</span><br><span class="line"></span><br><span class="line">       // Make sure TrustedCertificateStore looks in the right place for CA certificates</span><br><span class="line">       final File configDir = Environment.getUserConfigDirectory(UserHandle.myUserId());</span><br><span class="line">       TrustedCertificateStore.setDefaultUserDirectory(configDir);</span><br><span class="line"></span><br><span class="line">       Process.setArgV0(&quot;&lt;pre-initialized&gt;&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       Looper.prepareMainLooper();</span><br><span class="line"></span><br><span class="line">       // Find the value for &#123;@link #PROC_START_SEQ_IDENT&#125; if provided on the command line.</span><br><span class="line">       // It will be in the format &quot;seq=114&quot;</span><br><span class="line">       long startSeq = 0;</span><br><span class="line">       if (args != null) &#123;</span><br><span class="line">           for (int i = args.length - 1; i &gt;= 0; --i) &#123;</span><br><span class="line">               if (args[i] != null &amp;&amp; args[i].startsWith(PROC_START_SEQ_IDENT)) &#123;</span><br><span class="line">                   startSeq = Long.parseLong(</span><br><span class="line">                           args[i].substring(PROC_START_SEQ_IDENT.length()));</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       ActivityThread thread = new ActivityThread();</span><br><span class="line">       thread.attach(false, startSeq);</span><br><span class="line"></span><br><span class="line">       if (sMainThreadHandler == null) &#123;</span><br><span class="line">           sMainThreadHandler = thread.getHandler();</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       if (false) &#123;</span><br><span class="line">           Looper.myLooper().setMessageLogging(new</span><br><span class="line">                   LogPrinter(Log.DEBUG, &quot;ActivityThread&quot;));</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       // End of event ActivityThreadMain.</span><br><span class="line">       Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</span><br><span class="line">       Looper.loop();</span><br><span class="line"></span><br><span class="line">       throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;平时工作中缺乏总结，写博客不是为别人，而是为自己，虽然网上很多类似的，但是自己还是得写一遍加深印象&lt;/p&gt;
-&lt;h1 id=&quot;基本原理&quot;&gt;&lt;a
-      
-    
-    </summary>
-    
-      <category term="源码分析" scheme="http://caiyonglong.github.io/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="Handler" scheme="http://caiyonglong.github.io/tags/Handler/"/>
     
   </entry>
   
@@ -381,27 +381,6 @@
   
   <entry>
     <title>Android面试</title>
-    <link href="http://caiyonglong.github.io/2018/04/27/interview/interview-2018/"/>
-    <id>http://caiyonglong.github.io/2018/04/27/interview/interview-2018/</id>
-    <published>2018-04-27T15:37:10.000Z</published>
-    <updated>2019-01-17T15:41:40.049Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Android面试"><a href="#Android面试" class="headerlink" title="Android面试"></a>Android面试</h2><p>1、Android 常用的设计模式有哪些，适配器模式<br>单例模式、适配器模式、工厂方法模式、Builder模式、<br>2、Android Studio 常用的一些优化方案<br>优化编译速度，修改配置文件，gradle本地本地构建</p><p>3、手写mvp模式的一种实现方案<br>我目前写的mvp主要是 契约类定义View和Presenter的一些方法接口，<br>然后present类实现契约类里面的preseter接口，实现具体的方法，处理数据逻辑，并调用view的接口方法<br>activity 实现契约类 view的方法。</p><p>4、Android内存优化方案</p><p>单例导致内存泄露<br>静态变量导致内存泄露<br>非静态内部类导致内存泄露<br>未取消注册或回调导致内存泄露<br>Timer和TimerTask导致内存泄露<br>集合中的对象未清理造成内存泄露<br>资源未关闭或释放导致内存泄露<br>属性动画造成内存泄露<br>WebView造成内存泄露</p><p>构造单例的时候尽量别用Activity的引用；<br>静态引用时注意应用对象的置空或者少用静态引用；<br>使用静态内部类+软引用代替非静态内部类；<br>及时取消广播或者观察者注册；<br>耗时任务、属性动画在Activity销毁时记得cancel；<br>文件流、Cursor等资源及时关闭；<br>Activity销毁时WebView的移除和销毁。</p><p>5、自定义View的绘制流程</p><ol><li><p>自定义View的属性；</p></li><li><p>在View的构造方法中获得自定义的属性；</p></li><li><p>重写onMeasure()； –&gt; 并不是必须的，大部分的时候还需要覆写</p></li><li><p>重写onDraw()；</p></li></ol><p>6、View的事件分发机制</p><p>Activity-&gt; ViewGroup -&gt;View<br>dispatchTouchEvent() 负责分发 =&gt;true被消费掉 -&gt; false继续往下传递 </p><p>7、使用了哪些三方框架 </p><p>8、谈一下Android的动画<br><a href="https://www.jianshu.com/p/2412d00a0ce4" target="_blank" rel="noopener">https://www.jianshu.com/p/2412d00a0ce4</a><br>9、rxbus2 是怎么实现的<br>基于rxjava的flowable ,观察着模式<br>10、Activity的启动流程<br>桌面上点击会调用Launcher的startActivity，=&gt;最后调用系统的startactivityforResult 然后在通过Binder与AMS进行进程间通信，ams fork一个新的进程出来<br>11、侧滑菜单的实现原理</p><p>12、service的两种启动方式<br>13、fragment与activity的通信方式<br>14、ArrayList 和 LinkList的区别<br>ArrayList 内部使用数组的形式实现了存储，实现了RandomAccess接口，利用数组的下面进行元素的访问，因此对元素的随机访问速度非常快。<br>LinkedList：内部使用双向链表的结构实现存储，LinkedList有一个内部类作为存放元素的单元，里面有三个属性，用来存放元素本身以及前后2个单元的引用，另外LinkedList内部还有一个header属性，用来标识起始位置，LinkedList的第一个单元和最后一个单元都会指向header，因此形成了一个双向的链表结构。</p><p>15、abstract 和 interface </p><p>相同点：<br>1.两者都是抽象类，都不能实例化<br>2.interface 实现类及abstract class 的子类都必须要实现已经声明的抽象方法。<br>不同点：<br>1.interface 实现，要用implements，而abstract class的实现，要用extends.<br>2.一个类可以实现多个interface,但一个类只能继承一个abstract class.<br>3.interface强调特定功能的实现，而abstract class强调所属关系<br>4.尽管interface实现类及abstract class的子类都必须要实现相应的抽象方法，但实现的形式不同。interface中的每一个方法都是抽象方法，都只是声明的（declaration,没有方法体），必须要实现。而abstract class的子类可以有选择地实现。</p><p>抽象类的这个选择有两点含义：一是Abstract class中并非所有的方法都是抽象的，只有那些冠有abstract的方法才是抽象的，子类必须实现。那些没有abstract class的方法，在abstract class中必须定义方法体。二是abstract class的子类在继承它时，对非抽象方法即可以直接继承，也可以覆盖；而对抽象方法，可以选择实现，也可以通过再次声明其方法为抽象的方式，无需实现，留给其子类来实现，但此类必须也声明为抽象类，即是抽象类，当然也不能实例化。<br>interface是完全抽象的，只能声明方法，而且只能声明public的方法，不能声明private 及protected的方法，不能定义方法体，也不能声明实例变量。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Android面试&quot;&gt;&lt;a href=&quot;#Android面试&quot; class=&quot;headerlink&quot; title=&quot;Android面试&quot;&gt;&lt;/a&gt;Android面试&lt;/h2&gt;&lt;p&gt;1、Android 常用的设计模式有哪些，适配器模式&lt;br&gt;单例模式、适配器模式、工
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Android面试</title>
     <link href="http://caiyonglong.github.io/2018/04/27/interview/android-exp/"/>
     <id>http://caiyonglong.github.io/2018/04/27/interview/android-exp/</id>
     <published>2018-04-27T15:37:10.000Z</published>
@@ -414,6 +393,27 @@
       
       
         &lt;h1 id=&quot;面试总结&quot;&gt;&lt;a href=&quot;#面试总结&quot; class=&quot;headerlink&quot; title=&quot;面试总结&quot;&gt;&lt;/a&gt;面试总结&lt;/h1&gt;&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Android面试</title>
+    <link href="http://caiyonglong.github.io/2018/04/27/interview/interview-2018/"/>
+    <id>http://caiyonglong.github.io/2018/04/27/interview/interview-2018/</id>
+    <published>2018-04-27T15:37:10.000Z</published>
+    <updated>2019-01-17T15:41:40.049Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Android面试"><a href="#Android面试" class="headerlink" title="Android面试"></a>Android面试</h2><p>1、Android 常用的设计模式有哪些，适配器模式<br>单例模式、适配器模式、工厂方法模式、Builder模式、<br>2、Android Studio 常用的一些优化方案<br>优化编译速度，修改配置文件，gradle本地本地构建</p><p>3、手写mvp模式的一种实现方案<br>我目前写的mvp主要是 契约类定义View和Presenter的一些方法接口，<br>然后present类实现契约类里面的preseter接口，实现具体的方法，处理数据逻辑，并调用view的接口方法<br>activity 实现契约类 view的方法。</p><p>4、Android内存优化方案</p><p>单例导致内存泄露<br>静态变量导致内存泄露<br>非静态内部类导致内存泄露<br>未取消注册或回调导致内存泄露<br>Timer和TimerTask导致内存泄露<br>集合中的对象未清理造成内存泄露<br>资源未关闭或释放导致内存泄露<br>属性动画造成内存泄露<br>WebView造成内存泄露</p><p>构造单例的时候尽量别用Activity的引用；<br>静态引用时注意应用对象的置空或者少用静态引用；<br>使用静态内部类+软引用代替非静态内部类；<br>及时取消广播或者观察者注册；<br>耗时任务、属性动画在Activity销毁时记得cancel；<br>文件流、Cursor等资源及时关闭；<br>Activity销毁时WebView的移除和销毁。</p><p>5、自定义View的绘制流程</p><ol><li><p>自定义View的属性；</p></li><li><p>在View的构造方法中获得自定义的属性；</p></li><li><p>重写onMeasure()； –&gt; 并不是必须的，大部分的时候还需要覆写</p></li><li><p>重写onDraw()；</p></li></ol><p>6、View的事件分发机制</p><p>Activity-&gt; ViewGroup -&gt;View<br>dispatchTouchEvent() 负责分发 =&gt;true被消费掉 -&gt; false继续往下传递 </p><p>7、使用了哪些三方框架 </p><p>8、谈一下Android的动画<br><a href="https://www.jianshu.com/p/2412d00a0ce4" target="_blank" rel="noopener">https://www.jianshu.com/p/2412d00a0ce4</a><br>9、rxbus2 是怎么实现的<br>基于rxjava的flowable ,观察着模式<br>10、Activity的启动流程<br>桌面上点击会调用Launcher的startActivity，=&gt;最后调用系统的startactivityforResult 然后在通过Binder与AMS进行进程间通信，ams fork一个新的进程出来<br>11、侧滑菜单的实现原理</p><p>12、service的两种启动方式<br>13、fragment与activity的通信方式<br>14、ArrayList 和 LinkList的区别<br>ArrayList 内部使用数组的形式实现了存储，实现了RandomAccess接口，利用数组的下面进行元素的访问，因此对元素的随机访问速度非常快。<br>LinkedList：内部使用双向链表的结构实现存储，LinkedList有一个内部类作为存放元素的单元，里面有三个属性，用来存放元素本身以及前后2个单元的引用，另外LinkedList内部还有一个header属性，用来标识起始位置，LinkedList的第一个单元和最后一个单元都会指向header，因此形成了一个双向的链表结构。</p><p>15、abstract 和 interface </p><p>相同点：<br>1.两者都是抽象类，都不能实例化<br>2.interface 实现类及abstract class 的子类都必须要实现已经声明的抽象方法。<br>不同点：<br>1.interface 实现，要用implements，而abstract class的实现，要用extends.<br>2.一个类可以实现多个interface,但一个类只能继承一个abstract class.<br>3.interface强调特定功能的实现，而abstract class强调所属关系<br>4.尽管interface实现类及abstract class的子类都必须要实现相应的抽象方法，但实现的形式不同。interface中的每一个方法都是抽象方法，都只是声明的（declaration,没有方法体），必须要实现。而abstract class的子类可以有选择地实现。</p><p>抽象类的这个选择有两点含义：一是Abstract class中并非所有的方法都是抽象的，只有那些冠有abstract的方法才是抽象的，子类必须实现。那些没有abstract class的方法，在abstract class中必须定义方法体。二是abstract class的子类在继承它时，对非抽象方法即可以直接继承，也可以覆盖；而对抽象方法，可以选择实现，也可以通过再次声明其方法为抽象的方式，无需实现，留给其子类来实现，但此类必须也声明为抽象类，即是抽象类，当然也不能实例化。<br>interface是完全抽象的，只能声明方法，而且只能声明public的方法，不能声明private 及protected的方法，不能定义方法体，也不能声明实例变量。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Android面试&quot;&gt;&lt;a href=&quot;#Android面试&quot; class=&quot;headerlink&quot; title=&quot;Android面试&quot;&gt;&lt;/a&gt;Android面试&lt;/h2&gt;&lt;p&gt;1、Android 常用的设计模式有哪些，适配器模式&lt;br&gt;单例模式、适配器模式、工
       
     
     </summary>
