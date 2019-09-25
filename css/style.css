@@ -2828,7 +2828,7 @@ hr,
   min-height: calc(100vh - 340px);
 }
 .container {
-  width: 960px;
+  width: 90%;
   margin: 0 auto;
 }
 .container:after {
@@ -3287,13 +3287,13 @@ pre .javascript .function {
   border-radius: 2px;
 }
 .article-tag-list-item:nth-child(n+1) {
-  background: #8bc34a;
+  background: #ff5722;
 }
 .article-tag-list-item:nth-child(n+2) {
-  background: #673ab7;
+  background: #259b24;
 }
 .article-tag-list-item:nth-child(n+3) {
-  background: #ff9800;
+  background: #ffc107;
 }
 .article-tag-list-item:nth-child(n+4) {
   background: #f44336;
@@ -3302,7 +3302,7 @@ pre .javascript .function {
   background: #00abc0;
 }
 .article-tag-list-item:nth-child(n+6) {
-  background: #2196f3;
+  background: #4a90e2;
 }
 .article-tag-list-link {
   display: block;
@@ -4889,10 +4889,10 @@ pre .javascript .function {
   color: #fff;
 }
 #comments.vcomment .vlist .vsys:nth-child(n+2) {
-  background: #8bc34a;
+  background: #ff5722;
 }
 #comments.vcomment .vlist .vsys:nth-child(n+3) {
-  background: #ff9800;
+  background: #ffc107;
 }
 #comments.vcomment .vlist .vsys:nth-child(n+4) {
   background: #f44336;
@@ -4901,7 +4901,7 @@ pre .javascript .function {
   background: #00abc0;
 }
 #comments.vcomment .vlist .vsys:nth-child(n+6) {
-  background: #2196f3;
+  background: #4a90e2;
 }
 #comments.vcomment .vlist a:hover,
 #comments.vcomment .vlist .vname:hover {

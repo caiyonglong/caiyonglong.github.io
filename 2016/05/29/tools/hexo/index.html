@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="蔡永龙的博客">
 <meta property="og:description" content="hexo常用命令使用hexo+github搭建属于自己的博客 1、新建12hexo new &quot;my blog&quot;hexo n &quot;my blog&quot; #缩写 新建一篇文章，文章标题如果存在空格，需要使用双引号,新建的文件在 hexo/source/_posts/my-blog.md 2、编译12hexo generatehexo g #缩写 一般部署上去的时候都需要编译一下，编译后，会出现一个 pub">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-04T15:22:02.607Z">
+<meta property="og:updated_time" content="2019-09-25T02:55:08.085Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo常用命令">
 <meta name="twitter:description" content="hexo常用命令使用hexo+github搭建属于自己的博客 1、新建12hexo new &quot;my blog&quot;hexo n &quot;my blog&quot; #缩写 新建一篇文章，文章标题如果存在空格，需要使用双引号,新建的文件在 hexo/source/_posts/my-blog.md 2、编译12hexo generatehexo g #缩写 一般部署上去的时候都需要编译一下，编译后，会出现一个 pub">
@@ -35,7 +35,7 @@
         <link rel="alternate" type="application/atom+xml" title="蔡永龙的博客" href="../../../../../atom.xml">
     
     <link rel="shortcut icon" href="../../../../../favicon.ico">
-    <link rel="stylesheet" href="../../../../../css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
@@ -115,6 +115,15 @@
             </li>
         
       </ul>
+      <div class="bottom" style="text-align: center;">
+        <p>&copy;2016 - 2019</p>
+            <p>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">湘ICP备19015354号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+        </p>
+    </div>
     </div>
   </div>
 </aside>
@@ -172,8 +181,8 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#hexo常用命令"><span class="post-toc-number">1.</span> <span class="post-toc-text">hexo常用命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、新建"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">1、新建</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、编译"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">2、编译</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3、开启本地服务"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">3、开启本地服务</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、部署"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">4、部署</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5、清除"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">5、清除</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#6、常用总结"><span class="post-toc-number">1.0.6.</span> <span class="post-toc-text">6、常用总结</span></a></li></ol></li></ol>
-        </nav>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#hexo常用命令"><span class="post-toc-text">hexo常用命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、新建"><span class="post-toc-text">1、新建</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、编译"><span class="post-toc-text">2、编译</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3、开启本地服务"><span class="post-toc-text">3、开启本地服务</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、部署"><span class="post-toc-text">4、部署</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5、清除"><span class="post-toc-text">5、清除</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#6、常用总结"><span class="post-toc-text">6、常用总结</span></a></li></ol></li></ol><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#indigo样式修改"><span class="post-toc-text">indigo样式修改</span></a>
+        </li></nav>
     </aside>
 
 
@@ -211,10 +220,21 @@
 <p>当 source 文件夹中的部分资源更改过之后，特别是对文件进行了删除或者路径的改变之后，需要执行这个命令，然后重新编译。</p>
 <h4 id="6、常用总结"><a href="#6、常用总结" class="headerlink" title="6、常用总结"></a>6、常用总结</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo n #写文章</span><br><span class="line">hexo g #生成</span><br><span class="line">hexo s #开启本地服务</span><br><span class="line">hexo d #部署 #可与hexo g合并为 hexo d -g</span><br></pre></td></tr></table></figure>
 <p>以上都是一些常用的命令，命令详细请访问<a href="https://hexo.io/docs/commands.html" target="_blank" rel="noopener">官网</a></p>
+<h1 id="indigo样式修改"><a href="#indigo样式修改" class="headerlink" title="indigo样式修改"></a>indigo样式修改</h1><p>修改文章页面卡片宽 将 contentWidth的原始值960px改为90%<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">../themes/indigo/source/css/_partial/variable.less</span><br></pre></td></tr></table></figure></p>
 
         </div>
 
         <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-09-25T02:55:08.085Z" itemprop="dateUpdated">2019-09-25 10:55:08</time>
+</span><br>
+
+
+        
+    </div>
     
     <footer>
         <a href="http://caiyonglong.github.io">
@@ -291,9 +311,9 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="../../../../08/25/api/wallpaper/" id="post-prev" class="post-nav-link">
+      <a href="../../../../08/25/post/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">爱壁纸音乐api</h4>
+        <h4 class="title">8-25</h4>
       </a>
     </div>
   
@@ -376,6 +396,8 @@
         <p><span>蔡永龙 &copy; 2016 - 2019</span>
             <span>
                 
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">湘ICP备19015354号</a><br>
+                
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
             </span>
             <span>
@@ -443,7 +465,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 
 </script>
 
-<script src="../../../../../js/main.min.js?v=1.7.2"></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
 
 
 <div class="search-panel" id="search-panel">
@@ -463,7 +485,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 </li>
 </template>
 
-<script src="../../../../../js/search.min.js?v=1.7.2" async></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
 

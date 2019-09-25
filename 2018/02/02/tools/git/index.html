@@ -35,7 +35,7 @@
         <link rel="alternate" type="application/atom+xml" title="蔡永龙的博客" href="../../../../../atom.xml">
     
     <link rel="shortcut icon" href="../../../../../favicon.ico">
-    <link rel="stylesheet" href="../../../../../css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
@@ -115,6 +115,15 @@
             </li>
         
       </ul>
+      <div class="bottom" style="text-align: center;">
+        <p>&copy;2016 - 2019</p>
+            <p>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">湘ICP备19015354号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+        </p>
+    </div>
     </div>
   </div>
 </aside>
@@ -172,7 +181,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git使用-总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">git使用 总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git初始化和拉取git分支"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">git初始化和拉取git分支</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改-amp-提交"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">修改&amp;提交</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分支管理"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">分支管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查看状态-amp-历史记录"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">查看状态&amp;历史记录</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#移植"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">移植</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常用命令"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">常用命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-log"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">git log</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-status"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">git status</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-add"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">git add</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-commit"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">git commit</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-checkout"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">git checkout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-branch"><span class="post-toc-number">1.1.6.</span> <span class="post-toc-text">git branch</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-reset"><span class="post-toc-number">1.1.7.</span> <span class="post-toc-text">git reset</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-clean"><span class="post-toc-number">1.1.8.</span> <span class="post-toc-text">git clean</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-pull"><span class="post-toc-number">1.1.9.</span> <span class="post-toc-text">git pull</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-push"><span class="post-toc-number">1.1.10.</span> <span class="post-toc-text">git push</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-cherry-pick"><span class="post-toc-number">1.1.11.</span> <span class="post-toc-text">git cherry-pick</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-merge"><span class="post-toc-number">1.1.12.</span> <span class="post-toc-text">git merge</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-diff"><span class="post-toc-number">1.1.13.</span> <span class="post-toc-text">git diff</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-tag"><span class="post-toc-number">1.1.14.</span> <span class="post-toc-text">git tag</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-rebase"><span class="post-toc-number">1.1.15.</span> <span class="post-toc-text">git rebase</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-stash"><span class="post-toc-number">1.1.16.</span> <span class="post-toc-text">git stash</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#gitk-图形界面"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">gitk 图形界面</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git使用-总结"><span class="post-toc-text">git使用 总结</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git初始化和拉取git分支"><span class="post-toc-text">git初始化和拉取git分支</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改-amp-提交"><span class="post-toc-text">修改&amp;提交</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分支管理"><span class="post-toc-text">分支管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查看状态-amp-历史记录"><span class="post-toc-text">查看状态&amp;历史记录</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#移植"><span class="post-toc-text">移植</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常用命令"><span class="post-toc-text">常用命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-log"><span class="post-toc-text">git log</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-status"><span class="post-toc-text">git status</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-add"><span class="post-toc-text">git add</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-commit"><span class="post-toc-text">git commit</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-checkout"><span class="post-toc-text">git checkout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-branch"><span class="post-toc-text">git branch</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-reset"><span class="post-toc-text">git reset</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-clean"><span class="post-toc-text">git clean</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-pull"><span class="post-toc-text">git pull</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-push"><span class="post-toc-text">git push</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-cherry-pick"><span class="post-toc-text">git cherry-pick</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-merge"><span class="post-toc-text">git merge</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-diff"><span class="post-toc-text">git diff</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-tag"><span class="post-toc-text">git tag</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-rebase"><span class="post-toc-text">git rebase</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git-stash"><span class="post-toc-text">git stash</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#gitk-图形界面"><span class="post-toc-text">gitk 图形界面</span></a></li></ol>
         </nav>
     </aside>
 
@@ -280,6 +289,16 @@
 
         <blockquote class="post-copyright">
     
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-12-04T15:22:02.607Z" itemprop="dateUpdated">2018-12-04 23:22:02</time>
+</span><br>
+
+
+        
+    </div>
+    
     <footer>
         <a href="http://caiyonglong.github.io">
             <img src="../../../../../img/avatar.jpg" alt="蔡永龙">
@@ -355,18 +374,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="../git_rebase/" id="post-prev" class="post-nav-link">
+      <a href="../../../../04/23/project/musiclake-buglist/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">git使用---修改历史提交记录</h4>
+        <h4 class="title">音乐湖项目遇到的问题</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="../../../../../2017/12/25/post/" id="post-next" class="post-nav-link">
+      <a href="../git_rebase/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">WallpaperPicker分析</h4>
+        <h4 class="title">git使用---修改历史提交记录</h4>
       </a>
     </div>
   
@@ -447,6 +466,8 @@
         <p><span>蔡永龙 &copy; 2016 - 2019</span>
             <span>
                 
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">湘ICP备19015354号</a><br>
+                
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
             </span>
             <span>
@@ -514,7 +535,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 
 </script>
 
-<script src="../../../../../js/main.min.js?v=1.7.2"></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
 
 
 <div class="search-panel" id="search-panel">
@@ -534,7 +555,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 </li>
 </template>
 
-<script src="../../../../../js/search.min.js?v=1.7.2" async></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
 

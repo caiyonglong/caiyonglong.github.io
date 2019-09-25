@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://caiyonglong.github.io/"/>
-  <updated>2019-09-13T18:58:23.508Z</updated>
+  <updated>2019-09-25T03:57:00.919Z</updated>
   <id>http://caiyonglong.github.io/</id>
   
   <author>
@@ -15,6 +15,164 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>常用第三方库源码分析——Glide</title>
+    <link href="http://caiyonglong.github.io/2019/09/22/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/Glide%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    <id>http://caiyonglong.github.io/2019/09/22/源码分析/Glide源码分析/</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2019-09-25T03:57:00.919Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://caiyonglong.github.io/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Glide" scheme="http://caiyonglong.github.io/tags/Glide/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Activity的启动流程</title>
+    <link href="http://caiyonglong.github.io/2019/09/22/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/Activity%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/"/>
+    <id>http://caiyonglong.github.io/2019/09/22/源码分析/Activity的启动流程/</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2019-09-25T03:20:33.894Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Ativity的启动流程一般可以分为两部分</p><ul><li>从桌面Launcher点击小图标，启动应打开主Activity</li><li>应用内startActivity启动其他Activity</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;Ativity的启动流程一般可以分为两部分&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从桌面Launcher点击小图标，启动应打开主Activity&lt;/li
+      
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://caiyonglong.github.io/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>常用第三方库源码分析——EventBus</title>
+    <link href="http://caiyonglong.github.io/2019/09/22/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/EventBus/"/>
+    <id>http://caiyonglong.github.io/2019/09/22/源码分析/EventBus/</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2019-09-25T03:22:16.410Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>EventBus是适用于Android和Java的发布/订阅事件总线。<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/images/EventBus-Publish-Subscribe.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure></p><p>1、定义事件<br>2、准备订阅者，声明并注释订阅方法，也可以指定线程模式<br>注册和注销订阅者<br>3、发送事件</p><h1 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h1><p>注册方法，Eventbus实例注册订阅者事件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public void register(Object subscriber) &#123;</span><br><span class="line">        //获取注册的对象的类型</span><br><span class="line">        Class&lt;?&gt; subscriberClass = subscriber.getClass();</span><br><span class="line">        //查找并获取注册的对象的订阅方法</span><br><span class="line">        List&lt;SubscriberMethod&gt; subscriberMethods = subscriberMethodFinder.findSubscriberMethods(subscriberClass);</span><br><span class="line">        //加锁，在同步锁中订阅方法</span><br><span class="line">        synchronized (this) &#123;</span><br><span class="line">            for (SubscriberMethod subscriberMethod : subscriberMethods) &#123;</span><br><span class="line">                //对订阅方法进行注册</span><br><span class="line">                subscribe(subscriber, subscriberMethod);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p><p>查找订阅者的订阅方法，METHOD_CACHE方法缓存，使用ConcurrentHashMap存储<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">List&lt;SubscriberMethod&gt; findSubscriberMethods(Class&lt;?&gt; subscriberClass) &#123;</span><br><span class="line">    //从缓存中获取订阅方法</span><br><span class="line">    List&lt;SubscriberMethod&gt; subscriberMethods = METHOD_CACHE.get(subscriberClass);</span><br><span class="line">    if (subscriberMethods != null) &#123;</span><br><span class="line">        return subscriberMethods;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //如果缓存中没有，则是否强制使用反射还是使用索引获取订阅方法</span><br><span class="line">    if (ignoreGeneratedIndex) &#123;</span><br><span class="line">        subscriberMethods = findUsingReflection(subscriberClass);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        subscriberMethods = findUsingInfo(subscriberClass);</span><br><span class="line">    &#125;</span><br><span class="line">    if (subscriberMethods.isEmpty()) &#123;</span><br><span class="line">        throw new EventBusException(&quot;Subscriber &quot; + subscriberClass</span><br><span class="line">                + &quot; and its super classes have no public methods with the @Subscribe annotation&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        METHOD_CACHE.put(subscriberClass, subscriberMethods);</span><br><span class="line">        return subscriberMethods;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;EventBus是适用于Android和Java的发布/订阅事件总线。&lt;br&gt;&lt;figure class=&quot;image-bubble&quot;&gt;
+ 
+      
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://caiyonglong.github.io/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Eventbus" scheme="http://caiyonglong.github.io/tags/Eventbus/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常用网络请求库对比——Volley、Okhttp、Retrofit对比</title>
+    <link href="http://caiyonglong.github.io/2019/09/22/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/volley%E3%80%81okhttp%E3%80%81retrofit%E5%88%86%E6%9E%90/"/>
+    <id>http://caiyonglong.github.io/2019/09/22/源码分析/volley、okhttp、retrofit分析/</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2019-09-25T03:56:12.597Z</updated>
+    
+    <content type="html"><![CDATA[<p>Volley、Okhttp、Retrofit三大网络请求库分析</p><h1 id="1-原生"><a href="#1-原生" class="headerlink" title="1. 原生"></a>1. 原生</h1><p>Android 原生使用HttpUrlConnection</p><h1 id="2-Volley"><a href="#2-Volley" class="headerlink" title="2. Volley"></a>2. Volley</h1><p>Volley 是 Google 官方出的一套小而巧的异步请求库，该框架封装的扩展性很强，支持 HttpClient、HttpUrlConnection，甚至支持 OkHttp，具体方法可以看 Jake 大神的这个 Gist 文件</p><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>在BasicNetwork中判断了statusCode(statusCode &lt; 200 || statusCode &gt; 299)，如何符合条件直接抛出IOException()，不够合理</p><p>导致401等其他状态抛出IOException<br>解决方案 :<br><a href="http://blog.csdn.net/kufeiyun/article/details/44646145" target="_blank" rel="noopener">http://blog.csdn.net/kufeiyun/article/details/44646145</a><br><a href="http://stackoverflow.com/questions/30476584/android-volley-strange-error-with-http-code-401-java-io-ioexception-no-authe" target="_blank" rel="noopener">http://stackoverflow.com/questions/30476584/android-volley-strange-error-with-http-code-401-java-io-ioexception-no-authe</a></p><p>图片加载性能一般</p><p>对大资源下载支持不够</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Volley、Okhttp、Retrofit三大网络请求库分析&lt;/p&gt;
+&lt;h1 id=&quot;1-原生&quot;&gt;&lt;a href=&quot;#1-原生&quot; class=&quot;headerlink&quot; title=&quot;1. 原生&quot;&gt;&lt;/a&gt;1. 原生&lt;/h1&gt;&lt;p&gt;Android 原生使用HttpUrlCo
+      
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://caiyonglong.github.io/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>常用第三方库源码分析——Okhttp</title>
+    <link href="http://caiyonglong.github.io/2019/09/22/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/Okhttp%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    <id>http://caiyonglong.github.io/2019/09/22/源码分析/Okhttp源码分析/</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2019-09-25T03:21:32.816Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://caiyonglong.github.io/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Okhttp" scheme="http://caiyonglong.github.io/tags/Okhttp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Handler消息机制</title>
+    <link href="http://caiyonglong.github.io/2019/09/22/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/Hander%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/"/>
+    <id>http://caiyonglong.github.io/2019/09/22/源码分析/Hander消息机制/</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2019-09-25T03:57:43.072Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>平时工作中缺乏总结，写博客不是为别人，而是为自己，虽然网上很多类似的，但是自己还是得写一遍加深印象</p><h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><p>消息机制包含 Handler、MessageQueue、Message、Looper</p><p>拖欠图</p><p>Handler 发送消息，消息存入到消息队列中，然后Looper 循环执行消息队列。</p><h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="Handler-为什么会造成内存泄漏"><a href="#Handler-为什么会造成内存泄漏" class="headerlink" title="Handler 为什么会造成内存泄漏"></a>Handler 为什么会造成内存泄漏</h2><p>因为在Activity中，handler内部类引用了它，而该handler实例可能被MessageQueue引用着。比如发送了一个延时消息到队列中，那么就可能在队列中存在很长时间，而消息队列（MessageQueue）的生命周期等于它所在的线程。当大到Activity被finish()了后还在队列中时，就满足了上面的短生命周期引用长生命周期的条件。根据Java GC的规则，Activity的引用计数不为0，故不会回收</p><ul><li><p>解决办法</p><p>  1、保证Activity被finish()时该线程的消息队列没有这个Activity的handler内部类的引用<br>  2、要么让这个handler不持有Activity等外部组件实例，让该Handler成为静态内部类。（静态内部类是不持有外部类的实例的，因而也就调用不了外部的实例方法了）<br>  3、在2方法的基础上，为了能调用外部的实例方法，传递一个外部的弱引用进来</p></li></ul><h2 id="为什么消息Handler能实现跨线程通信"><a href="#为什么消息Handler能实现跨线程通信" class="headerlink" title="为什么消息Handler能实现跨线程通信"></a>为什么消息Handler能实现跨线程通信</h2><h2 id="为什么Looper循环不会导致ANR"><a href="#为什么Looper循环不会导致ANR" class="headerlink" title="为什么Looper循环不会导致ANR"></a>为什么Looper循环不会导致ANR</h2><p>ANR的基本概念</p><pre><code>1：5s内无法响应用户输入事件(例如键盘输入, 触摸屏幕等)2：BroadcastReceiver在10s内无法结束3：ServiceTimeout(20s) --小概率类型，Service在特定的时间内无法处理完成</code></pre><p>主线程Looper在哪里初始化</p><p>ActivityThread 类里面</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">       Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, &quot;ActivityThreadMain&quot;);</span><br><span class="line"></span><br><span class="line">       // CloseGuard defaults to true and can be quite spammy.  We</span><br><span class="line">       // disable it here, but selectively enable it later (via</span><br><span class="line">       // StrictMode) on debug builds, but using DropBox, not logs.</span><br><span class="line">       CloseGuard.setEnabled(false);</span><br><span class="line"></span><br><span class="line">       Environment.initForCurrentUser();</span><br><span class="line"></span><br><span class="line">       // Set the reporter for event logging in libcore</span><br><span class="line">       EventLogger.setReporter(new EventLoggingReporter());</span><br><span class="line"></span><br><span class="line">       // Make sure TrustedCertificateStore looks in the right place for CA certificates</span><br><span class="line">       final File configDir = Environment.getUserConfigDirectory(UserHandle.myUserId());</span><br><span class="line">       TrustedCertificateStore.setDefaultUserDirectory(configDir);</span><br><span class="line"></span><br><span class="line">       Process.setArgV0(&quot;&lt;pre-initialized&gt;&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       Looper.prepareMainLooper();</span><br><span class="line"></span><br><span class="line">       // Find the value for &#123;@link #PROC_START_SEQ_IDENT&#125; if provided on the command line.</span><br><span class="line">       // It will be in the format &quot;seq=114&quot;</span><br><span class="line">       long startSeq = 0;</span><br><span class="line">       if (args != null) &#123;</span><br><span class="line">           for (int i = args.length - 1; i &gt;= 0; --i) &#123;</span><br><span class="line">               if (args[i] != null &amp;&amp; args[i].startsWith(PROC_START_SEQ_IDENT)) &#123;</span><br><span class="line">                   startSeq = Long.parseLong(</span><br><span class="line">                           args[i].substring(PROC_START_SEQ_IDENT.length()));</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       ActivityThread thread = new ActivityThread();</span><br><span class="line">       thread.attach(false, startSeq);</span><br><span class="line"></span><br><span class="line">       if (sMainThreadHandler == null) &#123;</span><br><span class="line">           sMainThreadHandler = thread.getHandler();</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       if (false) &#123;</span><br><span class="line">           Looper.myLooper().setMessageLogging(new</span><br><span class="line">                   LogPrinter(Log.DEBUG, &quot;ActivityThread&quot;));</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       // End of event ActivityThreadMain.</span><br><span class="line">       Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</span><br><span class="line">       Looper.loop();</span><br><span class="line"></span><br><span class="line">       throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;平时工作中缺乏总结，写博客不是为别人，而是为自己，虽然网上很多类似的，但是自己还是得写一遍加深印象&lt;/p&gt;
+&lt;h1 id=&quot;基本原理&quot;&gt;&lt;a
+      
+    
+    </summary>
+    
+      <category term="源码分析" scheme="http://caiyonglong.github.io/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Handler" scheme="http://caiyonglong.github.io/tags/Handler/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android面试</title>
+    <link href="http://caiyonglong.github.io/2019/09/21/interview/interview-2019/"/>
+    <id>http://caiyonglong.github.io/2019/09/21/interview/interview-2019/</id>
+    <published>2019-09-20T16:00:00.000Z</published>
+    <updated>2019-09-25T03:58:57.193Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>面试的前提是能够通过初选，初选的前提是要一份好的简历，能突出你的特点和专长，以及和岗位要求的相关。因公司转型游戏，所以不得不考虑自己以后的发展，寻求合适的工作机会，下面主要分享一下9月份的面试经验以及一些感悟。</p><h1 id="共同问题-HR-问题"><a href="#共同问题-HR-问题" class="headerlink" title="共同问题/HR 问题"></a>共同问题/HR 问题</h1><p>这些属于非技术问题，算是属于HR相关问题，主管面试也可能会问到，所以这些在面试过程中会占很大的比例，虽然有些问题很尖锐，但是不得不回答</p><ul><li>自我介绍一下</li><li>离职的原因</li><li>为什么离职后没立即找工作</li><li>期望薪资为什么要比上家公司高这么多</li><li>你的优缺点是什么</li><li>你在上家公司的绩效怎么样</li><li>你的职业发展规划是什么，为什么选择来我们公司面试</li><li>…</li></ul><h1 id="TCL-TV面试"><a href="#TCL-TV面试" class="headerlink" title="TCL TV面试"></a>TCL TV面试</h1><p>第一次面试，因为准备不足，在技术总管面试时，一些问题没回答好</p><h2 id="一面（两技术）"><a href="#一面（两技术）" class="headerlink" title="一面（两技术）"></a>一面（两技术）</h2><ul><li>介绍一下MVC、MVP、MVVM的区别</li><li>自定义View</li><li>Glide原理，就是不用这些三方框架，自己实现一个图片加载框架</li><li>Kotlin和Java、Flutter之间的区别</li><li>Flutter 中的权限申请、设备接口</li><li>Android系统适配。静态广播=&gt; 只注册广播，如果不在代码里启动，用什么方式启动，</li><li>做了哪些优化</li><li>ANR怎么检测</li><li>谈一下So加壳</li><li>怎么快速定位问题（例如某个效果实现和需求不一致，怎么快速定位位置）</li><li>对Android TV应用有了解吗</li></ul><h2 id="二面（技术主管）"><a href="#二面（技术主管）" class="headerlink" title="二面（技术主管）"></a>二面（技术主管）</h2><ul><li>介绍一下MVC、MVP、MVVM的区别</li><li>Kotlin与Flutter区别</li><li>进程间通信有哪些</li><li>怎么看待加班的问题</li><li>说一下自己优缺点</li><li>兴趣爱好</li><li>说一下项目中遇到的问题</li><li>EventBus 的实现</li><li>为什么一个月没找工作，现在又找了？</li></ul><h1 id="TCL-商用"><a href="#TCL-商用" class="headerlink" title="TCL 商用"></a>TCL 商用</h1><p>有笔试，都是一些常见的面试题。大概有50多道，包含了Android面试中大部分的问题。主管面试主要问的是主要项目，问项目中遇到的问题，和一些疑难点以及怎么解决的</p><h1 id="平安寿险"><a href="#平安寿险" class="headerlink" title="平安寿险"></a>平安寿险</h1><p>岗位要求是招一个会Flutter开发的，有相关经验，能够使用Android和Flutter 做混合开发</p><h2 id="技术面试"><a href="#技术面试" class="headerlink" title="技术面试"></a>技术面试</h2><ul><li>使用过rxjava吗，一般有哪些场景有用到rxjava，rxjava的使用流程</li><li>自定义View的流程有哪些</li><li>会使用Flutter 做混合吗</li><li>性能优化有哪些</li><li>…</li></ul><h2 id="主管面试（面了两个）"><a href="#主管面试（面了两个）" class="headerlink" title="主管面试（面了两个）"></a>主管面试（面了两个）</h2><ul><li>你的性格怎么样</li><li>在工作中有什么问题吗</li><li>项目中的功能是怎么实现的</li><li>Flutter和Kotlin有什么区别</li><li>…</li></ul><h1 id="糗事百科-热猫直播"><a href="#糗事百科-热猫直播" class="headerlink" title="糗事百科 热猫直播"></a>糗事百科 热猫直播</h1><h2 id="技术面试-1"><a href="#技术面试-1" class="headerlink" title="技术面试"></a>技术面试</h2><ul><li>性能优化</li><li>AsyncTask 的原理，为什么能实现线程切换</li><li>Handler机制</li><li>Looper 是在那里初始化的</li><li>自定义View</li><li>事件分发机制</li></ul><h1 id="腾讯"><a href="#腾讯" class="headerlink" title="腾讯"></a>腾讯</h1><h2 id="电话面试"><a href="#电话面试" class="headerlink" title="电话面试"></a>电话面试</h2><ul><li>Handler 机制</li><li>Looper循环为什么没有崩溃</li><li>能不能在子线程处理Handler.handlerMessage. 怎么做</li><li>性能优化</li><li>Java内存模型</li><li>本地方法栈和堆的区别</li><li>自定义View 的绘制流程，measure 绘制次数</li><li>LeakCanary 原理</li></ul><h2 id="面试"><a href="#面试" class="headerlink" title="面试"></a>面试</h2><h3 id="项目提问"><a href="#项目提问" class="headerlink" title="项目提问"></a>项目提问</h3><ul><li>项目架构</li><li>性能优化</li><li>安装包优化</li><li>merge怎么能减少布局层级，原理是什么<h3 id="基础知识提问"><a href="#基础知识提问" class="headerlink" title="基础知识提问"></a>基础知识提问</h3></li><li>手写一种单例模式，说下双重锁单例模式，类锁、对象锁的区别</li><li>数据存储<ul><li>多线程中操作sharedprefrenced</li></ul></li><li>事件分发机制<ul><li>事件怎么传递的</li><li>dispatchTouchEvent、onInterceptTouchEvent 区别和关联</li><li>和onTouchEvent 的onTouchDown、onTouchMove、onTouchUp</li></ul></li><li>Rxjava<ul><li>说一下响应式编程</li></ul></li><li>Flutter 和Android有什么区别，有什么缺点<ul><li>Flutter listView 和RecyclcerView的效率问题</li><li>Flutter 绘制在Android的哪里</li></ul></li><li>看过什么源码<ul><li>EventBus</li></ul></li></ul><h1 id="联友科技面试"><a href="#联友科技面试" class="headerlink" title="联友科技面试"></a>联友科技面试</h1><ul><li>自我介绍</li><li>说一下性能优化</li><li>自定义View绘制</li><li>有使用什么内存分析工具</li><li>有看过什么框架源码吗</li><li>消息机制</li><li>事件分发机制</li><li>进程间通信</li><li>git管理</li></ul><h1 id="insta360"><a href="#insta360" class="headerlink" title="insta360"></a>insta360</h1><p>主要针对复杂度的业务方面，找一个合理的设计模式来设计。可能自己没有接触过复杂的项目，对于一些复杂功能的设计缺乏经验，无法将所学的设计模式或者架构设计运用到具体的功能实现中去。所以这方面需要加强</p><ul><li>Mediaplayer 底层方法调用原理，如切换下一首，会干什么</li><li>说一下回调和eventbus区别，为什么选用eventbus</li><li>横竖屏切换，使用不同的布局，怎么保存播放缓存的进度</li><li>说一下消息机制</li><li>handler机制内存泄露具体有哪些场景</li><li>MVC与MVP区别</li><li>对于复杂业务，如直播聊天室，多个fragment和activity，怎么设计，要求低耦合。</li><li>根据分享流程（检查网络状态，设置图片，选择分享方式，生成分享图片，分享），用什么设计模式来设计</li></ul><h1 id="汇星数字技术"><a href="#汇星数字技术" class="headerlink" title="汇星数字技术"></a>汇星数字技术</h1><p>面试题问的比较深入，要熟悉每个阶段的原理才能回答</p><ul><li>ExoPlayer 流程</li><li>WebSocket消息处理，发送或者接受是否是同一个线程里面吗</li><li>消息机制</li><li>ArrayList 和 LinkList 区别</li><li>okhttp原理</li><li>事件分发</li></ul><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>经过多次的面试，可能因为每次面试题度差不多我感觉面试还是需要好好的复习，准备。<br>平时工作的时候，要总结归纳遇到过的知识点，尽管当时没时间，但事后必须进行总结，深入理解。对于各个使用的三方库，空闲时间可以对源码进行分析一遍，带着问题去看源码，或者跟着使用流程去阅读源码，从中发散。不要怕看不懂，怕忘记。也可以写博客，记录一下分析的流程，也可以参照他人的文章来写。增加一些自己的描述或看法。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;面试的前提是能够通过初选，初选的前提是要一份好的简历，能突出你的特点和专长，以及和岗位要求的相关。因公司转型游戏，所以不得不考虑自己以后的发
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>建造者模式</title>
@@ -43,7 +201,7 @@
     <link href="http://caiyonglong.github.io/2019/09/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/"/>
     <id>http://caiyonglong.github.io/2019/09/13/设计模式/责任链模式/</id>
     <published>2019-09-13T06:00:16.000Z</published>
-    <updated>2019-09-13T18:54:17.749Z</updated>
+    <updated>2019-09-24T17:58:16.721Z</updated>
     
     <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>责任链模式 (Chain of Responsibility Pattern)是一种常见的行为模式。<br>责任链模式为请求创建了一个接收者对象的链。这种模式给予请求的类型，对请求的发送者和接收者进行解耦。这种类型的设计模式属于行为型模式。<br>在这种模式中，通常每个接收者都包含对另一个接收者的引用。如果一个对象不能处理该请求，那么它会把相同的请求传给下一个接收者，依此类推。</p><h1 id="典型实例"><a href="#典型实例" class="headerlink" title="典型实例"></a>典型实例</h1><p>okhttp 拦截器（Interceptor）就使用了责任链模式</p>]]></content>
     
@@ -139,11 +297,11 @@
   </entry>
   
   <entry>
-    <title>Dagger2 分析</title>
+    <title>常用第三方库源码分析——Dagger2</title>
     <link href="http://caiyonglong.github.io/2019/08/15/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/Dagger2/"/>
     <id>http://caiyonglong.github.io/2019/08/15/源码分析/Dagger2/</id>
     <published>2019-08-15T02:04:02.000Z</published>
-    <updated>2019-09-13T18:05:20.966Z</updated>
+    <updated>2019-09-25T03:57:24.331Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Dagger2-是什么？"><a href="#Dagger2-是什么？" class="headerlink" title="Dagger2 是什么？"></a>Dagger2 是什么？</h1><p>Dagger2是Dagger的升级版，是一个依赖注入框架,第一代由大名鼎鼎的Square公司共享出来，第二代则是由谷歌接手后推出的，现在由Google接手维护.</p><p>Google dagger <a href="https://github.com/google/dagger" target="_blank" rel="noopener">Github 地址</a></p><p>Dagger是依赖注入的编译时框架。 它不使用反射或运行时字节码生成，在编译时进行所有分析，并生成纯Java源代码。</p><p>Gladle引入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// Add Dagger dependencies</span><br><span class="line">dependencies &#123;</span><br><span class="line">  api &apos;com.google.dagger:dagger:2.x&apos;</span><br><span class="line">  annotationProcessor &apos;com.google.dagger:dagger-compiler:2.x&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
     
@@ -156,7 +314,7 @@
     
     </summary>
     
-      <category term="Android" scheme="http://caiyonglong.github.io/categories/Android/"/>
+      <category term="源码分析" scheme="http://caiyonglong.github.io/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
   </entry>
@@ -223,27 +381,6 @@
   
   <entry>
     <title>Android面试</title>
-    <link href="http://caiyonglong.github.io/2018/04/27/interview/android-exp/"/>
-    <id>http://caiyonglong.github.io/2018/04/27/interview/android-exp/</id>
-    <published>2018-04-27T15:37:10.000Z</published>
-    <updated>2019-01-17T15:41:48.365Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>对于经历的面试，总结一下面试题。不同的公司因为有自己的招聘要求，所以有时会侧重问某一方面。</p><h2 id="Android面试"><a href="#Android面试" class="headerlink" title="Android面试"></a>Android面试</h2><p>1、Android 常用的设计模式有哪些<br>2、Android Studio 常用的一些优化方案<br>3、手写mvp模式的一种实现方案<br>4、Android内存优化方案<br>5、自定义View的绘制流程<br>6、View的事件分发机制<br>7、使用了哪些三方框架<br>8、谈一下Android的动画<br>9、rxbus2 是怎么实现的<br>10、Activity的启动流程<br>11、侧滑菜单的实现原理<br>12、service的两种启动方式<br>13、fragment与activity的通信方式<br>14、</p><p>项目相关<br>1、对于自己做的项目，遇到了哪些问题，是怎么解决的<br>2、公司主要的工作、测试apk<br>3、为什么要替换图片请求框架<br>4、有接入过三方的平台的经验吗，接入友盟推送<br>5、知道哪些数据库框架吗，<br>6、音频焦点</p><p>编译相关<br>1、怎么优化Android studio的编译速度<br>2、build.gradle<br>3、Android studio的目录结构<br>4、64K问题</p><p>JAVA基础<br>1、StringBuilder和StringBuffer 的区别<br>2、Java IO流<br>3、常用的数据结构有哪些</p><p>数据库相关<br>新增1w条数据，采用事务方式插入，查询倒序DESC 升序 ASC<br>因为数据库操作的本质是对文件的读写操作，所以会有一定的延迟性</p><p>===============================分割线=================================<br>面试的具体题目，还得看公司的具体要求，如果有些公司的招聘要求上特别强调某一点，就需要对这强调的一点准备充分。</p><p>笔试题</p><p>View的绘制流程<br>屏幕适配方案<br>内存优化方案</p><p>请求后台接口的对策</p><p>Android：Activity与Fragment通信(99%)完美解决方案<br><a href="https://www.jianshu.com/p/1b824e26105b" target="_blank" rel="noopener">https://www.jianshu.com/p/1b824e26105b</a></p><p>fragment的作用</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;面试总结&quot;&gt;&lt;a href=&quot;#面试总结&quot; class=&quot;headerlink&quot; title=&quot;面试总结&quot;&gt;&lt;/a&gt;面试总结&lt;/h1&gt;&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Android面试</title>
     <link href="http://caiyonglong.github.io/2018/04/27/interview/interview-2018/"/>
     <id>http://caiyonglong.github.io/2018/04/27/interview/interview-2018/</id>
     <published>2018-04-27T15:37:10.000Z</published>
@@ -256,6 +393,27 @@
       
       
         &lt;h2 id=&quot;Android面试&quot;&gt;&lt;a href=&quot;#Android面试&quot; class=&quot;headerlink&quot; title=&quot;Android面试&quot;&gt;&lt;/a&gt;Android面试&lt;/h2&gt;&lt;p&gt;1、Android 常用的设计模式有哪些，适配器模式&lt;br&gt;单例模式、适配器模式、工
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Android面试</title>
+    <link href="http://caiyonglong.github.io/2018/04/27/interview/android-exp/"/>
+    <id>http://caiyonglong.github.io/2018/04/27/interview/android-exp/</id>
+    <published>2018-04-27T15:37:10.000Z</published>
+    <updated>2019-01-17T15:41:48.365Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>对于经历的面试，总结一下面试题。不同的公司因为有自己的招聘要求，所以有时会侧重问某一方面。</p><h2 id="Android面试"><a href="#Android面试" class="headerlink" title="Android面试"></a>Android面试</h2><p>1、Android 常用的设计模式有哪些<br>2、Android Studio 常用的一些优化方案<br>3、手写mvp模式的一种实现方案<br>4、Android内存优化方案<br>5、自定义View的绘制流程<br>6、View的事件分发机制<br>7、使用了哪些三方框架<br>8、谈一下Android的动画<br>9、rxbus2 是怎么实现的<br>10、Activity的启动流程<br>11、侧滑菜单的实现原理<br>12、service的两种启动方式<br>13、fragment与activity的通信方式<br>14、</p><p>项目相关<br>1、对于自己做的项目，遇到了哪些问题，是怎么解决的<br>2、公司主要的工作、测试apk<br>3、为什么要替换图片请求框架<br>4、有接入过三方的平台的经验吗，接入友盟推送<br>5、知道哪些数据库框架吗，<br>6、音频焦点</p><p>编译相关<br>1、怎么优化Android studio的编译速度<br>2、build.gradle<br>3、Android studio的目录结构<br>4、64K问题</p><p>JAVA基础<br>1、StringBuilder和StringBuffer 的区别<br>2、Java IO流<br>3、常用的数据结构有哪些</p><p>数据库相关<br>新增1w条数据，采用事务方式插入，查询倒序DESC 升序 ASC<br>因为数据库操作的本质是对文件的读写操作，所以会有一定的延迟性</p><p>===============================分割线=================================<br>面试的具体题目，还得看公司的具体要求，如果有些公司的招聘要求上特别强调某一点，就需要对这强调的一点准备充分。</p><p>笔试题</p><p>View的绘制流程<br>屏幕适配方案<br>内存优化方案</p><p>请求后台接口的对策</p><p>Android：Activity与Fragment通信(99%)完美解决方案<br><a href="https://www.jianshu.com/p/1b824e26105b" target="_blank" rel="noopener">https://www.jianshu.com/p/1b824e26105b</a></p><p>fragment的作用</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;面试总结&quot;&gt;&lt;a href=&quot;#面试总结&quot; class=&quot;headerlink&quot; title=&quot;面试总结&quot;&gt;&lt;/a&gt;面试总结&lt;/h1&gt;&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h
       
     
     </summary>
@@ -314,176 +472,6 @@
     
     
       <category term="杂谈" scheme="http://caiyonglong.github.io/tags/%E6%9D%82%E8%B0%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>音乐湖项目遇到的问题</title>
-    <link href="http://caiyonglong.github.io/2018/04/23/project/musiclake-buglist/"/>
-    <id>http://caiyonglong.github.io/2018/04/23/project/musiclake-buglist/</id>
-    <published>2018-04-23T10:21:16.000Z</published>
-    <updated>2018-12-04T15:22:02.607Z</updated>
-    
-    <content type="html"><![CDATA[<p>1、ViewPager中fragment A，点击跳转切换到另外一个Fragment B(addFragment 添加B),<br>然后返回到A(回退栈顶的A)。A中的数据不刷新。尝试了在onResume中,添加更新,但是效果还是一样。</p><p>解决办法,引入事件总线RxBus.</p><p>2、适配Android 8.0 出现<br>java.lang.IllegalStateException: Only fullscreen opaque activities can request orientation</p><p>只有全屏不透明的活动才能请求方向.主要是manifest中定义了android:screenOrientation=”portrait” 和设置半透明主题导致。</p><p>3、使用Rxbus时，退出Activity。然后从通知栏进入程序崩溃。</p><p>4、Retrofit gson解析数据QQ音乐歌词数据时，抛出异常，因为返回的数据不是一个完整的json数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">io.reactivex.exceptions.OnErrorNotImplementedException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 1 path $</span><br><span class="line">....</span><br></pre></td></tr></table></figure></p><p>返回数据格式jsonp格式：MusicJsonCallback({…})。<br>通过下面的解决方法，不会抛出异常。但是获得的String 数据只有MusicJsonCallback( .这部分<br>重要部分不知道去哪了…<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = new GsonBuilder()</span><br><span class="line">        .setLenient()</span><br><span class="line">        .create();</span><br><span class="line"></span><br><span class="line">Retrofit retrofit = new Retrofit.Builder()</span><br><span class="line">        .baseUrl(BASE_URL)</span><br><span class="line">        .client(client)</span><br><span class="line">        .addConverterFactory(GsonConverterFactory.create(gson))</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure></p><p>不得已，最后尝试重写GSON转换器。遇到一个大坑那就是ResponseBody //ResponseData中的流只能使用一次，我们先将流中的数据读出在byte数组中。这个方法中已经关闭了ResponseBody,所以不需要再关闭了  </p><p>5、Observable<t> 转换成 Observable<s><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//lamba表达式</span><br><span class="line">Observable.flatMap(T -&gt; &#123;</span><br><span class="line">    return Observable.fromArray(S);</span><br><span class="line">&#125;</span><br><span class="line">//Java表达式</span><br><span class="line">Observable.flatMap(new Function&lt;T, ObservableSource&lt;?&gt;&gt;() &#123;</span><br><span class="line">                    @Override</span><br><span class="line">                    public ObservableSource&lt;?&gt; apply(T tt) throws Exception &#123;</span><br><span class="line">                        return null;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br></pre></td></tr></table></figure></s></t></p><p>6、Retrofit 多个网络请求合并使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Observable.merge(QQApiServiceImpl.search(key, limit, page), XiamiServiceImpl.search(key, limit, page))</span><br><span class="line">               .subscribeOn(Schedulers.io())</span><br><span class="line">               .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">               .subscribe(new Observer&lt;List&lt;Music&gt;&gt;() &#123;</span><br><span class="line">                   @Override</span><br><span class="line">                   public void onSubscribe(Disposable d) &#123;</span><br><span class="line"></span><br><span class="line">                   &#125;</span><br><span class="line"></span><br><span class="line">                   @Override</span><br><span class="line">                   public void onNext(List&lt;Music&gt; results) &#123;</span><br><span class="line">                       mView.showSearchResult(results);</span><br><span class="line">                   &#125;</span><br><span class="line"></span><br><span class="line">                   @Override</span><br><span class="line">                   public void onError(Throwable e) &#123;</span><br><span class="line">                       mView.showEmptyView();</span><br><span class="line">                       mView.hideLoading();</span><br><span class="line">                   &#125;</span><br><span class="line"></span><br><span class="line">                   @Override</span><br><span class="line">                   public void onComplete() &#123;</span><br><span class="line">                       mView.hideLoading();</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;);</span><br></pre></td></tr></table></figure></p><p>7、封装MediaPlayer，prepareAsync()装载异常，还有getDuration会出现数据异常<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//异步装载数据</span><br><span class="line">player.prepareAsync();</span><br><span class="line">//设置异步装载完毕监听事件</span><br><span class="line">player.setOnPreparedListener(this);</span><br><span class="line">//设置异步装载进度</span><br><span class="line">player.setOnBufferingUpdateListener(this);</span><br></pre></td></tr></table></figure></p><p>8、ViewPager中 多点触碰导致<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalArgumentException: pointerIndex out of range</span><br><span class="line">    at android.view.MotionEvent.nativeGetAxisValue(Native Method)</span><br></pre></td></tr></table></figure></p><p>原因分析：<br>在LrcView中,因为调用了requestDisallowInterceptTouchEvent来区分左右滑动和上下滑动，<br>所以会导致父类的view多点触摸有些情况下会出现数组溢出的情况.<br>解决办法</p><ul><li>利用try{}catch(){}抛出异常</li><li>重写ViewPager中的onTouchEvent 和onInterceptTouchEvent。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class MultiTouchViewPager extends ViewPager &#123;</span><br><span class="line"></span><br><span class="line">    public MultiTouchViewPager(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public MultiTouchViewPager(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent ev) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            return super.onTouchEvent(ev);</span><br><span class="line">        &#125; catch (IllegalArgumentException ex) &#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean onInterceptTouchEvent(MotionEvent ev) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            return super.onInterceptTouchEvent(ev);</span><br><span class="line">        &#125; catch (IllegalArgumentException ex) &#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><p>9、InputEventReceiver: Attempted to finish an input event but the input event receiver has already been disposed.</p><p>10、重构数据库，当插入十几条数据或更多时，其中重复的数据更新数据库，不重复的添加进去，能不能用一条语句实现？</p><p>11、再次设计数据库，播放队列，播放历史设计成一种特殊的歌单数据。</p><p>12、增加setNextMediaPlayer方法时，抛出异常<br>E/MediaPlayer: next player is not prepared</p><p>13、Observable.flatmap 操作符的使用</p><p>14、Attempt to invoke interface method 接口<br>下载服务接口更新下载状态。</p><p>15、AudioManager控制播放</p><p>16、播放暂停恢复，音量变化</p><p>17、线控</p><p>18、对于ViewPager+Fragment+Tablayout中 懒加载优化。</p><p>19、getwidth()和getheight()已经过时使用point<br>//屏幕宽高</p><pre><code>Displaydisplay = getWindowManager().getDefaultDisplay();Pointsize = newPoint();display.getSize(size);width = size.x;height = size.y;</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;1、ViewPager中fragment A，点击跳转切换到另外一个Fragment B(addFragment 添加B),&lt;br&gt;然后返回到A(回退栈顶的A)。A中的数据不刷新。尝试了在onResume中,添加更新,但是效果还是一样。&lt;/p&gt;
-&lt;p&gt;解决办法,引入事件总线
-      
-    
-    </summary>
-    
-      <category term="Android" scheme="http://caiyonglong.github.io/categories/Android/"/>
-    
-    
-      <category term="MusicLake" scheme="http://caiyonglong.github.io/tags/MusicLake/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>音乐湖应用介绍</title>
-    <link href="http://caiyonglong.github.io/2018/04/23/project/musiclake_introduce/"/>
-    <id>http://caiyonglong.github.io/2018/04/23/project/musiclake_introduce/</id>
-    <published>2018-04-23T10:21:16.000Z</published>
-    <updated>2019-09-13T18:04:13.860Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="MusicLake"><a href="#MusicLake" class="headerlink" title="MusicLake "></a>MusicLake <figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://travis-ci.org/caiyonglong/MusicLake.svg?branch=develop" alt="" title="">                </div>                <div class="image-caption"></div>            </figure></h1><p><a href="https://travis-ci.org/caiyonglong/MusicLake" target="_blank" rel="noopener">项目地址</a></p><h1 id="功能版本"><a href="#功能版本" class="headerlink" title="功能版本"></a>功能版本</h1><ul><li>Android 音乐播放器(本地/在线播放) （最低支持Android版本5.0）</li><li>支持多平台音乐源，百度音乐，虾米音乐、网易云音乐、Youtube（需要翻墙）</li><li>歌词播放、桌面歌词、桌面小控件</li><li>通知栏控制、线控播放、音频焦点控制</li><li>QQ登录、微博登陆、在线歌单同步</li><li>网易云热门歌手，百度电台列表，网易云mv排行榜，mv播放评论</li><li>酷狗歌词搜索、修改歌词样式、歌词翻译</li><li>精力有限，需求不饱和都会逐步完善</li><li><p><a href="https://github.com/sunzongzheng/music" target="_blank" rel="noopener">PC端</a></p></li><li><p><a href="https://jq.qq.com/?_wv=1027&amp;k=5XrNrCJ" target="_blank" rel="noopener">交流群:549939157</a> 加群需要问题验证，正确回答：github</p></li></ul><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/images/features.png" alt="功能" title="">                </div>                <div class="image-caption">功能</div>            </figure><h3 id="开源不易，有兴趣可给个star，支持一下哦！"><a href="#开源不易，有兴趣可给个star，支持一下哦！" class="headerlink" title="开源不易，有兴趣可给个star，支持一下哦！"></a>开源不易，有兴趣可给个star，支持一下哦！</h3><p>持续更新，有什么问题可以提<a href="https://github.com/caiyonglong/MusicLake/issues" target="_blank" rel="noopener">issues</a>！</p><h1 id="相关项目-音乐API"><a href="#相关项目-音乐API" class="headerlink" title="相关项目|音乐API"></a>相关项目|音乐API</h1><ul><li><a href="https://github.com/caiyonglong/MusicApi" target="_blank" rel="noopener">客户端音乐API</a></li><li><a href="https://github.com/sunzongzheng/musicApi" target="_blank" rel="noopener">客户端/PC音乐共用API</a></li><li><a href="https://github.com/sunzongzheng/player-be" target="_blank" rel="noopener">后台/云歌单API</a></li><li><a href="https://github.com/Binaryify/NeteaseCloudMusicApi" target="_blank" rel="noopener">三方/NeteaseCloudMusicApi</a></li></ul><h1 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h1><ul><li><a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="noopener">rxjava</a></li><li><a href="https://github.com/square/retrofit" target="_blank" rel="noopener">retrofit</a></li><li><a href="https://github.com/google/dagger" target="_blank" rel="noopener">dagger2</a></li><li><a href="https://github.com/bumptech/glide" target="_blank" rel="noopener">Glide</a></li><li><a href="https://github.com/LitePalFramework/LitePal" target="_blank" rel="noopener">LitePal</a></li><li><a href="https://github.com/wendux/DSBridge-Android" target="_blank" rel="noopener">DSBridge</a></li><li><a href="https://github.com/CymChad/BaseRecyclerViewAdapterHelper" target="_blank" rel="noopener">BaseRecyclerViewAdapterHelper</a></li><li><a href="https://github.com/caiyonglong/MusicLake/blob/develop/app/build.gradle" target="_blank" rel="noopener">More..</a></li></ul><h1 id="软件运行截图"><a href="#软件运行截图" class="headerlink" title="软件运行截图"></a>软件运行截图</h1><p><br><img src="/images/preview1.png" width="225" height="400"><img src="/images/preview2.png" width="225" height="400"><img src="/images/preview3.png" width="225" height="400"><img src="/images/preview4.png" width="225" height="400"><img src="/images/preview5.png" width="225" height="400"><img src="/images/preview6.png" width="225" height="400"><img src="/images/preview7.png" width="225" height="400"><img src="/images/preview8.png" width="225" height="400"><img src="/images/preview9.png" width="225" height="400"><img src="/images/preview10.png" width="225" height="400"><img src="/images/preview11.png" width="225" height="400"><img src="/images/preview12.png" width="225" height="400"><br><img src="/images/preview13.png" width="225" height="400"><br></p><h1 id="夜间模式相关截图"><a href="#夜间模式相关截图" class="headerlink" title="夜间模式相关截图"></a>夜间模式相关截图</h1><p><br><img src="/images/dark_preview1.png" width="225" height="400"><br><img src="/images/dark_preview2.png" width="225" height="400"><br><img src="/images/dark_preview3.png" width="225" height="400"><br><img src="/images/dark_preview4.png" width="225" height="400"><br><img src="/images/dark_preview5.png" width="225" height="400"><br></p>]]></content>
-    
-    <summary type="html">
-    
-      项目具体功能介绍
-    
-    </summary>
-    
-      <category term="Android" scheme="http://caiyonglong.github.io/categories/Android/"/>
-    
-    
-      <category term="MusicLake" scheme="http://caiyonglong.github.io/tags/MusicLake/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>git使用---修改历史提交记录</title>
-    <link href="http://caiyonglong.github.io/2018/02/02/tools/git_rebase/"/>
-    <id>http://caiyonglong.github.io/2018/02/02/tools/git_rebase/</id>
-    <published>2018-02-02T13:34:25.000Z</published>
-    <updated>2018-12-04T15:22:02.607Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="git-cherry-pick所遇到的问题"><a href="#git-cherry-pick所遇到的问题" class="headerlink" title="git cherry-pick所遇到的问题"></a>git cherry-pick所遇到的问题</h1><p>使用git 也有很长一段时间了，所以想总结一下git 的使用。其中，在日常工作中copy代码（搬砖）是常有的事情。对于git 管理的分支来说，git cherry-pick就是另类的copy。说的正式点就是 <strong>移植</strong>。</p><p>而<strong>cherry-pick</strong> 就是移植命令。</p><p>–对于git cherry-pick过来的提交记录，有些是因为一点小错误导致重复提交的，还有一些是一个功能分了好几次提交，对于这些记录，如果全部按原来分支的提交记录提交，就感觉很麻烦，到底有没有一种方法能够合并几条提交记录呢？</p><p>还有就是当cherry-pick多条记录后，突然想修改其中一条修改记录时。发现很难办。这时 git rebase 就很轻松了解决掉了这些难处。</p><p>当然网上也有很多类似的介绍，也可以去借阅一下。</p><h2 id="1-合并多条修改"><a href="#1-合并多条修改" class="headerlink" title="1. 合并多条修改"></a>1. 合并多条修改</h2><p>初始时，通过git log 查看 提交记录，记录一下commit hash值。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@ubuntu:~/work/git$ git log</span><br><span class="line">commit e916213e3c4cc9c977ec20902ae27ae45352eef3</span><br><span class="line">Date:   Tue Feb 6 20:05:32 2018 +0800</span><br><span class="line"></span><br><span class="line">    Third commit</span><br><span class="line"></span><br><span class="line">commit 358371a2b2b15d847bf89e44e94e7b926fed2da0</span><br><span class="line">Date:   Tue Feb 6 20:04:48 2018 +0800</span><br><span class="line"></span><br><span class="line">    Second commit</span><br><span class="line"></span><br><span class="line">commit ba82e7007559afab14ff124ea51e19772dedfe2c</span><br><span class="line">Date:   Tue Feb 6 20:03:32 2018 +0800</span><br><span class="line"></span><br><span class="line">    First commit</span><br></pre></td></tr></table></figure><p>然后通过 git rebase -i commit-id 命令编辑提交记录。</p><ul><li>git rebase  -i commit-id 表示，修改commit-id以后的提交记录，</li><li>也可以用git rebase -i HEAD ~n. n表示倒数第几条记录。</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pick 358371a Second commit</span><br><span class="line">pick e916213 Third commit</span><br><span class="line"></span><br><span class="line"># Rebase ba82e70..e916213 onto ba82e70</span><br><span class="line">#</span><br><span class="line"># Commands:</span><br><span class="line">#  p, pick = use commit</span><br><span class="line">#  r, reword = use commit, but edit the commit message</span><br><span class="line">#  e, edit = use commit, but stop for amending</span><br><span class="line">#  s, squash = use commit, but meld into previous commit</span><br><span class="line">#  f, fixup = like &quot;squash&quot;, but discard this commit&apos;s log message</span><br><span class="line">#  x, exec = run command (the rest of the line) using shell</span><br><span class="line">#</span><br><span class="line"># If you remove a line here THAT COMMIT WILL BE LOST.</span><br><span class="line"># However, if you remove everything, the rebase will be aborted.</span><br><span class="line">#</span><br></pre></td></tr></table></figure><p>其中</p><ul><li>pick 使用这条提交（保持不变）</li><li>reword 使用这条提交，可以编辑当前commit信息</li><li>edit 使用这条提交，放弃当前commit信息</li><li>squash 使用这条提交，合并前一条提交</li><li>fixup 和squash一样，但会放弃当前这个提交的信息</li><li>exec </li></ul><p>合并修改使用，将 e916213 Third commit 前的pick 改成squash 即可，然后保存退出。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pick 358371a Second commit</span><br><span class="line">squash e916213 Third commit</span><br></pre></td></tr></table></figure><p>修改完成后再次查看git log，已经合并到一起了。因为使用squash，所以两条记录得message都会合在一起。如果 使用fixup，则会放弃Third commit 的commit 信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">commit 940fec9ea88c69a195c546d48e5209c4cdb6abec</span><br><span class="line">Date:   Tue Feb 6 20:04:48 2018 +0800</span><br><span class="line"></span><br><span class="line">    Second commit</span><br><span class="line">    </span><br><span class="line">    Third commit</span><br><span class="line"></span><br><span class="line">commit ba82e7007559afab14ff124ea51e19772dedfe2c</span><br><span class="line">Date:   Tue Feb 6 20:03:32 2018 +0800</span><br><span class="line"></span><br><span class="line">    First commit</span><br></pre></td></tr></table></figure></p><h2 id="2-修改提交记录中的commit-信息"><a href="#2-修改提交记录中的commit-信息" class="headerlink" title="2. 修改提交记录中的commit 信息"></a>2. 修改提交记录中的commit 信息</h2><p>同上面，只要在需要修改的记录前 将pick 换成reword，即可进入编辑界面，编辑commit message，然后保存退出。这样就修改完成了。</p><p>当使用edit时，虽然也可以修改，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Stopped at 3af42b9... reword Second commit</span><br><span class="line">You can amend the commit now, with</span><br><span class="line"></span><br><span class="line">git commit --amend</span><br><span class="line"></span><br><span class="line">Once you are satisfied with your changes, run</span><br><span class="line"></span><br><span class="line">git rebase --continue</span><br></pre></td></tr></table></figure></p><ul><li>再使用<strong>git commit –amend</strong> 进入编辑界面修改。</li><li>保存，使用<strong>git rebase –continue</strong> 返回到最新节点。</li></ul><p>可以实际操作一下，如果怕玩坏工作分支，可以自己新建一个分支玩一玩。<br>这个git rebase 真的很神奇。对于rebase的其他功能也很强大。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;git-cherry-pick所遇到的问题&quot;&gt;&lt;a href=&quot;#git-cherry-pick所遇到的问题&quot; class=&quot;headerlink&quot; title=&quot;git cherry-pick所遇到的问题&quot;&gt;&lt;/a&gt;git cherry-pick所遇到的问题&lt;/
-      
-    
-    </summary>
-    
-      <category term="开发工具" scheme="http://caiyonglong.github.io/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="git" scheme="http://caiyonglong.github.io/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>git使用---修改历史提交记录</title>
-    <link href="http://caiyonglong.github.io/2018/02/02/tools/git/"/>
-    <id>http://caiyonglong.github.io/2018/02/02/tools/git/</id>
-    <published>2018-02-02T13:34:25.000Z</published>
-    <updated>2018-12-04T15:22:02.607Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="git使用-总结"><a href="#git使用-总结" class="headerlink" title="git使用 总结"></a>git使用 总结</h1><p>@(总结)[git]</p><p>总结一下当前工作中经常使用的git命令</p><p>##日常使用</p><h3 id="git初始化和拉取git分支"><a href="#git初始化和拉取git分支" class="headerlink" title="git初始化和拉取git分支"></a>git初始化和拉取git分支</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git clone ...</span><br></pre></td></tr></table></figure><h3 id="修改-amp-提交"><a href="#修改-amp-提交" class="headerlink" title="修改&amp;提交"></a>修改&amp;提交</h3><p>对于只有修改前先pull 一下代码，修改完成后再push<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add -u / -A </span><br><span class="line">git commit </span><br><span class="line">git push</span><br></pre></td></tr></table></figure></p><h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch </span><br><span class="line">git branch newbranch</span><br><span class="line">git checkout newbranch</span><br></pre></td></tr></table></figure><h3 id="查看状态-amp-历史记录"><a href="#查看状态-amp-历史记录" class="headerlink" title="查看状态&amp;历史记录"></a>查看状态&amp;历史记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git log</span><br></pre></td></tr></table></figure><h3 id="移植"><a href="#移植" class="headerlink" title="移植"></a>移植</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick </span><br><span class="line">git commit --amend</span><br></pre></td></tr></table></figure><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h3><ul><li>git log 查看 <strong>当前分支</strong> 的提交记录</li><li>git log –stat</li><li>git log -5 –pretty –oneline 显示过去5次提交</li><li>git log –follow <path> 显示某个文件的版本历史，包括文件改名</path></li></ul><h3 id="git-status"><a href="#git-status" class="headerlink" title="git status"></a>git status</h3><p>显示git状态<br>主要分为工作区和暂存区两个，其中工作区又分为git 监控的和未被监控的两个区域。</p><h3 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h3><ul><li>git add filename </li><li>git add -A/.  添加当前目录 all tracked and untracked files 到暂存区</li><li>git add -u 添加当前目录的tracked files 到暂存区</li></ul><h3 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a>git commit</h3><p>将暂存区的提交当分支上</p><ul><li>git commit -m “the commit message” 提交</li><li>git commit –amend 增补提交. 会使用与当前提交节点相同的父节点进行一次新的提交,旧的提交将会被取消.</li></ul><h3 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h3><p>可以移出<strong>暂存区</strong>的文件、可以切换分支也可以切换到tag节点。</p><ul><li>git checkout branch 检出分支</li><li>git checkout tag_name 检出当前tag</li><li>git checkout file_name 放弃对文件的修改</li></ul><h3 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h3><p>可以用来创建、删除、查看分支，不管是远程的还是本地的都可以。</p><ul><li>git branch 显示本地仓库分支</li><li>git branch -a 查看本地远程仓库所有分支</li><li>git branch -r 显示远程仓库分支</li><li>git branch -D master 删除master分支</li><li>git branch master 新建master分支</li></ul><h3 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a>git reset</h3><p>用来回退版本，例如从当前commit 回退到历史提交中</p><ul><li>git reset –hard <commit> 重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致</commit></li><li>git reset –soft <commit> 不会改变暂存区，仅仅将commit回退到了指定的提交</commit></li><li>git reset –mixed <commit> 重置当前分支的HEAD为指定commit，工作区commit之后的全部放入暂存区</commit></li></ul><h3 id="git-clean"><a href="#git-clean" class="headerlink" title="git clean"></a>git clean</h3><p>可以用来清理工作区中 Untracked files。 </p><ul><li>git clean -n 显示 将要 删除的 文件 和  目录</li><li>git clean -f 删除 文件</li><li>git clean -df 删除 文件 和 目录</li></ul><h3 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h3><p>从服务器拉取代码，也有些说法不推荐使用pull拉取代码，因为拉取的代码有可能会污染本地的提交记录。</p><h3 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h3><p>将本地分支推送到服务器上</p><ul><li>git push origin master 将本地分支推送到master远程分支</li></ul><h3 id="git-cherry-pick"><a href="#git-cherry-pick" class="headerlink" title="git cherry-pick"></a>git cherry-pick</h3><p>将其他分支的提交修改剪切到当前分支，cherry-pick 后面带上需要剪切移植的commit ID。当遇到cherry-pick冲突后，<br>需要解决冲突，然后使用 git commit –amend 修改提交信息即可。</p><ul><li>git cherry-pick <commit> 剪切过来提交过来后，直接提交到当前分支</commit></li><li>git cherry-pick –no-commit <commit> 不直接提交当前分支，在暂存区可见修改记录的文件。</commit></li></ul><h3 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h3><ul><li>git merge master 当前分支合并 master分支</li></ul><h3 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h3><p>显示暂存区和工作区的差异</p><h3 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h3><ul><li>git tag <tag> 新建一个tag在当前commit</tag></li><li>git tag <tag> <commit> 新建一个tag在指定commit</commit></tag></li><li>git tag -d <tag> 删除本地tag</tag></li><li>git push origin :refs/tags/<tag> 删除远程tag</tag></li></ul><h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><ul><li>git stash save -a “message” 将当前改动保存到一个</li><li>git stash list 显示所有临时区的stash id</li><li>git stash pop  </li><li>git stash drop  </li></ul><h2 id="gitk-图形界面"><a href="#gitk-图形界面" class="headerlink" title="gitk 图形界面"></a>gitk 图形界面</h2><p><strong>gitk</strong> 是一个图形界面，可用用来查看提交记录和修改记录。<br>也可以使用其他的git 管理工具，例如source tree。感觉挺好用的。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;git使用-总结&quot;&gt;&lt;a href=&quot;#git使用-总结&quot; class=&quot;headerlink&quot; title=&quot;git使用 总结&quot;&gt;&lt;/a&gt;git使用 总结&lt;/h1&gt;&lt;p&gt;@(总结)[git]&lt;/p&gt;
-&lt;p&gt;总结一下当前工作中经常使用的git命令&lt;/p&gt;
-&lt;p&gt;#
-      
-    
-    </summary>
-    
-      <category term="开发工具" scheme="http://caiyonglong.github.io/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="git" scheme="http://caiyonglong.github.io/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>WallpaperPicker分析</title>
-    <link href="http://caiyonglong.github.io/2017/12/25//post/"/>
-    <id>http://caiyonglong.github.io/2017/12/25//post/</id>
-    <published>2017-12-25T00:21:16.000Z</published>
-    <updated>2018-12-04T15:22:02.609Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="分析点"><a href="#分析点" class="headerlink" title="分析点"></a>分析点</h1><p>1.主要类介绍<br>2.WallpaperPicker中主要使用的设计模式——模板方法模式<br>3.图片的处理</p><p>原生Android系统中的WallpaperPicker主要Activity有WallpaperPickerActivity、WallpaperCropActivity 两个</p><h1 id="初始化流程"><a href="#初始化流程" class="headerlink" title="初始化流程"></a>初始化流程</h1><p>根据源码，壁纸Activity加载主要分为以下步骤：<br>创建 HandlerThread<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mLoaderThread = <span class="keyword">new</span> HandlerThread(<span class="string">"wallpaper_loader"</span>);</span><br><span class="line">mLoaderThread.start();</span><br><span class="line">mLoaderHandler = <span class="keyword">new</span> Handler(mLoaderThread.getLooper(), <span class="keyword">this</span>);</span><br></pre></td></tr></table></figure></p><p>调用 init()，加载布局、控件初始化、初始化一些操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-&gt; mCropView初始化触摸监听</span><br><span class="line">-&gt; 初始化壁纸偏移量 mWallpaperParallaxOffset</span><br><span class="line">-&gt; 初始化壁纸数据库 加载填充存储壁纸</span><br><span class="line">-&gt; 加载填充Resources壁纸</span><br><span class="line">-&gt; 异步加载填充live壁纸</span><br><span class="line">-&gt; 加载填充第三方壁纸</span><br><span class="line">-&gt; Gallery增加tile</span><br><span class="line">-&gt; 初始化mCropView布局改变监听事件</span><br><span class="line">-&gt; 初始化资源壁纸列表</span><br><span class="line">-&gt; 为删除items时创建过渡动画</span><br><span class="line">-&gt; 设置actionBar监听事件</span><br></pre></td></tr></table></figure></p><h1 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h1><p>BitmapRegionTileSource:图片区域平铺资源</p><p>壁纸预览流程<br>-&gt; mCropView.addOnLayoutChangeListener<br>-&gt; onClick(mWallpapersView.getChildAt(mSelectedIndex))<br>-&gt; 根据当前壁纸信息Tag 获取 壁纸来源<br>-&gt; 然后根据不同的壁纸来源调用 onClick<br>-&gt; 以ResourceWallpaperInfo为例。<br>-&gt; 创建图片输入流BitmapRegionTileSource.InputStreamSource<br>-&gt; 裁剪图片<br>-&gt; 创建 LoadRequest，初始化数据<br>-&gt; 移除 MSG_LOAD_IMAGE 加载图片的消息<br>-&gt; 发送加载图片的消息<br>-&gt;&gt; 加载图片 流程<br>-&gt;&gt; 判断bitmapSource 是否为空<br>-&gt;&gt;&gt; 如果为空 返回默认壁纸的DrawableTileSource<br>req.src不为空，调用BitmapSource的 loadInBackground<br>-&gt;&gt;&gt;&gt; loadInBackground 数据流程<br>—–新建对象 InBitmapProvider<br>—–获取图片旋转角度getExifRotation<br>—–初始化图片大小解码器（主要获取宽高）<br>—–图片解码BitmapFactory.Options<br>/**<br>BitmapFactory.Options 详解</p><p>inPreferredConfig：<br>这个值是设置色彩模式，默认值是ARGB_8888，在这个模式下，一个像素点占用4bytes空间，一般对透明度不做要求的话，一般采用RGB_565模式，这个模式下一个像素点占用2bytes。<br>inJustDecodeBounds：<br>如果将这个值置为true，那么在解码的时候将不会返回bitmap，只会返回这个bitmap的尺寸。这个属性的目的是，如果你只想知道一个bitmap的尺寸，但又不想将其加载到内存时。这是一个非常有用的属性。<br>inSampleSize：<br>缩放比例，小于1时，当做1，缩放比例 = 1/inSampleSize。和图片的宽高及像素成正比。<br>inPreferQualityOverSpeed:<br>为true则优先保证Bitmap质量其次是解码速度<br>inMutable:<br>如果设置为true,将返回一个mutable的bitmap,可用于修改BitmapFactory加载而来的bitmap.<br>inBitmap ：<br>API Level 11开始。优化Bitmap的内存使用<br><strong>/<br>—-如果InBitmapProvider 不为空<br>—-计算当前像素 根据缩放比例计算<br>—-根据像素获取图片<br>—-根据像素获取图片<br>—-如果图片不为空设置 inBitmap 优化内存<br>—-根据opts加载预览图片<br>—-校验图片是否能应用在GL surface上<br>/</strong><br>GLUitls<br> 使用了getInternalFormat(mPreview)<br> 使用了getType(mPreview)<br>**/<br>—-返回加载状态<br>-&gt;&gt;&gt;&gt; loadInBackground 结束<br>-&gt;&gt; 根据req.src实例化返回结果BitmapRegionTileSource<br>—–BitmapRegionTileSource<br>—–获取平铺尺寸<br>—–获取旋转角度<br>—–获取图片平铺解码器<br>—–初始化 BitmapFactory.Options<br>—–获取预览图片<br>—–实例化纹理BitmapTexture</p><p>-&gt;&gt; 判断是否加载成功</p><p>Bitmap reusableBitmap = bitmapProvider.forPixelCount(expectedPixles);</p><p>-&gt; mCropView 可见</p><p><a href="https://blog.csdn.net/a771642/article/details/7794887" target="_blank" rel="noopener">参考博客</a></p>]]></content>
-    
-    <summary type="html">
-    
-      WallpaperPicker分析
-    
-    </summary>
-    
-      <category term="Android" scheme="http://caiyonglong.github.io/categories/Android/"/>
-    
-    
-      <category term="源码分析" scheme="http://caiyonglong.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-      <category term="WallpaperPicker" scheme="http://caiyonglong.github.io/tags/WallpaperPicker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android 源码Launcher模块分析</title>
-    <link href="http://caiyonglong.github.io/2017/12/13/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/Launcher/"/>
-    <id>http://caiyonglong.github.io/2017/12/13/源码分析/Launcher/</id>
-    <published>2017-12-13T06:00:16.000Z</published>
-    <updated>2019-01-17T15:29:17.520Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="提纲"><a href="#提纲" class="headerlink" title="提纲"></a>提纲</h2><p>1.什么是Launcher ,Launcher2 和 Launcher3的区别</p><p>2.Android 开机启动到Launcher运行的主要流程</p><p>3.Launcher 主要类介绍</p><p>4.Launcher 主要布局xml介绍</p><p>5.Launcher 一般主要需修改的地方</p><p>6.Launcher 动画，widget等</p><p>7.Launcher 主菜单界面UI</p><h2 id="Launcher启动的主要流程"><a href="#Launcher启动的主要流程" class="headerlink" title="Launcher启动的主要流程"></a>Launcher启动的主要流程</h2><p>手机开机-&gt;init进程-&gt;zygote进程-&gt;SystemServer-&gt;ActivityManagerService<br>-&gt;Launcher</p><p>init进程:</p><p>1.创建一些文件夹并挂载设备<br>2.初始化和启动属性服务<br>3.解析init.rc配置文件并启动zygote进程</p><p>初始化init进程<br>system/core/init/init.cpp<br>启动zygote进程<br>system/core/rootdir/root.rc<br>{import /init.${ro.zygote}.rc}<br>不同的平台（32、64及64_32）<br>system/core/rootdir/init.zygote64.rc</p><p>zygote进程:<br>zygote 进程在初始化时会启动虚拟机，并加载一些系统资源。<br>这样 zygote fork 出子进程后，子进程也继承了能正常工作的虚拟机和各种系统资源，<br>接下来只需装载 apk 文件的字节码就可以运行应用程序了，可以大大缩短应用的启动时间，<br>这就是 zygote 进程的主要作用。</p><p>SystemServer：<br>1.启动Binder线程池，这样就可以与其他进程进行通信。<br>2.创建SystemServiceManager用于对系统的服务进行创建、启动和生命周期管理。<br>3.启动各种系统服务。</p><p>Launcher<br>Launcher启动</p><p>1.Launcher.java:launcher中主要的activity。系统第一个启动的应用程序,在AndroidManifest.xml中定义了<category android:name="android.intent.category.HOME"></category></p><p>2.LauncherApplication.java:应用程序全局初始化类,创建全局使用的应用程序缓存器Iconcache，创建全局使用的数据库加载类LauncherModel，注册事件监听器，注册数据库变化监听器</p><p>(在AndroidManifest.xml定义的Application)</p><p>3.IconCache.java:应用程序缓存器,通过一个HashMap&lt;ComponentName,CacheEntry&gt; mcache来缓存应用程序信息。内部类CachEntry对应存储应用程序的基本信息。makeDefaultIcon来创建默认的应用程序图标</p><p>4.LauncherModel.java:模型文件,封装了对数据库的操作。包含几个线程，加载所有应用程序和workspace的时候使用(loadAndBindAllApps，loadAndBindWorkspace)。其他的函数就是对数据库的封装，接口Callbacks提供加载程序和快捷方式的抽象方法。</p><p>5.LauncherProvider.java:launcher的数据库，里面存储了桌面的item的信息。在创建数据库的时候会调用loadFavorites(db)方法，解析xml目录下的default_workspace.xml文件，把其中的内容读出来写到数据库中，这样就得到了默认桌面的配置。</p><p>6.ItemInfo.java:对item的抽象，所有类型item的父类，item包含的属性有id（标识item的id）,cellX(在横向位置上的位置，从0开始),cellY（在纵向位置上的位置，从0开始） ,spanX（在横向位置上所占的单位格）,spanY（在纵向位置上所占的单位格）,screen（在workspace的第几屏，从0开始）,itemType（4种item类型，有widget，user_folder，application，shortcut）,container（三种item存放的地方desktop,application,user_folder）。</p><p>7.Workspace.java:抽象的桌面。由N个cellLayout组成, 从cellLayout更高一级的层面上对事件的处理。Launcher.java中通过bindItems添加cellLayout.实现了DropTarget, DragSource, DragScroller。既是拖拽源，又是拖拽目的地，还可以左右拖动。</p><p>8.CellLayout.java：桌面的某一屏。是组成workspace的view,被划分成4X4的cell空间，用boolean[][]mOccupied来标识每个cell是否被占用.</p><p>9.AllApp2D.java:显示和存储应用程序列表的视图。。android自带的AllApp2D包括一个GridView和一个HomeButton，MTK修改成PagerControl，HorizontalPager和4个imageview。</p><p>10.HorizontalPager.java:AllApp2D中间的网格控件。由N个GridView组成,AllApps2D.java中通过addGridView添加GridView。</p><p>11.DeleteZone.java:删除框。在平时是出于隐藏状态，在将item长按拖动的时候会显示出来，如果将item拖动到删除框位置时会删除item。DeleteZone实现了DropTarget和DragListener两个接口。</p><ol start="12"><li><p>DragLayer.java:launcher.xml的rootview。DragLayer实际上也是一个抽象的界面，用来处理拖动和对事件进行初步处理然后按情况分发下去，角色是一个DragController。它首先用onInterceptTouchEvent(MotionEvent)来拦截所有的touch事件，如果是长按item拖动的话不把事件传下去，直接交由onTouchEvent()处理，这样就可以实现item的移动了，如果不是拖动item的话就把事件传到目标view，交有目标view的事件处理函数做相应处理。</p></li><li><p>DragController.java:为拖拽定义的一个接口。包含一个接口,一个方法和两个静态常量。</p></li></ol><p>接口为DragListener（包含onDragStart()，onDragEnd()两个函数）,</p><p>onDragStart()是在刚开始拖动的时候被调用，</p><p>onDragEnd()是在拖动完成时被调用。</p><p>在launcher中典型的应用是DeleteZone，在长按拖动item时调用onDragStart()显示，在拖动结束的时候调用onDragEnd()隐藏。</p><p>一个函数包括用于在拖动是传递要拖动的item的信息以及拖动的方式</p><p>两个常量为DRAG_ACTION_MOVE，DRAG_ACTION_COPY来标识拖动的方式，DRAG_ACTION_MOVE为移动，表示在拖动的时候需要删除原来的item，</p><p>DRAG_ACTION_COPY为复制型的拖动，表示保留被拖动的item。</p><p>14.UserFolder.java: 用户创建的文件夹。实现了DropTarget，是拖拽目的地，可以将item拖进文件夹，单击时打开文件夹，暂不能处可以重命名文件夹。</p><p>15.LiveFolder.java:系统自带的文件夹。从系统中创建出的所有联系人的文件夹等。 </p><p>16.AddAdapter.java:长按桌面弹出的”添加到主屏幕”对话框所对应的适配器。。 </p><p>17.ShortcutAdapter.java:添加快捷方式的对话框所对应的适配器 </p><p>18.LauncherSettings.java:数据库项的字符串定义，</p>]]></content>
-    
-    <summary type="html">
-    
-      Launcher
-    
-    </summary>
-    
-      <category term="Android" scheme="http://caiyonglong.github.io/categories/Android/"/>
-    
-    
-      <category term="源码分析" scheme="http://caiyonglong.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-      <category term="Launcher" scheme="http://caiyonglong.github.io/tags/Launcher/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>单例模式</title>
-    <link href="http://caiyonglong.github.io/2017/11/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://caiyonglong.github.io/2017/11/13/设计模式/单例模式/</id>
-    <published>2017-11-13T06:00:16.000Z</published>
-    <updated>2018-12-04T15:22:02.609Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>说实话网上有很多介绍，那么为什么还要自己在写一遍呢？因为在网上看一遍容易忘掉，如果自己再重新写一遍，印象会深一点。</p><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。<br>这种模式涉及到一个单一的类，该类负责创建自己的对象，同时确保只有单个对象被创建。这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。</p><p>简单的说就是一个对象实例化只实例化一次。</p><h1 id="运用"><a href="#运用" class="headerlink" title="运用"></a>运用</h1><p>单例模式的实现方式有</p><h2 id="1、饿汉式-多线程安全"><a href="#1、饿汉式-多线程安全" class="headerlink" title="1、饿汉式 多线程安全"></a>1、饿汉式 多线程安全</h2><p>描述：这种方式比较常用，但容易产生垃圾对象。<br>优点：没有加锁，执行效率会提高。<br>缺点：类加载时就初始化，浪费内存。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;  </span><br><span class="line">    private static Singleton instance = new Singleton();  </span><br><span class="line">    private Singleton ()&#123;&#125;  </span><br><span class="line">    public static Singleton getInstance() &#123;  </span><br><span class="line">    return instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h2 id="2、懒汉式，可以根据不同的条件也可以分类"><a href="#2、懒汉式，可以根据不同的条件也可以分类" class="headerlink" title="2、懒汉式，可以根据不同的条件也可以分类"></a>2、懒汉式，可以根据不同的条件也可以分类</h2><p>优点：没有加锁，执行效率会提高。<br>缺点：类加载时就初始化，浪费内存。</p><h3 id="懒汉式，线程不安全"><a href="#懒汉式，线程不安全" class="headerlink" title="懒汉式，线程不安全"></a>懒汉式，线程不安全</h3><p>因为没有加锁 synchronized，所以它是线程不安全的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;  </span><br><span class="line">    private static Singleton instance;  </span><br><span class="line">    private Singleton ()&#123;&#125;  </span><br><span class="line"></span><br><span class="line">    public static Singleton getInstance() &#123;  </span><br><span class="line">    if (instance == null) &#123;  </span><br><span class="line">        instance = new Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    return instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h3 id="懒汉式，线程安全"><a href="#懒汉式，线程安全" class="headerlink" title="懒汉式，线程安全"></a>懒汉式，线程安全</h3><p>增加同步锁，能够在多线程中很好的工作，但是，效率很低，99% 情况下不需要同步。<br>优点：第一次调用才初始化，避免内存浪费。<br>优点：第一次调用才初始化，避免内存浪费。<br>缺点：必须加锁 synchronized 才能保证单例，但加锁会影响效率。<br>getInstance() 的性能对应用程序不是很关键（该方法使用不太频繁）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;  </span><br><span class="line">    private static Singleton instance;  </span><br><span class="line">    private Singleton ()&#123;&#125;  </span><br><span class="line">    public static synchronized Singleton getInstance() &#123;  </span><br><span class="line">    if (instance == null) &#123;  </span><br><span class="line">        instance = new Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    return instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h2 id="3、双检锁-双重校验锁（DCL，即-double-checked-locking）"><a href="#3、双检锁-双重校验锁（DCL，即-double-checked-locking）" class="headerlink" title="3、双检锁/双重校验锁（DCL，即 double-checked locking）"></a>3、双检锁/双重校验锁（DCL，即 double-checked locking）</h2><p>这种方式采用双锁机制，安全且在多线程情况下能保持高性能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;  </span><br><span class="line">    private volatile static Singleton singleton;  </span><br><span class="line">    private Singleton ()&#123;&#125;  </span><br><span class="line">    public static Singleton getSingleton() &#123;  </span><br><span class="line">    if (singleton == null) &#123;  </span><br><span class="line">        synchronized (Singleton.class) &#123;  </span><br><span class="line">        if (singleton == null) &#123;  </span><br><span class="line">            singleton = new Singleton();  </span><br><span class="line">        &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    return singleton;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h2 id="4、登记式-静态内部类"><a href="#4、登记式-静态内部类" class="headerlink" title="4、登记式/静态内部类"></a>4、登记式/静态内部类</h2><p>这种方式能达到双检锁方式一样的功效，但实现更简单。对静态域使用延迟初始化，应使用这种方式而不是双检锁方式。这种方式只适用于静态域的情况，双检锁方式可在实例域需要延迟初始化时使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;  </span><br><span class="line">    private static class SingletonHolder &#123;  </span><br><span class="line">    private static final Singleton INSTANCE = new Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    private Singleton ()&#123;&#125;  </span><br><span class="line">    public static final Singleton getInstance() &#123;  </span><br><span class="line">    return SingletonHolder.INSTANCE;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h2 id="5、枚举"><a href="#5、枚举" class="headerlink" title="5、枚举"></a>5、枚举</h2><p>描述：这种实现方式还没有被广泛采用，但这是实现单例模式的最佳方法。它更简洁，自动支持序列化机制，绝对防止多次实例化。<br>这种方式是 Effective Java 作者 Josh Bloch 提倡的方式，它不仅能避免多线程同步问题，而且还自动支持序列化机制，防止反序列化重新创建新的对象，绝对防止多次实例化。不过，由于 JDK1.5 之后才加入 enum 特性，用这种方式写不免让人感觉生疏，在实际工作中，也很少用。<br>不能通过 reflection attack 来调用私有构造方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public enum Singleton &#123;  </span><br><span class="line">    INSTANCE;  </span><br><span class="line">    public void whateverMethod() &#123;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>参考链接<br><a href="http://www.runoob.com/design-pattern/singleton-pattern.html" target="_blank" rel="noopener">http://www.runoob.com/design-pattern/singleton-pattern.html</a></p>]]></content>
-    
-    <summary type="html">
-    
-      单例模式
-    
-    </summary>
-    
-      <category term="Android" scheme="http://caiyonglong.github.io/categories/Android/"/>
-    
-    
-      <category term="设计模式" scheme="http://caiyonglong.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
