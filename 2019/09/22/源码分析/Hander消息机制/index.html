@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="蔡永龙的博客">
 <meta property="og:description" content="前言平时工作中缺乏总结，写博客不是为别人，而是为自己，虽然网上很多类似的，但是自己还是得写一遍加深印象 基本原理消息机制包含 Handler、MessageQueue、Message、Looper 拖欠图 Handler 发送消息，消息存入到消息队列中，然后Looper 循环执行消息队列。 问题Handler 为什么会造成内存泄漏因为在Activity中，handler内部类引用了它，而该hand">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-25T03:57:43.072Z">
+<meta property="og:updated_time" content="2019-09-26T05:01:24.347Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Handler消息机制">
 <meta name="twitter:description" content="前言平时工作中缺乏总结，写博客不是为别人，而是为自己，虽然网上很多类似的，但是自己还是得写一遍加深印象 基本原理消息机制包含 Handler、MessageQueue、Message、Looper 拖欠图 Handler 发送消息，消息存入到消息队列中，然后Looper 循环执行消息队列。 问题Handler 为什么会造成内存泄漏因为在Activity中，handler内部类引用了它，而该hand">
@@ -220,7 +220,15 @@
 <pre><code>1：5s内无法响应用户输入事件(例如键盘输入, 触摸屏幕等)
 2：BroadcastReceiver在10s内无法结束
 3：ServiceTimeout(20s) --小概率类型，Service在特定的时间内无法处理完成
-</code></pre><p>主线程Looper在哪里初始化</p>
+</code></pre><p>Android是事件驱动的，在Loop.loop()中不断接收事件、处理事件，而Activity的生命周期都依靠于主线程的Loop.loop()来调度，所以可想而知它的存活周期和Activity也是一致的。当没有事件需要处理时，主线程就会阻塞；当子线程往消息队列发送消息，并且往管道文件写数据时，主线程就被唤醒。</p>
+<p>主线程在没有事件需要处理的时候就是处于阻塞的状态。想让主线程活动起来一般有两种方式：</p>
+<ul>
+<li>第一种是系统唤醒主线程，并且将点击事件传递给主线程；</li>
+<li>第二种是其他线程使用Handler向MessageQueue中存放了一条消息，导致loop被唤醒继续执行。</li>
+</ul>
+<p>主线程Looper从消息队列读取消息，当读完所有消息时，主线程阻塞。子线程往消息队列发送消息，并且往管道文件写数据，主线程即被唤醒，从管道文件读取数据，主线程被唤醒只是为了读取消息，当消息读取完毕，再次睡眠。因此loop的循环并不会对CPU性能有过多的消耗。</p>
+<p>总结： Looer.loop()方法可能会引起主线程的阻塞，但只要它的消息循环没有被阻塞，能一直处理事件就不会产生ANR异常。</p>
+<p>主线程Looper在哪里初始化</p>
 <p>ActivityThread 类里面</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">       Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, &quot;ActivityThreadMain&quot;);</span><br><span class="line"></span><br><span class="line">       // CloseGuard defaults to true and can be quite spammy.  We</span><br><span class="line">       // disable it here, but selectively enable it later (via</span><br><span class="line">       // StrictMode) on debug builds, but using DropBox, not logs.</span><br><span class="line">       CloseGuard.setEnabled(false);</span><br><span class="line"></span><br><span class="line">       Environment.initForCurrentUser();</span><br><span class="line"></span><br><span class="line">       // Set the reporter for event logging in libcore</span><br><span class="line">       EventLogger.setReporter(new EventLoggingReporter());</span><br><span class="line"></span><br><span class="line">       // Make sure TrustedCertificateStore looks in the right place for CA certificates</span><br><span class="line">       final File configDir = Environment.getUserConfigDirectory(UserHandle.myUserId());</span><br><span class="line">       TrustedCertificateStore.setDefaultUserDirectory(configDir);</span><br><span class="line"></span><br><span class="line">       Process.setArgV0(&quot;&lt;pre-initialized&gt;&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       Looper.prepareMainLooper();</span><br><span class="line"></span><br><span class="line">       // Find the value for &#123;@link #PROC_START_SEQ_IDENT&#125; if provided on the command line.</span><br><span class="line">       // It will be in the format &quot;seq=114&quot;</span><br><span class="line">       long startSeq = 0;</span><br><span class="line">       if (args != null) &#123;</span><br><span class="line">           for (int i = args.length - 1; i &gt;= 0; --i) &#123;</span><br><span class="line">               if (args[i] != null &amp;&amp; args[i].startsWith(PROC_START_SEQ_IDENT)) &#123;</span><br><span class="line">                   startSeq = Long.parseLong(</span><br><span class="line">                           args[i].substring(PROC_START_SEQ_IDENT.length()));</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       ActivityThread thread = new ActivityThread();</span><br><span class="line">       thread.attach(false, startSeq);</span><br><span class="line"></span><br><span class="line">       if (sMainThreadHandler == null) &#123;</span><br><span class="line">           sMainThreadHandler = thread.getHandler();</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       if (false) &#123;</span><br><span class="line">           Looper.myLooper().setMessageLogging(new</span><br><span class="line">                   LogPrinter(Log.DEBUG, &quot;ActivityThread&quot;));</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       // End of event ActivityThreadMain.</span><br><span class="line">       Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</span><br><span class="line">       Looper.loop();</span><br><span class="line"></span><br><span class="line">       throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
@@ -231,7 +239,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-09-25T03:57:43.072Z" itemprop="dateUpdated">2019-09-25 11:57:43</time>
+    最后更新时间：<time datetime="2019-09-26T05:01:24.347Z" itemprop="dateUpdated">2019-09-26 13:01:24</time>
 </span><br>
 
 
@@ -313,18 +321,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="../Activity的启动流程/" id="post-prev" class="post-nav-link">
+      <a href="../volley、okhttp、retrofit分析/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Activity的启动流程</h4>
+        <h4 class="title">常用网络请求库对比——Volley、Okhttp、Retrofit对比</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="../Okhttp源码分析/" id="post-next" class="post-nav-link">
+      <a href="../EventBus/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">常用第三方库源码分析——Okhttp</h4>
+        <h4 class="title">常用第三方库源码分析——EventBus</h4>
       </a>
     </div>
   

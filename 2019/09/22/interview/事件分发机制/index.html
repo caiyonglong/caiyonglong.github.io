@@ -14,23 +14,23 @@
     
     
     
-    <title>客户化定制开机logo、开机动画 | 蔡永龙的博客 | One step at a time</title>
+    <title>Android事件分发机制 | 蔡永龙的博客 | One step at a time</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     
-    <meta name="keywords" content="定制">
-    <meta name="description" content="设置开机logo高通平台123451、修改的文件路径LINUX/android/bootable/bootloader/lk/splash2、准备好logo图片(png、bmp格式)3、查看中原图片的分辨率，修改logo图片*保证分辨率一致*4、生成splash.img镜像文件 生成splash 步骤123The steps to generate a splash.img:1 sudo apt-">
-<meta name="keywords" content="定制">
+    <meta name="keywords" content="面试">
+    <meta name="description" content="前言这是很常见的面试题，几乎每次面试都会问到，每次问的区别就是问的深度不一样。虽然网上有很多面经，很多总结，但是自己还是想花点时间来总结一下，加深印象。 常见面试问题 说一下Android事件分发的流程 分发、拦截方法和Touch_Down、Touch_Move、Touch_Up 的执行顺序  事件分发基本概念Activity -&amp;gt; ViewGroup -&amp;gt;View dispatchT">
+<meta name="keywords" content="面试">
 <meta property="og:type" content="article">
-<meta property="og:title" content="客户化定制开机logo、开机动画">
-<meta property="og:url" content="http://caiyonglong.github.io/2017/11/02/Android/customer_logo/index.html">
+<meta property="og:title" content="Android事件分发机制">
+<meta property="og:url" content="http://caiyonglong.github.io/2019/09/22/interview/事件分发机制/index.html">
 <meta property="og:site_name" content="蔡永龙的博客">
-<meta property="og:description" content="设置开机logo高通平台123451、修改的文件路径LINUX/android/bootable/bootloader/lk/splash2、准备好logo图片(png、bmp格式)3、查看中原图片的分辨率，修改logo图片*保证分辨率一致*4、生成splash.img镜像文件 生成splash 步骤123The steps to generate a splash.img:1 sudo apt-">
+<meta property="og:description" content="前言这是很常见的面试题，几乎每次面试都会问到，每次问的区别就是问的深度不一样。虽然网上有很多面经，很多总结，但是自己还是想花点时间来总结一下，加深印象。 常见面试问题 说一下Android事件分发的流程 分发、拦截方法和Touch_Down、Touch_Move、Touch_Up 的执行顺序  事件分发基本概念Activity -&amp;gt; ViewGroup -&amp;gt;View dispatchT">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-04T15:22:02.605Z">
+<meta property="og:updated_time" content="2019-09-29T18:26:13.403Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="客户化定制开机logo、开机动画">
-<meta name="twitter:description" content="设置开机logo高通平台123451、修改的文件路径LINUX/android/bootable/bootloader/lk/splash2、准备好logo图片(png、bmp格式)3、查看中原图片的分辨率，修改logo图片*保证分辨率一致*4、生成splash.img镜像文件 生成splash 步骤123The steps to generate a splash.img:1 sudo apt-">
+<meta name="twitter:title" content="Android事件分发机制">
+<meta name="twitter:description" content="前言这是很常见的面试题，几乎每次面试都会问到，每次问的区别就是问的深度不一样。虽然网上有很多面经，很多总结，但是自己还是想花点时间来总结一下，加深印象。 常见面试问题 说一下Android事件分发的流程 分发、拦截方法和Touch_Down、Touch_Move、Touch_Up 的执行顺序  事件分发基本概念Activity -&amp;gt; ViewGroup -&amp;gt;View dispatchT">
     
         <link rel="alternate" type="application/atom+xml" title="蔡永龙的博客" href="../../../../../atom.xml">
     
@@ -134,7 +134,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">客户化定制开机logo、开机动画</div>
+        <div class="flex-col header-title ellipsis">Android事件分发机制</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -156,15 +156,15 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">客户化定制开机logo、开机动画</h1>
+        <h1 class="title">Android事件分发机制</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-11-02T13:34:25.000Z" itemprop="datePublished" class="page-time">
-  2017-11-02
+                <time datetime="2019-09-21T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-09-22
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="../../../../../categories/Android/">Android</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="../../../../../categories/源码分析/">源码分析</a></li></ul>
 
             
         </h5>
@@ -181,20 +181,20 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置开机logo"><span class="post-toc-text">设置开机logo</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#高通平台"><span class="post-toc-text">高通平台</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MTK平台"><span class="post-toc-text">MTK平台</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置开关机动画"><span class="post-toc-text">设置开关机动画</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#常见面试问题"><span class="post-toc-text">常见面试问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#事件分发基本概念"><span class="post-toc-text">事件分发基本概念</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-Android/customer_logo" class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-interview/事件分发机制" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">客户化定制开机logo、开机动画</h1>
+        <h1 class="post-card-title">Android事件分发机制</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-11-02 21:34:25" datetime="2017-11-02T13:34:25.000Z" itemprop="datePublished">2017-11-02</time>
+            <time class="post-time" title="2019-09-22 00:00:00" datetime="2019-09-21T16:00:00.000Z" itemprop="datePublished">2019-09-22</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="../../../../../categories/Android/">Android</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="../../../../../categories/源码分析/">源码分析</a></li></ul>
 
 
 
@@ -206,22 +206,16 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="设置开机logo"><a href="#设置开机logo" class="headerlink" title="设置开机logo"></a>设置开机logo</h2><h3 id="高通平台"><a href="#高通平台" class="headerlink" title="高通平台"></a>高通平台</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、修改的文件路径</span><br><span class="line">LINUX/android/bootable/bootloader/lk/splash</span><br><span class="line">2、准备好logo图片(png、bmp格式)</span><br><span class="line">3、查看中原图片的分辨率，修改logo图片*保证分辨率一致*</span><br><span class="line">4、生成splash.img镜像文件</span><br></pre></td></tr></table></figure>
-<p>生成splash 步骤<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The steps to generate a splash.img:</span><br><span class="line">1 sudo apt-get install python-imaging</span><br><span class="line">2 python ./logo_gen.py boot_001.png (*.bmp)</span><br></pre></td></tr></table></figure></p>
-<h3 id="MTK平台"><a href="#MTK平台" class="headerlink" title="MTK平台"></a>MTK平台</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、修改的文件路径</span><br><span class="line">vendor\mediatek\proprietary\bootable\bootloader\lk\dev\logo</span><br><span class="line">2、准备好logo图片(bmp格式)</span><br><span class="line">3、查看中原图片的分辨率，修改logo图片*保证分辨率一致*替换相应格式的logo</span><br></pre></td></tr></table></figure>
-<h2 id="设置开关机动画"><a href="#设置开关机动画" class="headerlink" title="设置开关机动画"></a>设置开关机动画</h2><p>首先自己制作开关机动画包，如果有现成的压缩包那就不用了<br>，压缩包的压缩方式必须是存储方式的zip格式压缩。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bootanimation.zip</span><br><span class="line">shutdownanimation.zip</span><br></pre></td></tr></table></figure></p>
-<p>压缩包中有两个文件夹part0、part1和desc.txt文件</p>
-<p>part0和part1中主要存放一些开机动画的帧图片</p>
-<p>desc.txt中内容如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">720 1680 15</span><br><span class="line">p 1 0 part1</span><br><span class="line">p 0 0 part0</span><br></pre></td></tr></table></figure>
-<ul>
-<li>720 1680 代表开机动画图片分辨率</li>
-<li>15 代表播放速度。15 帧每秒</li>
-<li>p 1（代表着播放一次） 0（空指令）part1 代表这part1文件夹内的图片只按名称顺序播放一次</li>
-<li>p 0（代表着播放一次） 0（空指令）part0  代表这part0文件夹内的图片只按名称顺序循环播放直到结束</li>
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这是很常见的面试题，几乎每次面试都会问到，每次问的区别就是问的深度不一样。虽然网上有很多面经，很多总结，但是自己还是想花点时间来总结一下，加深印象。</p>
+<h1 id="常见面试问题"><a href="#常见面试问题" class="headerlink" title="常见面试问题"></a>常见面试问题</h1><ul>
+<li>说一下Android事件分发的流程</li>
+<li>分发、拦截方法和Touch_Down、Touch_Move、Touch_Up 的执行顺序</li>
 </ul>
-<p>预览：必须在已经root的手机下才能替换。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//进入root权限</span><br><span class="line">adb root</span><br><span class="line">adb remount </span><br><span class="line">adb shell </span><br><span class="line">//进入开关机动画存放目录</span><br><span class="line">cd system/media </span><br><span class="line">//删除手机原先的开关机动画</span><br><span class="line">rm bootanimation.zip</span><br><span class="line">rm shutdownanimation.zip </span><br><span class="line">//将开关机动画push到手机</span><br><span class="line">adb push 文件路径 system/media</span><br></pre></td></tr></table></figure></p>
-<p>最后重启手机即可看到效果<br>Android 源代码中替换开关机压缩包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">高通平台</span><br><span class="line">LINUX/android/vendor/qcom/proprietary/qrdplus/Extension/apps/BootAnimation</span><br><span class="line">MTK平台</span><br><span class="line">framework/base/data/sounds</span><br></pre></td></tr></table></figure></p>
+<h1 id="事件分发基本概念"><a href="#事件分发基本概念" class="headerlink" title="事件分发基本概念"></a>事件分发基本概念</h1><p>Activity -&gt; ViewGroup -&gt;View</p>
+<p>dispatchTouchEvent 分发</p>
+<p>onInterceptTouchEvent 拦截</p>
+<p>View 没有拦截事件</p>
+<p># </p>
 
         </div>
 
@@ -230,7 +224,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-12-04T15:22:02.605Z" itemprop="dateUpdated">2018-12-04 23:22:02</time>
+    最后更新时间：<time datetime="2019-09-29T18:26:13.403Z" itemprop="dateUpdated">2019-09-30 02:26:13</time>
 </span><br>
 
 
@@ -254,7 +248,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../../tags/定制/">定制</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../../tags/面试/">面试</a></li></ul>
 
 
             
@@ -264,7 +258,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2017/11/02/Android/customer_logo/&title=《客户化定制开机logo、开机动画》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2019/09/22/interview/事件分发机制/&title=《Android事件分发机制》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -274,22 +268,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2017/11/02/Android/customer_logo/&title=《客户化定制开机logo、开机动画》 — 蔡永龙的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2019/09/22/interview/事件分发机制/&title=《Android事件分发机制》 — 蔡永龙的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2017/11/02/Android/customer_logo/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2019/09/22/interview/事件分发机制/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《客户化定制开机logo、开机动画》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2017/11/02/Android/customer_logo/&via=http://caiyonglong.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android事件分发机制》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2019/09/22/interview/事件分发机制/&via=http://caiyonglong.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2017/11/02/Android/customer_logo/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2019/09/22/interview/事件分发机制/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -312,18 +306,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="../../../13/设计模式/单例模式/" id="post-prev" class="post-nav-link">
+      <a href="../../源码分析/Activity的启动流程/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">单例模式</h4>
+        <h4 class="title">Activity的启动流程</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="../../../../10/13/设计模式/状态模式/" id="post-next" class="post-nav-link">
+      <a href="../../源码分析/volley、okhttp、retrofit分析/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">状态模式</h4>
+        <h4 class="title">常用网络请求库对比——Volley、Okhttp、Retrofit对比</h4>
       </a>
     </div>
   
@@ -424,7 +418,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2017/11/02/Android/customer_logo/&title=《客户化定制开机logo、开机动画》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2019/09/22/interview/事件分发机制/&title=《Android事件分发机制》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -434,22 +428,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2017/11/02/Android/customer_logo/&title=《客户化定制开机logo、开机动画》 — 蔡永龙的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2019/09/22/interview/事件分发机制/&title=《Android事件分发机制》 — 蔡永龙的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2017/11/02/Android/customer_logo/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2019/09/22/interview/事件分发机制/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《客户化定制开机logo、开机动画》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2017/11/02/Android/customer_logo/&via=http://caiyonglong.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android事件分发机制》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2019/09/22/interview/事件分发机制/&via=http://caiyonglong.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2017/11/02/Android/customer_logo/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2019/09/22/interview/事件分发机制/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -460,7 +454,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://caiyonglong.github.io/2017/11/02/Android/customer_logo/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://caiyonglong.github.io/2019/09/22/interview/事件分发机制/" alt="微信分享二维码">
 </div>
 
 
