@@ -148,6 +148,23 @@ tags:
 - okhttp原理
 - 事件分发
 
+# Shopee 面试
+- 笔试题，手写遍历输出viewGroup的子view
+- Okhttp 拦截，缓存实现原理
+- http 一次访问的完整流程，从浏览器到获取数据
+- http 缓存方式
+- 多次请求http，http会连接多次吗
+- 图片缓存机制
+- Dagger2 依赖注入和控制反转
+- 进程间通信
+- 怎么保证sp进程间安全
+- Activity onNewIntent 触发时机
+- 新建一个线程，为什么会增加内存
+- BroadcastReceiver 内部广播，外部广播
+- Service START_STICKY、IntentService、JobService
+- 自定义View
+- 约束布局
+
 # 总结
 
 经过多次的面试，可能因为每次面试题度差不多我感觉面试还是需要好好的复习，准备。

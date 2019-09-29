@@ -1,19 +1,16 @@
 ---
 title: 音乐湖应用介绍
 tags: [MusicLake]
-categories: Android
+categories: 项目
 date: 2018-04-23 18:21:16
 description: 项目具体功能介绍
 toc: true 文章目录
-author:
-comments:
-original:
-permalink:
 ---
+![](https://travis-ci.org/caiyonglong/MusicLake.svg?branch=develop)
 
-# MusicLake ![](https://travis-ci.org/caiyonglong/MusicLake.svg?branch=develop)
+# MusicLake
+一个github开源项目，在线音乐播放器，支持QQ，网易，虾米，百度等音乐播放
 [项目地址](https://travis-ci.org/caiyonglong/MusicLake)
-
   
 # 功能版本
 - Android 音乐播放器(本地/在线播放) （最低支持Android版本5.0）
@@ -28,7 +25,7 @@ permalink:
 
 - [交流群:549939157](https://jq.qq.com/?_wv=1027&k=5XrNrCJ) 加群需要问题验证，正确回答：github
 
-![功能](/images/features.png)
+![功能](/images/musiclake/features.png)
 
 
 ### 开源不易，有兴趣可给个star，支持一下哦！
@@ -53,15 +50,10 @@ permalink:
 
 # 软件运行截图
 <p>
-<img src="/images/preview1.png" width="225" height="400"/><img src="/images/preview2.png" width="225" height="400"/><img src="/images/preview3.png" width="225" height="400"/><img src="/images/preview4.png" width="225" height="400"/><img src="/images/preview5.png" width="225" height="400"/><img src="/images/preview6.png" width="225" height="400"/><img src="/images/preview7.png" width="225" height="400"/><img src="/images/preview8.png" width="225" height="400"/><img src="/images/preview9.png" width="225" height="400"/><img src="/images/preview10.png" width="225" height="400"/><img src="/images/preview11.png" width="225" height="400"/><img src="/images/preview12.png" width="225" height="400"/>
-<img src="/images/preview13.png" width="225" height="400"/>
+<img src="/images/musiclake/preview1.png" width="225" height="400"/><img src="/images/musiclake/preview2.png" width="225" height="400"/><img src="/images/musiclake/preview3.png" width="225" height="400"/><img src="/images/musiclake/preview4.png" width="225" height="400"/><img src="/images/musiclake/preview5.png" width="225" height="400"/><img src="/images/musiclake/preview6.png" width="225" height="400"/><img src="/images/musiclake/preview7.png" width="225" height="400"/><img src="/images/musiclake/preview8.png" width="225" height="400"/><img src="/images/musiclake/preview9.png" width="225" height="400"/><img src="/images/musiclake/preview10.png" width="225" height="400"/><img src="/images/musiclake/preview11.png" width="225" height="400"/><img src="/images/musiclake/preview12.png" width="225" height="400"/>
+<img src="/images/musiclake/preview13.png" width="225" height="400"/>
 </p>
 
 # 夜间模式相关截图
-<p>
-<img src="/images/dark_preview1.png" width="225" height="400"/>
-<img src="/images/dark_preview2.png" width="225" height="400"/>
-<img src="/images/dark_preview3.png" width="225" height="400"/>
-<img src="/images/dark_preview4.png" width="225" height="400"/>
-<img src="/images/dark_preview5.png" width="225" height="400"/>
+<p><img src="/images/musiclake/dark_preview1.png" width="225" height="400"/><img src="/images/musiclake/dark_preview2.png" width="225" height="400"/><img src="/images/musiclake/dark_preview3.png" width="225" height="400"/><img src="/images/musiclake/dark_preview4.png" width="225" height="400"/><img src="/images/musiclake/dark_preview5.png" width="225" height="400"/>
 </p>
