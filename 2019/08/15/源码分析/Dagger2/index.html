@@ -22,7 +22,7 @@
     <meta name="description" content="Dagger2 是什么？Dagger2是Dagger的升级版，是一个依赖注入框架,第一代由大名鼎鼎的Square公司共享出来，第二代则是由谷歌接手后推出的，现在由Google接手维护. Google dagger Github 地址 Dagger是依赖注入的编译时框架。 它不使用反射或运行时字节码生成，在编译时进行所有分析，并生成纯Java源代码。 Gladle引入12345// Add Dagg">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常用第三方库源码分析——Dagger2">
-<meta property="og:url" content="http://caiyonglong.github.io/2019/08/15/源码分析/Dagger2/index.html">
+<meta property="og:url" content="https://blog.musiclake.cn/2019/08/15/源码分析/Dagger2/index.html">
 <meta property="og:site_name" content="蔡永龙的博客">
 <meta property="og:description" content="Dagger2 是什么？Dagger2是Dagger的升级版，是一个依赖注入框架,第一代由大名鼎鼎的Square公司共享出来，第二代则是由谷歌接手后推出的，现在由Google接手维护. Google dagger Github 地址 Dagger是依赖注入的编译时框架。 它不使用反射或运行时字节码生成，在编译时进行所有分析，并生成纯Java源代码。 Gladle引入12345// Add Dagg">
 <meta property="og:locale" content="zh-CN">
@@ -225,7 +225,7 @@
     </div>
     
     <footer>
-        <a href="http://caiyonglong.github.io">
+        <a href="https://blog.musiclake.cn">
             <img src="../../../../../img/avatar.jpg" alt="蔡永龙">
             蔡永龙
         </a>
@@ -249,7 +249,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2019/08/15/源码分析/Dagger2/&title=《常用第三方库源码分析——Dagger2》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.musiclake.cn/2019/08/15/源码分析/Dagger2/&title=《常用第三方库源码分析——Dagger2》 — 蔡永龙的博客&pic=https://blog.musiclake.cn/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -259,22 +259,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2019/08/15/源码分析/Dagger2/&title=《常用第三方库源码分析——Dagger2》 — 蔡永龙的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.musiclake.cn/2019/08/15/源码分析/Dagger2/&title=《常用第三方库源码分析——Dagger2》 — 蔡永龙的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2019/08/15/源码分析/Dagger2/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.musiclake.cn/2019/08/15/源码分析/Dagger2/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《常用第三方库源码分析——Dagger2》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2019/08/15/源码分析/Dagger2/&via=http://caiyonglong.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《常用第三方库源码分析——Dagger2》 — 蔡永龙的博客&url=https://blog.musiclake.cn/2019/08/15/源码分析/Dagger2/&via=https://blog.musiclake.cn" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2019/08/15/源码分析/Dagger2/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.musiclake.cn/2019/08/15/源码分析/Dagger2/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -409,7 +409,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://caiyonglong.github.io/2019/08/15/源码分析/Dagger2/&title=《常用第三方库源码分析——Dagger2》 — 蔡永龙的博客&pic=http://caiyonglong.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.musiclake.cn/2019/08/15/源码分析/Dagger2/&title=《常用第三方库源码分析——Dagger2》 — 蔡永龙的博客&pic=https://blog.musiclake.cn/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -419,22 +419,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://caiyonglong.github.io/2019/08/15/源码分析/Dagger2/&title=《常用第三方库源码分析——Dagger2》 — 蔡永龙的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.musiclake.cn/2019/08/15/源码分析/Dagger2/&title=《常用第三方库源码分析——Dagger2》 — 蔡永龙的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://caiyonglong.github.io/2019/08/15/源码分析/Dagger2/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.musiclake.cn/2019/08/15/源码分析/Dagger2/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《常用第三方库源码分析——Dagger2》 — 蔡永龙的博客&url=http://caiyonglong.github.io/2019/08/15/源码分析/Dagger2/&via=http://caiyonglong.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《常用第三方库源码分析——Dagger2》 — 蔡永龙的博客&url=https://blog.musiclake.cn/2019/08/15/源码分析/Dagger2/&via=https://blog.musiclake.cn" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://caiyonglong.github.io/2019/08/15/源码分析/Dagger2/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.musiclake.cn/2019/08/15/源码分析/Dagger2/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -445,7 +445,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://caiyonglong.github.io/2019/08/15/源码分析/Dagger2/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://blog.musiclake.cn/2019/08/15/源码分析/Dagger2/" alt="微信分享二维码">
 </div>
 
 
