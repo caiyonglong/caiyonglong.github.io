@@ -1,525 +1,521 @@
+
+
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-    
-
-    
-
-    
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
-    <meta charset="utf-8">
-    
-    
-    
-    
-    <title>客户化定制开机logo、开机动画 | 蔡永龙的博客 | One step at a time</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    
-    <meta name="keywords" content="定制">
-    <meta name="description" content="设置开机logo高通平台123451、修改的文件路径LINUX/android/bootable/bootloader/lk/splash2、准备好logo图片(png、bmp格式)3、查看中原图片的分辨率，修改logo图片*保证分辨率一致*4、生成splash.img镜像文件 生成splash 步骤123The steps to generate a splash.img:1 sudo apt-">
-<meta name="keywords" content="定制">
-<meta property="og:type" content="article">
-<meta property="og:title" content="客户化定制开机logo、开机动画">
-<meta property="og:url" content="https://blog.musiclake.cn/2017/11/02/Android/customer_logo/index.html">
-<meta property="og:site_name" content="蔡永龙的博客">
-<meta property="og:description" content="设置开机logo高通平台123451、修改的文件路径LINUX/android/bootable/bootloader/lk/splash2、准备好logo图片(png、bmp格式)3、查看中原图片的分辨率，修改logo图片*保证分辨率一致*4、生成splash.img镜像文件 生成splash 步骤123The steps to generate a splash.img:1 sudo apt-">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-04T15:22:02.605Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="客户化定制开机logo、开机动画">
-<meta name="twitter:description" content="设置开机logo高通平台123451、修改的文件路径LINUX/android/bootable/bootloader/lk/splash2、准备好logo图片(png、bmp格式)3、查看中原图片的分辨率，修改logo图片*保证分辨率一致*4、生成splash.img镜像文件 生成splash 步骤123The steps to generate a splash.img:1 sudo apt-">
-    
-        <link rel="alternate" type="application/atom+xml" title="蔡永龙的博客" href="../../../../../atom.xml">
-    
-    <link rel="shortcut icon" href="../../../../../favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="蔡永龙">
+  <meta name="keywords" content="">
+  <title>客户化定制开机logo、开机动画 - 蔡永龙的博客</title>
 
-    <!-- custom head -->
-    
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
-</head>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
 
 <body>
-    <div id="loading" class="active"></div>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
 
-    <aside id="menu" class="hide">
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(../../../../../img/brand.jpg)">
-      <div class="brand">
-        <a href="../../../../../index.html" class="avatar waves-effect waves-circle waves-light">
-          <img src="../../../../../img/avatar.jpg">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">蔡永龙</h5>
-          <a href="mailto:643872807@qq.com" title="643872807@qq.com" class="mail">643872807@qq.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="../../../../../index.html">
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="../../../../../archives">
-                <i class="icon icon-lg icon-archives"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="../../../../../tags">
-                <i class="icon icon-lg icon-tags"></i>
-                标签
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="../../../../../categories">
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
                 分类
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="../../../../../about">
-                <i class="icon icon-lg icon-link"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
                 关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/caiyonglong" target="_blank">
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
         
-            <li class="waves-block waves-effect">
-              <a href="http://www.weibo.com/hkcyl" target="_blank">
-                <i class="icon icon-lg icon-weibo"></i>
-                Weibo
-              </a>
-            </li>
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
-      <div class="bottom" style="text-align: center;">
-        <p>&copy;2016 - 2019</p>
-            <p>
-                
-                <a href="http://www.miitbeian.gov.cn/" target="_blank">湘ICP备19015354号</a><br>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-        </p>
-    </div>
     </div>
   </div>
-</aside>
+</nav>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">客户化定制开机logo、开机动画</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header post-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">客户化定制开机logo、开机动画</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2017-11-02T13:34:25.000Z" itemprop="datePublished" class="page-time">
-  2017-11-02
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="../../../../../categories/Android/">Android</a></li></ul>
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
 
             
-        </h5>
-    </div>
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2017-11-02 21:34" pubdate>
+      2017年11月2日 晚上
+    </time>
+  </div>
 
+
+<div class="mt-1">
+  
     
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      479 字
+    </span>
+  
 
-
-</header>
-
-
-<div class="container body-wrap">
+  
     
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置开机logo"><span class="post-toc-text">设置开机logo</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#高通平台"><span class="post-toc-text">高通平台</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MTK平台"><span class="post-toc-text">MTK平台</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置开关机动画"><span class="post-toc-text">设置开关机动画</span></a></li></ol>
-        </nav>
-    </aside>
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      6
+       分钟
+    </span>
+  
 
-
-<article id="post-Android/customer_logo" class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">客户化定制开机logo、开机动画</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2017-11-02 21:34:25" datetime="2017-11-02T13:34:25.000Z" itemprop="datePublished">2017-11-02</time>
+  
+  
+</div>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="../../../../../categories/Android/">Android</a></li></ul>
+          </div>
 
-
-
-            
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
+          
         </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="设置开机logo"><a href="#设置开机logo" class="headerlink" title="设置开机logo"></a>设置开机logo</h2><h3 id="高通平台"><a href="#高通平台" class="headerlink" title="高通平台"></a>高通平台</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、修改的文件路径</span><br><span class="line">LINUX/android/bootable/bootloader/lk/splash</span><br><span class="line">2、准备好logo图片(png、bmp格式)</span><br><span class="line">3、查看中原图片的分辨率，修改logo图片*保证分辨率一致*</span><br><span class="line">4、生成splash.img镜像文件</span><br></pre></td></tr></table></figure>
-<p>生成splash 步骤<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The steps to generate a splash.img:</span><br><span class="line">1 sudo apt-get install python-imaging</span><br><span class="line">2 python ./logo_gen.py boot_001.png (*.bmp)</span><br></pre></td></tr></table></figure></p>
-<h3 id="MTK平台"><a href="#MTK平台" class="headerlink" title="MTK平台"></a>MTK平台</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、修改的文件路径</span><br><span class="line">vendor\mediatek\proprietary\bootable\bootloader\lk\dev\logo</span><br><span class="line">2、准备好logo图片(bmp格式)</span><br><span class="line">3、查看中原图片的分辨率，修改logo图片*保证分辨率一致*替换相应格式的logo</span><br></pre></td></tr></table></figure>
-<h2 id="设置开关机动画"><a href="#设置开关机动画" class="headerlink" title="设置开关机动画"></a>设置开关机动画</h2><p>首先自己制作开关机动画包，如果有现成的压缩包那就不用了<br>，压缩包的压缩方式必须是存储方式的zip格式压缩。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bootanimation.zip</span><br><span class="line">shutdownanimation.zip</span><br></pre></td></tr></table></figure></p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">客户化定制开机logo、开机动画</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="设置开机logo"><a href="#设置开机logo" class="headerlink" title="设置开机logo"></a>设置开机logo</h2><h3 id="高通平台"><a href="#高通平台" class="headerlink" title="高通平台"></a>高通平台</h3><pre><code class="hljs angelscript"><span class="hljs-number">1</span>、修改的文件路径
+LINUX/android/bootable/bootloader/lk/splash
+<span class="hljs-number">2</span>、准备好logo图片(png、bmp格式)
+<span class="hljs-number">3</span>、查看中原图片的分辨率，修改logo图片*保证分辨率一致*
+<span class="hljs-number">4</span>、生成splash.img镜像文件</code></pre>
+<p>生成splash 步骤</p>
+<pre><code class="hljs vim">The steps <span class="hljs-keyword">to</span> generate <span class="hljs-keyword">a</span> splash.<span class="hljs-keyword">im</span><span class="hljs-variable">g:</span>
+<span class="hljs-number">1</span> sudo apt-<span class="hljs-built_in">get</span> install <span class="hljs-keyword">python</span>-imaging
+<span class="hljs-number">2</span> <span class="hljs-keyword">python</span> ./logo_gen.<span class="hljs-keyword">py</span> boot_001.png (*.bmp)</code></pre>
+<h3 id="MTK平台"><a href="#MTK平台" class="headerlink" title="MTK平台"></a>MTK平台</h3><pre><code class="hljs latex">1、修改的文件路径
+vendor<span class="hljs-tag">\<span class="hljs-name">mediatek</span></span><span class="hljs-tag">\<span class="hljs-name">proprietary</span></span><span class="hljs-tag">\<span class="hljs-name">bootable</span></span><span class="hljs-tag">\<span class="hljs-name">bootloader</span></span><span class="hljs-tag">\<span class="hljs-name">lk</span></span><span class="hljs-tag">\<span class="hljs-name">dev</span></span><span class="hljs-tag">\<span class="hljs-name">logo</span></span>
+2、准备好logo图片(bmp格式)
+3、查看中原图片的分辨率，修改logo图片*保证分辨率一致*替换相应格式的logo
+</code></pre>
+<h2 id="设置开关机动画"><a href="#设置开关机动画" class="headerlink" title="设置开关机动画"></a>设置开关机动画</h2><p>首先自己制作开关机动画包，如果有现成的压缩包那就不用了<br>，压缩包的压缩方式必须是存储方式的zip格式压缩。</p>
+<pre><code class="hljs css"><span class="hljs-selector-tag">bootanimation</span><span class="hljs-selector-class">.zip</span>
+<span class="hljs-selector-tag">shutdownanimation</span><span class="hljs-selector-class">.zip</span></code></pre>
 <p>压缩包中有两个文件夹part0、part1和desc.txt文件</p>
 <p>part0和part1中主要存放一些开机动画的帧图片</p>
 <p>desc.txt中内容如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">720 1680 15</span><br><span class="line">p 1 0 part1</span><br><span class="line">p 0 0 part0</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs apache"><span class="hljs-attribute">720</span> <span class="hljs-number">1680</span> <span class="hljs-number">15</span>
+<span class="hljs-attribute">p</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span> part<span class="hljs-number">1</span>
+<span class="hljs-attribute">p</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> part<span class="hljs-number">0</span>
+</code></pre>
 <ul>
 <li>720 1680 代表开机动画图片分辨率</li>
 <li>15 代表播放速度。15 帧每秒</li>
 <li>p 1（代表着播放一次） 0（空指令）part1 代表这part1文件夹内的图片只按名称顺序播放一次</li>
 <li>p 0（代表着播放一次） 0（空指令）part0  代表这part0文件夹内的图片只按名称顺序循环播放直到结束</li>
 </ul>
-<p>预览：必须在已经root的手机下才能替换。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//进入root权限</span><br><span class="line">adb root</span><br><span class="line">adb remount </span><br><span class="line">adb shell </span><br><span class="line">//进入开关机动画存放目录</span><br><span class="line">cd system/media </span><br><span class="line">//删除手机原先的开关机动画</span><br><span class="line">rm bootanimation.zip</span><br><span class="line">rm shutdownanimation.zip </span><br><span class="line">//将开关机动画push到手机</span><br><span class="line">adb push 文件路径 system/media</span><br></pre></td></tr></table></figure></p>
-<p>最后重启手机即可看到效果<br>Android 源代码中替换开关机压缩包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">高通平台</span><br><span class="line">LINUX/android/vendor/qcom/proprietary/qrdplus/Extension/apps/BootAnimation</span><br><span class="line">MTK平台</span><br><span class="line">framework/base/data/sounds</span><br></pre></td></tr></table></figure></p>
-
-        </div>
-
-        <blockquote class="post-copyright">
-    
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2018-12-04T15:22:02.605Z" itemprop="dateUpdated">2018-12-04 23:22:02</time>
-</span><br>
-
-
-        
-    </div>
-    
-    <footer>
-        <a href="https://blog.musiclake.cn">
-            <img src="../../../../../img/avatar.jpg" alt="蔡永龙">
-            蔡永龙
-        </a>
-    </footer>
-</blockquote>
-
-        
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
+<p>预览：必须在已经root的手机下才能替换。</p>
+<pre><code class="hljs stata"><span class="hljs-comment">//进入root权限</span>
+adb root
+adb remount 
+adb <span class="hljs-keyword">shell</span> 
+<span class="hljs-comment">//进入开关机动画存放目录</span>
+<span class="hljs-keyword">cd</span> system/media 
+<span class="hljs-comment">//删除手机原先的开关机动画</span>
+<span class="hljs-keyword">rm</span> bootanimation.<span class="hljs-keyword">zip</span>
+<span class="hljs-keyword">rm</span> shutdownanimation.<span class="hljs-keyword">zip</span> 
+<span class="hljs-comment">//将开关机动画push到手机</span>
+adb push 文件路径 system/media</code></pre>
+<p>最后重启手机即可看到效果<br>Android 源代码中替换开关机压缩包</p>
+<pre><code class="hljs awk">高通平台
+LINUX<span class="hljs-regexp">/android/</span>vendor<span class="hljs-regexp">/qcom/</span>proprietary<span class="hljs-regexp">/qrdplus/</span>Extension<span class="hljs-regexp">/apps/</span>BootAnimation
+MTK平台
+framework<span class="hljs-regexp">/base/</span>data/sounds</code></pre>
 
 
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../../tags/定制/">定制</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.musiclake.cn/2017/11/02/Android/customer_logo/&title=《客户化定制开机logo、开机动画》 — 蔡永龙的博客&pic=https://blog.musiclake.cn/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.musiclake.cn/2017/11/02/Android/customer_logo/&title=《客户化定制开机logo、开机动画》 — 蔡永龙的博客&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.musiclake.cn/2017/11/02/Android/customer_logo/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《客户化定制开机logo、开机动画》 — 蔡永龙的博客&url=https://blog.musiclake.cn/2017/11/02/Android/customer_logo/&via=https://blog.musiclake.cn" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.musiclake.cn/2017/11/02/Android/customer_logo/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="../../../13/设计模式/单例模式/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">单例模式</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="../../../../10/13/设计模式/组合模式/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">组合模式</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</article>
-
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        谢谢大爷~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="../../../../../img/wechat.jpg" alt="打赏二维码">
-        </div>
-        
-        <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="../../../../../img/wechat.jpg" data-alipay="../../../../../img/alipay.jpg">
-            <div class="reward-toggle-ctrol">
-                <span class="reward-toggle-item wechat">微信</span>
-                <span class="reward-toggle-label"></span>
-                <span class="reward-toggle-item alipay">支付宝</span>
             </div>
-        </label>
-        
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android/">Android</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AE%9A%E5%88%B6/">定制</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2017/11/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">单例模式</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2017/10/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">
+                        <span class="hidden-mobile">代理模式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
 </div>
 
-
-
+      </div>
+    
+  </div>
 </div>
 
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style="display:none">
-        站点总访客数<span id="busuanzi_value_site_uv"></span>人次<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style="display:none">
-        站点总访问量<span id="busuanzi_value_site_pv"></span>次<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
+<!-- Custom -->
 
 
-        <p>
-            
-                <span><a href="../../../../../atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
     </div>
-    <div class="bottom">
-        <p><span>蔡永龙 &copy; 2016 - 2019</span>
-            <span>
-                
-                <a href="http://www.miitbeian.gov.cn/" target="_blank">湘ICP备19015354号</a><br>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-            <span>
-                 <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank"><img src="/img/youpaiyun.png" width="70" height="31">又拍云</a>
-            </span>
-        </p>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
     </div>
+    
+
+    
+
+    
+  </div>
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.musiclake.cn/2017/11/02/Android/customer_logo/&title=《客户化定制开机logo、开机动画》 — 蔡永龙的博客&pic=https://blog.musiclake.cn/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.musiclake.cn/2017/11/02/Android/customer_logo/&title=《客户化定制开机logo、开机动画》 — 蔡永龙的博客&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.musiclake.cn/2017/11/02/Android/customer_logo/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《客户化定制开机logo、开机动画》 — 蔡永龙的博客&url=https://blog.musiclake.cn/2017/11/02/Android/customer_logo/&via=https://blog.musiclake.cn" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.musiclake.cn/2017/11/02/Android/customer_logo/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://blog.musiclake.cn/2017/11/02/Android/customer_logo/" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
-
-
-</script>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
 
 
 
 
 
 
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
 
-
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '大神指点指点！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '蔡永龙的博客';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
     });
-})();
-</script>
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "客户化定制开机logo、开机动画&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
