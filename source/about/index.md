@@ -1,6 +1,7 @@
+---
 title: 关于我
+date: 2020-09-04 01:10:26
 layout: about
-comments: true
 ---
 
 # 个人信息
@@ -40,10 +41,6 @@ comments: true
     - 推进部门间沟通与工作规范，如资源规范，开发规范，设计规范
     - 技术栈:ExoPlayer、自定义View、Firebase、友盟统计等
     - 架构:Kotlin+MVVM + Glide + GreenDao + EventBus + Retrofit + LiveData
-
-- MTK平台的Android系统定制开发
-    - 工作职责：基于MTK的Android系统源码，实现客户定制化需求
-    - 项目经验：使用git管理维护Android系统源码，熟悉Android系统源码结构，能快速定位应用层bug，熟悉Launcher的源码。
 
 # 开源项目及作品
 - 暴走P图
