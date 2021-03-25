@@ -1,9 +1,10 @@
 ---
 layout: post
-tags: 
- - api
+tags:
+  - api
 categories: 接口
 title: 接入Google、FaceBook第三方登录
+abbrlink: baa940ea
 date: 2019-01-16 23:16:43
 ---
 

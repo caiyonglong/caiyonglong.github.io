@@ -1,8 +1,10 @@
 ---
 title: Activity的启动流程
-date: 2019-09-22
-categories: [源码分析]
-tags: 
+categories:
+  - 源码分析
+abbrlink: 3f706ac0
+date: 2019-09-22 00:00:00
+tags:
 ---
 
 # 前言

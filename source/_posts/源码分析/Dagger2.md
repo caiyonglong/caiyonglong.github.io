@@ -1,8 +1,9 @@
 ---
 title: 常用第三方库源码分析——Dagger2
-date: 2019-08-15 10:04:02
 categories: 源码分析
-tags: 
+abbrlink: 5880a2ff
+date: 2019-08-15 10:04:02
+tags:
 ---
 
 

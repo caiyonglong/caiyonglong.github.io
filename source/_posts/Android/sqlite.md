@@ -1,14 +1,16 @@
 ---
 title: 8-25
-date: 2016-08-25 08:21:16
-tags: [基础]
+tags:
+  - 基础
 categories: Android
 description: Android中的数据库操作
 toc: true 文章目录
+permalink: /post
+abbrlink: 9f8d4ab3
+date: 2016-08-25 08:21:16
 author:
 comments:
 original:
-permalink: /post
 ---
 
 # 前言

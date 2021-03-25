@@ -1,8 +1,10 @@
 ---
 title: Handler消息机制
-date: 2019-09-22
 categories: 源码分析
-tags: [Handler]
+tags:
+  - Handler
+abbrlink: c6dbe339
+date: 2019-09-22 00:00:00
 ---
 
 # 前言

@@ -1,8 +1,8 @@
-
 ---
 title: MVC ，MVP，MVVM 的理解
-date: 2019-08-31
 categories: Android
+abbrlink: 234507b1
+date: 2019-08-31 00:00:00
 ---
 
 一切都是为了解耦合，开发更加方便

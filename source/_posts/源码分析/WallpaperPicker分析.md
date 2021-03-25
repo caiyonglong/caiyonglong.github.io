@@ -1,14 +1,17 @@
 ---
 title: WallpaperPicker分析
-date: 2017-12-25 08:21:16
-tags: [WallpaperPicker,源码分析]
+tags:
+  - WallpaperPicker
+  - 源码分析
 categories: Android
 description: WallpaperPicker分析
 toc: true 文章目录
+permalink: /post
+abbrlink: 2792f1f7
+date: 2017-12-25 08:21:16
 author:
 comments:
 original:
-permalink: /post
 ---
 # 分析点
 1.主要类介绍

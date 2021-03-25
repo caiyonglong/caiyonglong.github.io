@@ -1,14 +1,16 @@
 ---
 title: 音乐接口
-tags: [api]
+tags:
+  - api
 categories: 接口
-date: 2016-08-25 08:21:16
 description: 音乐接口总结
 toc: true 文章目录
+abbrlink: 28ffda2f
+date: 2016-08-25 08:21:16
 author:
 comments:
 original:
-permalink: 
+permalink:
 ---
 有点想总结一下音乐接口，
 

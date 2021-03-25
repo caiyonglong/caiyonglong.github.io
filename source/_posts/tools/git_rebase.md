@@ -1,13 +1,15 @@
 ---
 title: git使用---修改历史提交记录
-date: 2018-2-02 21:34:25
-description: 
 categories: 开发工具
-tags: [git]
+tags:
+  - git
+abbrlink: be0c7f93
+date: 2018-02-02 21:34:25
+description:
 author:
 comments:
 original:
-permalink: 
+permalink:
 ---
 
 # git cherry-pick所遇到的问题

@@ -1,10 +1,12 @@
 ---
 title: 音乐湖应用介绍
-tags: [MusicLake]
+tags:
+  - MusicLake
 categories: 项目
-date: 2018-04-23 18:21:16
 description: 项目具体功能介绍
 toc: true 文章目录
+abbrlink: 9b393ba9
+date: 2018-04-23 18:21:16
 ---
 ![](https://travis-ci.org/caiyonglong/MusicLake.svg?branch=develop)
 

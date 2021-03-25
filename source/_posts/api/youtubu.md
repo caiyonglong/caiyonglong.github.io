@@ -1,14 +1,16 @@
 ---
 title: Youtube api
-tags: [api]
+tags:
+  - api
 categories: 接口
-date: 2016-08-25 08:21:16
-description: 
 toc: true 文章目录
+abbrlink: '827e1383'
+date: 2016-08-25 08:21:16
+description:
 author:
 comments:
 original:
-permalink: 
+permalink:
 ---
 # YouTube Data API 分析
 最近在对Youtube的开放api进行一些调研和分析，为了有了个更深的印象，所以总结一下，写得不好，欢迎指正！

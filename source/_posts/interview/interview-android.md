@@ -1,8 +1,10 @@
 ---
 title: 总结
-date: 2018-04-24 00:55:00
-tags: [杂谈]
+tags:
+  - 杂谈
 categories: 杂谈
+abbrlink: c8d0539d
+date: 2018-04-24 00:55:00
 ---
 总结一下
 ## 基础知识点

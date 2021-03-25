@@ -1,10 +1,12 @@
 ---
 title: hexo常用命令
-date: 2016-05-29 13:49:34
-tags: [hexo]
+tags:
+  - hexo
 categories: 博客
-description:
 toc: true 文章目录
+abbrlink: 33f59116
+date: 2016-05-29 13:49:34
+description:
 author:
 comments:
 original:

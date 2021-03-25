@@ -1,7 +1,10 @@
 ---
 title: 【RN】RN工程化架构-redux
+tags:
+  - RN
+  - 跨平台
+abbrlink: 854d3cbf
 date: 2020-09-08 09:57:17
-tags: [RN,跨平台]
 ---
 
 # 前言

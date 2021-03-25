@@ -1,8 +1,11 @@
 ---
 title: 音频焦点管理
-date: 2018-04-24 10:04:02
 categories: Android
-tags: [源码分析,AudioFocus]
+tags:
+  - 源码分析
+  - AudioFocus
+abbrlink: 68e283a1
+date: 2018-04-24 10:04:02
 ---
 
 #前言

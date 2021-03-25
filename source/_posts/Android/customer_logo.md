@@ -1,13 +1,15 @@
 ---
 title: 客户化定制开机logo、开机动画
-date: 2017-11-02 21:34:25
-description: 
 categories: Android
-tags: [定制]
+tags:
+  - 定制
+abbrlink: 17a37153
+date: 2017-11-02 21:34:25
+description:
 author:
 comments:
 original:
-permalink: 
+permalink:
 ---
 
 ## 设置开机logo

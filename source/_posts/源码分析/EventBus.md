@@ -1,8 +1,10 @@
 ---
-title: 常用第三方库源码分析——EventBus 
-date: 2019-09-22
+title: 常用第三方库源码分析——EventBus
 categories: 源码分析
-tags: [Eventbus]
+tags:
+  - Eventbus
+abbrlink: 6ba9cd28
+date: 2019-09-22 00:00:00
 ---
 # 前言
 EventBus是适用于Android和Java的发布/订阅事件总线。

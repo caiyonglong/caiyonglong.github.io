@@ -1,14 +1,16 @@
 ---
 title: 爱壁纸音乐api
-tags: [api]
+tags:
+  - api
 categories: 接口
-date: 2016-08-25 08:21:16
 description: 壁纸接口
 toc: true 文章目录
+abbrlink: f296039d
+date: 2016-08-25 08:21:16
 author:
 comments:
 original:
-permalink: 
+permalink:
 ---
 # 前言
 通过fildder抓取爱壁纸app的图片接口
