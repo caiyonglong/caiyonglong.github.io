@@ -4,6 +4,56 @@
   
   
   <entry>
+    <title>音乐湖环境部署</title>
+    <link href="/posts/musicLakeBuild.html"/>
+    <url>/posts/musicLakeBuild.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="音乐湖环境部署"><a href="#音乐湖环境部署" class="headerlink" title="音乐湖环境部署"></a>音乐湖环境部署</h1><p>音乐湖项目主要包含了Android端，PC端，微信小程序端，歌单服务器等几个项目，具体项目地址如下：</p><p><a href="https://github.com/caiyonglong/MusicLake">Android客户端 MusicLake</a><br><a href="https://github.com/sunzongzheng/music">PC端 music</a><br><a href="https://github.com/sunzongzheng/player-be">云歌单服务器 play-be</a><br><a href="https://github.com/sunzongzheng/musicApi">音乐解析 Api</a></p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为涉及音乐版权问题，被官方警告了。所以我们就不再提供可用的应用以及接口API了，目前主要偏向于学习研究。在群里也有人反馈看不懂README，部署比较困难，看到别人的部署博客，非常详细，非常好，所以作为开发者的我们也应该写一篇来记录记录。<br>如果只是想用单纯的使用音乐湖软件听歌，不建议搭建这一套环境体系。</p><h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a><a href="./musicLake.html">项目介绍</a></h2><p>本项目采用CS架构，客户端-服务器模式，搭建部署整个音乐播放服务。</p><p>客户端：MusicLake、PC客户端<br>服务器：play-be（登录、云歌单）、NeteaseMusicApi（网易云音乐api）</p><h2 id="云歌单服务器部署"><a href="#云歌单服务器部署" class="headerlink" title="云歌单服务器部署"></a>云歌单服务器部署</h2><p><a href="https://github.com/sunzongzheng/player-be">云歌单服务器 play-be</a></p><h3 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h3><p>cp config/default.js config/local.js<br>修改config/local.js相应配置<br>npm install<br>npm run start</p><h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><ul><li>cp config/default.js config/local.js</li><li>修改config/local.js相应配置</li><li>以下三种方式任选一<pre><code class="hljs crmsh">docker-compose up -d <span class="hljs-comment"># Docker Compose（Recommended）</span>pm2 <span class="hljs-literal">start</span> pm2.production.json <span class="hljs-comment"># PM2, daemon run</span>npm run <span class="hljs-literal">start</span> <span class="hljs-comment"># Just run it</span></code></pre></li></ul><h2 id="PC客户端部署"><a href="#PC客户端部署" class="headerlink" title="PC客户端部署"></a>PC客户端部署</h2><p>如果想直接使用体验，github 支持<code>workflow</code>部署，release下有打包好的生成包，可以直接选择对应的客户端下载安装即可。</p><p>也可以自己打包</p><h3 id="打包环境要求"><a href="#打包环境要求" class="headerlink" title="打包环境要求"></a>打包环境要求</h3><ul><li>nodejs v12.1.0 版本及以上</li><li>yarn</li></ul><h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><pre><code class="hljs dockerfile">yarn <span class="hljs-keyword">run</span><span class="bash"> build</span></code></pre><p>更多请见 <a href="https://github.com/sunzongzheng/music/blob/master/build.md">github</a></p><h2 id="Android客户端部署"><a href="#Android客户端部署" class="headerlink" title="Android客户端部署"></a>Android客户端部署</h2><p>未完待续…</p><h2 id="Github登录服务配置"><a href="#Github登录服务配置" class="headerlink" title="Github登录服务配置"></a>Github登录服务配置</h2><p>未完待续…</p><h2 id="QQ登录配置"><a href="#QQ登录配置" class="headerlink" title="QQ登录配置"></a>QQ登录配置</h2><p>这个需要备案的域名，才能使用。建议推荐Github登录配置</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MusicLake</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>音乐湖（MusicLake）项目介绍</title>
+    <link href="/posts/musicLake.html"/>
+    <url>/posts/musicLake.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="MusicLake"><a href="#MusicLake" class="headerlink" title="MusicLake"></a>MusicLake</h1><p><img src="https://github.com/caiyonglong/MusicLake/workflows/Check/badge.svg" alt="Workflow result"></p><p><a href="https://github.com/caiyonglong/MusicLake/tree/dev_musiclib">MediaPlayer、ExoPlayer音乐库封装</a></p><h1 id="编译-amp-服务器部署"><a href="#编译-amp-服务器部署" class="headerlink" title="编译&amp;服务器部署"></a>编译&amp;服务器部署</h1><p> <a href="BUILD.md">build.md</a></p><h1 id="功能版本"><a href="#功能版本" class="headerlink" title="功能版本"></a>功能版本</h1><ul><li>Android 音乐播放器(本地/在线播放) （最低支持Android版本5.0）</li><li>支持多平台音乐源，百度音乐，虾米音乐、网易云音乐、Youtube（需要翻墙）</li><li>歌词播放、桌面歌词、桌面小控件</li><li>通知栏控制、线控播放、音频焦点控制</li><li>QQ登录、微博登陆、在线歌单同步</li><li>网易云热门歌手，百度电台列表，网易云mv排行榜，mv播放评论</li><li>酷狗歌词搜索、修改歌词样式、歌词翻译</li><li><a href="https://github.com/sunzongzheng/music">PC端</a></li></ul><h3 id="开源不易，有兴趣可给个star，支持一下哦！"><a href="#开源不易，有兴趣可给个star，支持一下哦！" class="headerlink" title="开源不易，有兴趣可给个star，支持一下哦！"></a>开源不易，有兴趣可给个star，支持一下哦！</h3><ul><li>群聊已经解散，有什么问题可以提<a href="https://github.com/caiyonglong/MusicLake/issues">issues</a>！，有想法可以提PR。感谢关注🙏</li></ul><p><img src="screenshots/features.png" alt="功能"></p><h1 id="相关项目-音乐API"><a href="#相关项目-音乐API" class="headerlink" title="相关项目|音乐API"></a>相关项目|音乐API</h1><ul><li><a href="https://github.com/caiyonglong/MusicApi">客户端音乐API</a></li><li><a href="https://github.com/sunzongzheng/musicApi">客户端/PC音乐共用API</a></li><li><a href="https://github.com/sunzongzheng/player-be">后台/云歌单API</a></li><li><a href="https://github.com/Binaryify/NeteaseCloudMusicApi">三方/NeteaseCloudMusicApi</a></li></ul><h1 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h1><ul><li><a href="https://github.com/ReactiveX/RxJava">rxjava</a></li><li><a href="https://github.com/square/retrofit">retrofit</a></li><li><a href="https://github.com/google/dagger">dagger2</a></li><li><a href="https://github.com/bumptech/glide">Glide</a></li><li><a href="https://github.com/LitePalFramework/LitePal">LitePal</a></li><li><a href="https://github.com/wendux/DSBridge-Android">DSBridge</a></li><li><a href="https://github.com/CymChad/BaseRecyclerViewAdapterHelper">BaseRecyclerViewAdapterHelper</a></li><li><a href="https://github.com/caiyonglong/MusicLake/blob/develop/app/build.gradle">More..</a></li></ul><h1 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h1><ul><li><p>主要功能截图</p><p><img src="screenshots/preview1.png" width="225" height="400"/><img src="screenshots/preview2.png" width="225" height="400"/><img src="screenshots/preview3.png" width="225" height="400"/><img src="screenshots/preview4.png" width="225" height="400"/><img src="screenshots/preview5.png" width="225" height="400"/><img src="screenshots/preview6.png" width="225" height="400"/><img src="screenshots/preview7.png" width="225" height="400"/><img src="screenshots/preview8.png" width="225" height="400"/><img src="screenshots/preview9.png" width="225" height="400"/><img src="screenshots/preview10.png" width="225" height="400"/><img src="screenshots/preview11.png" width="225" height="400"/><img src="screenshots/preview12.png" width="225" height="400"/><img src="screenshots/preview13.png" width="225" height="400"/></p></li><li><p>夜间模式相关截图</p></li></ul><p><img src="screenshots/dark_preview1.png" width="225" height="400"/><img src="screenshots/dark_preview2.png" width="225" height="400"/><img src="screenshots/dark_preview3.png" width="225" height="400"/><img src="screenshots/dark_preview4.png" width="225" height="400"/><img src="screenshots/dark_preview5.png" width="225" height="400"/></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MusicLake</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>常用设计模式</title>
     <link href="/posts/1e80ad29.html"/>
     <url>/posts/1e80ad29.html</url>
@@ -481,31 +531,6 @@
     <categories>
       
       <category>Android</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>MusicLake</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>音乐湖应用介绍</title>
-    <link href="/posts/9b393ba9.html"/>
-    <url>/posts/9b393ba9.html</url>
-    
-    <content type="html"><![CDATA[<p><img src="https://travis-ci.org/caiyonglong/MusicLake.svg?branch=develop"></p><h1 id="MusicLake"><a href="#MusicLake" class="headerlink" title="MusicLake"></a>MusicLake</h1><p>一个github开源项目，在线音乐播放器，支持QQ，网易，虾米，百度等音乐播放<br><a href="https://travis-ci.org/caiyonglong/MusicLake">项目地址</a></p><h1 id="功能版本"><a href="#功能版本" class="headerlink" title="功能版本"></a>功能版本</h1><ul><li><p>Android 音乐播放器(本地/在线播放) （最低支持Android版本5.0）</p></li><li><p>支持多平台音乐源，百度音乐，虾米音乐、网易云音乐、Youtube（需要翻墙）</p></li><li><p>歌词播放、桌面歌词、桌面小控件</p></li><li><p>通知栏控制、线控播放、音频焦点控制</p></li><li><p>QQ登录、微博登陆、在线歌单同步</p></li><li><p>网易云热门歌手，百度电台列表，网易云mv排行榜，mv播放评论</p></li><li><p>酷狗歌词搜索、修改歌词样式、歌词翻译</p></li><li><p>精力有限，需求不饱和都会逐步完善</p></li><li><p><a href="https://github.com/sunzongzheng/music">PC端</a></p></li><li><p><a href="https://jq.qq.com/?_wv=1027&k=5XrNrCJ">交流群:549939157</a> 加群需要问题验证，正确回答：github</p></li></ul><p><img src="/images/musiclake/features.png" alt="功能"></p><h3 id="开源不易，有兴趣可给个star，支持一下哦！"><a href="#开源不易，有兴趣可给个star，支持一下哦！" class="headerlink" title="开源不易，有兴趣可给个star，支持一下哦！"></a>开源不易，有兴趣可给个star，支持一下哦！</h3><p>持续更新，有什么问题可以提<a href="https://github.com/caiyonglong/MusicLake/issues">issues</a>！</p><h1 id="相关项目-音乐API"><a href="#相关项目-音乐API" class="headerlink" title="相关项目|音乐API"></a>相关项目|音乐API</h1><ul><li><a href="https://github.com/caiyonglong/MusicApi">客户端音乐API</a></li><li><a href="https://github.com/sunzongzheng/musicApi">客户端/PC音乐共用API</a></li><li><a href="https://github.com/sunzongzheng/player-be">后台/云歌单API</a></li><li><a href="https://github.com/Binaryify/NeteaseCloudMusicApi">三方/NeteaseCloudMusicApi</a></li></ul><h1 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h1><ul><li><a href="https://github.com/ReactiveX/RxJava">rxjava</a></li><li><a href="https://github.com/square/retrofit">retrofit</a></li><li><a href="https://github.com/google/dagger">dagger2</a></li><li><a href="https://github.com/bumptech/glide">Glide</a></li><li><a href="https://github.com/LitePalFramework/LitePal">LitePal</a></li><li><a href="https://github.com/wendux/DSBridge-Android">DSBridge</a></li><li><a href="https://github.com/CymChad/BaseRecyclerViewAdapterHelper">BaseRecyclerViewAdapterHelper</a></li><li><a href="https://github.com/caiyonglong/MusicLake/blob/develop/app/build.gradle">More..</a></li></ul><h1 id="软件运行截图"><a href="#软件运行截图" class="headerlink" title="软件运行截图"></a>软件运行截图</h1><p><img src="/images/musiclake/preview1.png" width="225" height="400"/><img src="/images/musiclake/preview2.png" width="225" height="400"/><img src="/images/musiclake/preview3.png" width="225" height="400"/><img src="/images/musiclake/preview4.png" width="225" height="400"/><img src="/images/musiclake/preview5.png" width="225" height="400"/><img src="/images/musiclake/preview6.png" width="225" height="400"/><img src="/images/musiclake/preview7.png" width="225" height="400"/><img src="/images/musiclake/preview8.png" width="225" height="400"/><img src="/images/musiclake/preview9.png" width="225" height="400"/><img src="/images/musiclake/preview10.png" width="225" height="400"/><img src="/images/musiclake/preview11.png" width="225" height="400"/><img src="/images/musiclake/preview12.png" width="225" height="400"/><img src="/images/musiclake/preview13.png" width="225" height="400"/></p><h1 id="夜间模式相关截图"><a href="#夜间模式相关截图" class="headerlink" title="夜间模式相关截图"></a>夜间模式相关截图</h1><p><img src="/images/musiclake/dark_preview1.png" width="225" height="400"/><img src="/images/musiclake/dark_preview2.png" width="225" height="400"/><img src="/images/musiclake/dark_preview3.png" width="225" height="400"/><img src="/images/musiclake/dark_preview4.png" width="225" height="400"/><img src="/images/musiclake/dark_preview5.png" width="225" height="400"/></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>项目</category>
       
     </categories>
     
