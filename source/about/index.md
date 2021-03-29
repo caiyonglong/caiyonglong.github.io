@@ -1,57 +1,27 @@
 ---
 title: 关于我
-date: 2020-09-04 01:10:26
+date: 2021-03-28 18:10:26
 layout: about
 ---
 
-# 个人信息
+## 关于我
 
- - 蔡永龙/男/1994 
- - 本科/湖南科技大学计算机学院 
- - 技术博客：http://caiyonglong.github.io / https://blog.csdn.net/u014296677
- - 联系方式（电话/QQ/微信/邮箱）:17688734455/643872807caiyonglong0/caiyognlong@live.com 
- - Github：https://github.com/caiyonglong
+94年，Android 开发工程师，现在深圳工作，工作四年
 
-# 技能清单
-- 有海外产品开发经验，有独立开发上架经验(GP)，github活跃用户
-- 语言基础：Java、Kotlin、Dart
-- 熟悉Android 消息传递、进程间通信、网络通信等通信机制
-- 熟悉自定义View、动画、View事件分发机制
-- 熟悉常用的设计模式、数据结构和算法
-- 熟悉网络编程，Json数据解析，以及fiddler数据抓包
-- 熟悉掌握常用的第三方框架，如Glide，EventBus，Retrofit2，Okhttp，Gson
-- 版本管理、文档和自动化部署工具：Git/Svn
+## 关于本站
 
-# 项目经验
+主要用于记录日常学习，随笔，欢迎与我交流，共同学习进步。
 
-- icash
-    - 实现功能:转盘，刮刮乐等小游戏、Google/FB登录、兑换、接入Admob/FB等广告
-    - 技术栈:自定义View、WebSocket、属性动画、 Firebase、友盟统计、进程间通信等
-    - 架构:Kotlin+ MVVM + Glide + OkHttp + LiveData
+博客16年基于Hexo搭建，平时基本都是写代码，很少总结，写博客。工作几年后才发现，除了项目代码，什么也没有留下。
 
-- iscratch
-    - 基于Flutter开发的应用
-    - 负责新技术调研和功能开发，版本迭代
-    - 主要功能:刮刮乐，转盘游戏、卡牌收集、金币兑换、邀请、兑换、抽奖、广告等功能
-    - 技术栈:Flutter、Dart、Kotlin
+后面发现这个博客很久没有维护更新，基本都废了，所以想重新维护起来，记录一下当前的学习，也回顾以前的项目，为博客添加一些内容。
 
-- iMusic
-    - 主要有音乐发现页，在线音乐视频播放、悬浮窗播放、在线歌单、任务中心、排行榜、搜索等功能
-    - 负责项目前期调研、需求分析、竞品分析、功能实现、测试性能优化等
-    - 推进部门间沟通与工作规范，如资源规范，开发规范，设计规范
-    - 技术栈:ExoPlayer、自定义View、Firebase、友盟统计等
-    - 架构:Kotlin+MVVM + Glide + GreenDao + EventBus + Retrofit + LiveData
+## 联系方式
 
-# 开源项目及作品
-- 暴走P图
-    - 表情包制作应用，两人合作开发
-    - 已在多家应用市场上架，日新增5k-6k左右
-    - 主要功能:撕图、贴图、抠图、添加文字、涂鸦、图片裁剪旋转等
-    - 技术栈:自定义View、bmob后台接口、友盟统计 架构:MVP、Glide、RxJava2、Gagger2
+邮箱：caiyonglong@live.com
+QQ：643872807
 
-- [音乐湖](https://github.com/caiyonglong/MusicLake)
-    - Github开源项目，到目前为止有 1.4k Star 200+ fork
-    - 在线音乐播放器，支持网易云音乐、qq音乐、虾米音乐、百度音乐等
-    - 负责这个项目的开发、框架设计和功能实现，实现了在线歌单，mv，歌词，搜索，下载，聊天室等功能。
-    - 技术栈:MediaPlayer、dsbridge、socket.io、EventBus等
-    - 架构:MVP + Glide + Dagger2+ RxJava + Retrofit + Litepal
+## 主要项目有
+
+- [音乐湖-MusicLake](https://github.com/caiyonglong/MusicLake)：开源项目，用于学习研究，欢迎issue、PR。
+- 暴走P图：已在各应用商店上线，如需体验，可前往应用商店搜索下载，欢迎提意见。

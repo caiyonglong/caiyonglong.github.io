@@ -1,19 +1,24 @@
 ---
-title: 音乐湖应用介绍
+title: 音乐湖（MusicLake）项目介绍
 tags:
   - MusicLake
-categories: 项目
-description: 项目具体功能介绍
+categories: Android
 toc: true 文章目录
-abbrlink: 9b393ba9
-date: 2018-04-23 18:21:16
+abbrlink: musicLake
+date: 2021-03-29 18:21:16
+author:
+comments:
+original:
+permalink:
 ---
-![](https://travis-ci.org/caiyonglong/MusicLake.svg?branch=develop)
-
 # MusicLake
-一个github开源项目，在线音乐播放器，支持QQ，网易，虾米，百度等音乐播放
-[项目地址](https://travis-ci.org/caiyonglong/MusicLake)
-  
+![Workflow result](https://github.com/caiyonglong/MusicLake/workflows/Check/badge.svg)
+
+[MediaPlayer、ExoPlayer音乐库封装](https://github.com/caiyonglong/MusicLake/tree/dev_musiclib)
+
+# 编译&服务器部署 
+ [build.md](BUILD.md)
+
 # 功能版本
 - Android 音乐播放器(本地/在线播放) （最低支持Android版本5.0）
 - 支持多平台音乐源，百度音乐，虾米音乐、网易云音乐、Youtube（需要翻墙）
@@ -22,16 +27,13 @@ date: 2018-04-23 18:21:16
 - QQ登录、微博登陆、在线歌单同步
 - 网易云热门歌手，百度电台列表，网易云mv排行榜，mv播放评论
 - 酷狗歌词搜索、修改歌词样式、歌词翻译
-- 精力有限，需求不饱和都会逐步完善
 - [PC端](https://github.com/sunzongzheng/music)
 
-- [交流群:549939157](https://jq.qq.com/?_wv=1027&k=5XrNrCJ) 加群需要问题验证，正确回答：github
-
-![功能](/images/musiclake/features.png)
-
-
 ### 开源不易，有兴趣可给个star，支持一下哦！
-持续更新，有什么问题可以提[issues](https://github.com/caiyonglong/MusicLake/issues)！
+- 群聊已经解散，有什么问题可以提[issues](https://github.com/caiyonglong/MusicLake/issues)！，有想法可以提PR。感谢关注🙏
+
+![功能](screenshots/features.png)
+
 
 # 相关项目|音乐API
 - [客户端音乐API](https://github.com/caiyonglong/MusicApi)
@@ -50,12 +52,30 @@ date: 2018-04-23 18:21:16
 - [BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
 - [More..](https://github.com/caiyonglong/MusicLake/blob/develop/app/build.gradle)
 
-# 软件运行截图
+# 截图
+- 主要功能截图
 <p>
-<img src="/images/musiclake/preview1.png" width="225" height="400"/><img src="/images/musiclake/preview2.png" width="225" height="400"/><img src="/images/musiclake/preview3.png" width="225" height="400"/><img src="/images/musiclake/preview4.png" width="225" height="400"/><img src="/images/musiclake/preview5.png" width="225" height="400"/><img src="/images/musiclake/preview6.png" width="225" height="400"/><img src="/images/musiclake/preview7.png" width="225" height="400"/><img src="/images/musiclake/preview8.png" width="225" height="400"/><img src="/images/musiclake/preview9.png" width="225" height="400"/><img src="/images/musiclake/preview10.png" width="225" height="400"/><img src="/images/musiclake/preview11.png" width="225" height="400"/><img src="/images/musiclake/preview12.png" width="225" height="400"/>
-<img src="/images/musiclake/preview13.png" width="225" height="400"/>
+<img src="screenshots/preview1.png" width="225" height="400"/>
+<img src="screenshots/preview2.png" width="225" height="400"/>
+<img src="screenshots/preview3.png" width="225" height="400"/>
+<img src="screenshots/preview4.png" width="225" height="400"/>
+<img src="screenshots/preview5.png" width="225" height="400"/>
+<img src="screenshots/preview6.png" width="225" height="400"/>
+<img src="screenshots/preview7.png" width="225" height="400"/>
+<img src="screenshots/preview8.png" width="225" height="400"/>
+<img src="screenshots/preview9.png" width="225" height="400"/>
+<img src="screenshots/preview10.png" width="225" height="400"/>
+<img src="screenshots/preview11.png" width="225" height="400"/>
+<img src="screenshots/preview12.png" width="225" height="400"/>
+<img src="screenshots/preview13.png" width="225" height="400"/>
 </p>
 
-# 夜间模式相关截图
-<p><img src="/images/musiclake/dark_preview1.png" width="225" height="400"/><img src="/images/musiclake/dark_preview2.png" width="225" height="400"/><img src="/images/musiclake/dark_preview3.png" width="225" height="400"/><img src="/images/musiclake/dark_preview4.png" width="225" height="400"/><img src="/images/musiclake/dark_preview5.png" width="225" height="400"/>
+- 夜间模式相关截图
+
+<p>
+<img src="screenshots/dark_preview1.png" width="225" height="400"/>
+<img src="screenshots/dark_preview2.png" width="225" height="400"/>
+<img src="screenshots/dark_preview3.png" width="225" height="400"/>
+<img src="screenshots/dark_preview4.png" width="225" height="400"/>
+<img src="screenshots/dark_preview5.png" width="225" height="400"/>
 </p>
