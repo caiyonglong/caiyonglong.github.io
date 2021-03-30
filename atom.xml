@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.musiclake.cn/"/>
-  <updated>2021-03-29T13:47:00.930Z</updated>
+  <updated>2021-03-30T15:26:18.045Z</updated>
   <id>https://blog.musiclake.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeakCanary 集成和原理分析</title>
+    <link href="https://blog.musiclake.cn/posts/LeakCanary.html"/>
+    <id>https://blog.musiclake.cn/posts/LeakCanary.html</id>
+    <published>2021-03-30T14:35:00.000Z</published>
+    <updated>2021-03-30T15:26:18.045Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近看到项目中用到的LeakCanary版本还是1.6.3版本，所以想升级一下。看到LeakCanary的官方文档，最新版已经是2.7了，所以想记录一下以及分析一下新版的原理</p><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><a href="https://square.github.io/leakcanary/">LeakCanary</a>是适用于Android的内存泄漏检测库。</p><p>官方解释：</p><blockquote><p>LeakCanary’s knowledge of the internals of the Android Framework gives it a unique ability to narrow down the cause of each leak, helping developers dramatically reduce OutOfMemoryError crashes.</p></blockquote><p>LeakCanary可以帮忙定位内存泄漏问题，从而帮助开发人员大大减少OutOfMemoryError崩溃。</p><p>集成到项目中后，一般是测试包和开发包会用到，生产包不需要依赖。</p><h2 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h2><p>在<strong>app/build.gradle</strong> 添加一下依赖</p><pre><code class="hljs gradle"><span class="hljs-keyword">dependencies</span> &#123;  <span class="hljs-comment">// debugImplementation because LeakCanary should only run in debug builds.</span>  debugImplementation <span class="hljs-string">&#x27;com.squareup.leakcanary:leakcanary-android:2.7&#x27;</span>&#125;</code></pre><p>可以在 <strong>Logcat</strong> 里面通过过滤搜索 <strong>LeakCanary</strong>，来判断LeakCanary是否运行</p><pre><code class="hljs applescript">LeakCanary: LeakCanary <span class="hljs-keyword">is</span> <span class="hljs-built_in">running</span> <span class="hljs-keyword">and</span> ready <span class="hljs-keyword">to</span> detect leaks</code></pre><h3 id="1-6-版本和2-0版本差别对比"><a href="#1-6-版本和2-0版本差别对比" class="headerlink" title="1.6.版本和2.0版本差别对比"></a>1.6.版本和2.0版本差别对比</h3><p>对比老版本<code>1.6.3</code>和新版本 <code>2.7</code>。主要的更新点如下（官方文档比较多，这里只写一下主要的点）：</p><ul><li>集成更加方便，原来需要一次集成多个依赖库，新版只需要集成一个依赖</li><li>内存泄漏支持分组，相同的内存泄漏会自动分为一类，方便查看</li><li>使用Kotlin重写</li><li>新的堆解析器，比旧版减少了90%内存，速度快了6倍。个人体验确实比1.6.3版本快了很多</li></ul><h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>未完待续…</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近看到项目中用到的LeakCanary版本还是1.6.3版本，所以想升级一下。看到LeakCanary的官方文档，最新版已经是2.7了，所以想记录一下以及分析一下新版的原理&lt;/p&gt;
+&lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; 
+      
+    
+    </summary>
+    
+      <category term="内存优化" scheme="https://blog.musiclake.cn/categories/%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>音乐湖环境部署</title>
@@ -263,9 +287,17 @@
     <link href="https://blog.musiclake.cn/posts/3c273908.html"/>
     <id>https://blog.musiclake.cn/posts/3c273908.html</id>
     <published>2019-09-21T16:00:00.000Z</published>
-    <updated>2021-03-25T14:41:50.859Z</updated>
+    <updated>2021-03-30T14:33:55.262Z</updated>
+    
+    <content type="html"><![CDATA[<p>以前总想分析一下一些开源框架的源码，看看被人的设计思想和功能</p>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;p&gt;以前总想分析一下一些开源框架的源码，看看被人的设计思想和功能&lt;/p&gt;
+
+      
     
     </summary>
     
@@ -456,31 +488,6 @@
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>接入Google、FaceBook第三方登录</title>
-    <link href="https://blog.musiclake.cn/posts/baa940ea.html"/>
-    <id>https://blog.musiclake.cn/posts/baa940ea.html</id>
-    <published>2019-01-16T15:16:43.000Z</published>
-    <updated>2021-03-25T14:41:50.834Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="通过Firebase接入Google、FaceBook等第三方登录"><a href="#通过Firebase接入Google、FaceBook等第三方登录" class="headerlink" title="通过Firebase接入Google、FaceBook等第三方登录"></a>通过Firebase接入Google、FaceBook等第三方登录</h1><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul><li>科学上网</li><li>google 账号，facebook账号</li></ul><h2 id="接入指南"><a href="#接入指南" class="headerlink" title="接入指南"></a>接入指南</h2><p>主要分为三部分。</p><ul><li>Google登录</li><li>Facebook登录</li><li>Firebase集成接入google,facebook登录</li></ul><h3 id="Google登录"><a href="#Google登录" class="headerlink" title="Google登录"></a>Google登录</h3><p>推荐只接入Google登录，不接入Firebase</p><p><a href="https://developers.google.com/identity/sign-in/android/start?authuser=0">接入指南</a></p><p>主要步骤<br>1、新建应用，或者已有的选择应用<br>2、创建应用的凭借，即token</p><p>核心代码</p><pre><code class="hljs reasonml"><span class="hljs-comment">// Configure sign-in to request the user&#x27;s ID, email address, and basic</span><span class="hljs-comment">// profile. ID and basic profile are included in DEFAULT_SIGN_IN.</span>GoogleSignInOptions gso = <span class="hljs-keyword">new</span> GoogleSignInOptions.<span class="hljs-constructor">Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)</span>        .request<span class="hljs-constructor">Email()</span>        .build<span class="hljs-literal">()</span>;</code></pre><pre><code class="hljs reasonml"><span class="hljs-comment">// Build a GoogleSignInClient with the options specified by gso.</span>mGoogleSignInClient = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">GoogleSignIn</span>.</span></span>get<span class="hljs-constructor">Client(<span class="hljs-params">this</span>, <span class="hljs-params">gso</span>)</span>;</code></pre><pre><code class="hljs reasonml"><span class="hljs-keyword">private</span> void sign<span class="hljs-constructor">In()</span> &#123;    Intent signInIntent = mGoogleSignInClient.get<span class="hljs-constructor">SignInIntent()</span>;    start<span class="hljs-constructor">ActivityForResult(<span class="hljs-params">signInIntent</span>, RC_SIGN_IN)</span>;&#125;</code></pre><h3 id="Facebook登录"><a href="#Facebook登录" class="headerlink" title="Facebook登录"></a>Facebook登录</h3><p>推荐只接入Facebook登录，不接入Firebase</p><p><a href="https://developers.facebook.com/apps/">Facebook应用管理</a></p><p>主要流程</p><ul><li>1、首先进入facebook应用开发面板，新建应用，并添加Facebook 登录</li><li>2、跟着步骤一步步完成所有配置（注意点：生成秘钥序列）</li><li>3、然后一步步点击完成</li><li>4、测试OK</li></ul><h3 id="Firebase集成接入google-facebook登录"><a href="#Firebase集成接入google-facebook登录" class="headerlink" title="Firebase集成接入google,facebook登录"></a>Firebase集成接入google,facebook登录</h3><p>如果项目中已经集成了Firebase，则推荐使用这种方式</p><p><a href="https://console.firebase.google.com/">Firebase项目管理界面</a> 创建项目</p><ul><li>1、进入项目设置 开发-&gt;Authentication-&gt;登录方法。启用登录提供方中的Google，facebook。</li><li>2、关联google登录，只需要更新项目设置，添加应用，然后根据要求添加sha1指纹，填写包名，下载google-service.json文件引入到项目中。</li><li>3、启动facebook登录，按facebook登录步骤，启动facebook登录，然后配置应用token。</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;通过Firebase接入Google、FaceBook等第三方登录&quot;&gt;&lt;a href=&quot;#通过Firebase接入Google、FaceBook等第三方登录&quot; class=&quot;headerlink&quot; title=&quot;通过Firebase接入Google、FaceBoo
-      
-    
-    </summary>
-    
-      <category term="接口" scheme="https://blog.musiclake.cn/categories/%E6%8E%A5%E5%8F%A3/"/>
-    
-    
-      <category term="api" scheme="https://blog.musiclake.cn/tags/api/"/>
     
   </entry>
   

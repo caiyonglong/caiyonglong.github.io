@@ -172,6 +172,57 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
+        <a href="/posts/c6dbe339.html">Handler消息机制</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/posts/c6dbe339.html">
+          
+          
+            
+          
+          前言平时工作中缺乏总结，写博客不是为别人，而是为自己，虽然网上很多类似的，但是自己还是得写一遍加深印象
+基本原理消息机制包含 Handler、MessageQueue、Message、Looper
+拖欠图
+Handler 发送消息，消息存入到消息队列中，然后Looper 循环执行消息队列。
+问题Handler 为什么会造成内存泄漏因为在Activity中，handler内部类引用了它，而该hand
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-09-22 00:00" pubdate>
+              2019-09-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Handler/">Handler</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
         <a href="/posts/3c273908.html">常用第三方库源码分析——Okhttp</a>
       </h1>
 
@@ -181,7 +232,8 @@
           
             
           
-          
+          以前总想分析一下一些开源框架的源码，看看被人的设计思想和功能
+
         </a>
       </p>
 
@@ -577,65 +629,6 @@ Gladle引入
           </div>
         
         
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/posts/baa940ea.html">接入Google、FaceBook第三方登录</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/posts/baa940ea.html">
-          
-          
-            
-          
-          通过Firebase接入Google、FaceBook等第三方登录准备
-科学上网
-google 账号，facebook账号
-
-接入指南主要分为三部分。
-
-Google登录
-Facebook登录
-Firebase集成接入google,facebook登录
-
-Google登录推荐只接入Google登录，不接入Firebase
-接入指南
-主要步骤1、新建应用，或者已有的选择应用2、创建应用的凭借，即t
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2019-01-16 23:16" pubdate>
-              2019-01-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%8E%A5%E5%8F%A3/">接口</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/api/">api</a>
-            
-          </div>
         
       </div>
     </article>

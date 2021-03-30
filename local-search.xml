@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>LeakCanary 集成和原理分析</title>
+    <link href="/posts/LeakCanary.html"/>
+    <url>/posts/LeakCanary.html</url>
+    
+    <content type="html"><![CDATA[<p>最近看到项目中用到的LeakCanary版本还是1.6.3版本，所以想升级一下。看到LeakCanary的官方文档，最新版已经是2.7了，所以想记录一下以及分析一下新版的原理</p><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><a href="https://square.github.io/leakcanary/">LeakCanary</a>是适用于Android的内存泄漏检测库。</p><p>官方解释：</p><blockquote><p>LeakCanary’s knowledge of the internals of the Android Framework gives it a unique ability to narrow down the cause of each leak, helping developers dramatically reduce OutOfMemoryError crashes.</p></blockquote><p>LeakCanary可以帮忙定位内存泄漏问题，从而帮助开发人员大大减少OutOfMemoryError崩溃。</p><p>集成到项目中后，一般是测试包和开发包会用到，生产包不需要依赖。</p><h2 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h2><p>在<strong>app/build.gradle</strong> 添加一下依赖</p><pre><code class="hljs gradle"><span class="hljs-keyword">dependencies</span> &#123;  <span class="hljs-comment">// debugImplementation because LeakCanary should only run in debug builds.</span>  debugImplementation <span class="hljs-string">&#x27;com.squareup.leakcanary:leakcanary-android:2.7&#x27;</span>&#125;</code></pre><p>可以在 <strong>Logcat</strong> 里面通过过滤搜索 <strong>LeakCanary</strong>，来判断LeakCanary是否运行</p><pre><code class="hljs applescript">LeakCanary: LeakCanary <span class="hljs-keyword">is</span> <span class="hljs-built_in">running</span> <span class="hljs-keyword">and</span> ready <span class="hljs-keyword">to</span> detect leaks</code></pre><h3 id="1-6-版本和2-0版本差别对比"><a href="#1-6-版本和2-0版本差别对比" class="headerlink" title="1.6.版本和2.0版本差别对比"></a>1.6.版本和2.0版本差别对比</h3><p>对比老版本<code>1.6.3</code>和新版本 <code>2.7</code>。主要的更新点如下（官方文档比较多，这里只写一下主要的点）：</p><ul><li>集成更加方便，原来需要一次集成多个依赖库，新版只需要集成一个依赖</li><li>内存泄漏支持分组，相同的内存泄漏会自动分为一类，方便查看</li><li>使用Kotlin重写</li><li>新的堆解析器，比旧版减少了90%内存，速度快了6倍。个人体验确实比1.6.3版本快了很多</li></ul><h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>未完待续…</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>内存优化</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>音乐湖环境部署</title>
     <link href="/posts/musicLakeBuild.html"/>
     <url>/posts/musicLakeBuild.html</url>
@@ -238,7 +257,7 @@
     <link href="/posts/3c273908.html"/>
     <url>/posts/3c273908.html</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<p>以前总想分析一下一些开源框架的源码，看看被人的设计思想和功能</p>]]></content>
     
     
     <categories>
