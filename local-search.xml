@@ -4,6 +4,38 @@
   
   
   <entry>
+    <title>ReactNative源码分析</title>
+    <link href="/posts/aa74f4e0.html"/>
+    <url>/posts/aa74f4e0.html</url>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近一个月都在看RN的问题，因为线上RN包出现一个偶现的崩溃问题，在react-native github上也没人回复。搞得头都大了，每天都是查埋点，抓日志。想找出一个复现的具体步骤，但是根据埋点和日志信息都没能复现定位到线上崩溃问题。所以想通过源码集成的方式，能在RN Android源码层面加一些日志来辅助定位。随便看看RN源码是怎么实现JS和Android之间的交互和通信的</p><h3 id="ReactNative源码集成"><a href="#ReactNative源码集成" class="headerlink" title="ReactNative源码集成"></a>ReactNative源码集成</h3><p>1、下载React-Native源代码</p><pre><code class="hljs git">git clone https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react-nativegit tag v0.64.0</code></pre><p>切换到对应版本，react-native是通过git tag来区分版本的。所以代码拉取完成后需要通过git tag来切换到对应的版本上。本文是基于<strong>0.64</strong>版本</p><p>2、npm安装环境</p><p>在react-native根目录下，通过npm安装依赖</p><pre><code class="hljs npm">npm install</code></pre><p>3、通过Android Studio打开<strong>react-native/ReactAndroid</strong>。编译即可</p><p>react-native官网上具体的集成方式：<a href="https://reactnative.cn/docs/building-from-source">从源代码编译React Native</a></p><h4 id="React-Native源码分析"><a href="#React-Native源码分析" class="headerlink" title="React-Native源码分析"></a>React-Native源码分析</h4><p>主要分析ReactNative的启动流程、Android端的渲染原理、通信机制等方面</p><ul><li><a href="">ReactNative的启动流程</a></li><li>渲染原理</li><li>通信机制</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>ReactNative</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>自动化打包</title>
+    <link href="/posts/aa1fa5ba.html"/>
+    <url>/posts/aa1fa5ba.html</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在日常开发过程中，编译打包是必不可少的流程，特别是开发转测试阶段。</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeakCanary 集成和原理分析</title>
     <link href="/posts/LeakCanary.html"/>
     <url>/posts/LeakCanary.html</url>

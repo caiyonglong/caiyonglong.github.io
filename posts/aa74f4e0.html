@@ -17,10 +17,20 @@
   <meta name="description" content="这就是一个简单的描述">
   <meta name="author" content="caiyonglong">
   <meta name="keywords" content="">
-  <title>归档 - caiyonglong&#39;blog</title>
+  <title>ReactNative源码分析 - caiyonglong&#39;blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -147,6 +157,40 @@
             </span>
 
             
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-05-06 18:15" pubdate>
+      2021年5月6日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      326 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      3
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
           </div>
 
           
@@ -157,61 +201,96 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 46 篇文章</p>
-  <hr>
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/posts/aa1fa5ba.html" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">自动化打包</span>
-      <time style="float: right;">03-31</time>
-    </a>
-  
-    
-    <a href="/posts/LeakCanary.html" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">LeakCanary 集成和原理分析</span>
-      <time style="float: right;">03-30</time>
-    </a>
-  
-    
-    <a href="/posts/musicLakeBuild.html" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">音乐湖环境部署</span>
-      <time style="float: right;">03-29</time>
-    </a>
-  
-    
-    <a href="/posts/musicLake.html" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">音乐湖（MusicLake）项目介绍</span>
-      <time style="float: right;">03-29</time>
-    </a>
-  
-    
-    <a href="/posts/1e80ad29.html" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">常用设计模式</span>
-      <time style="float: right;">03-25</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">ReactNative源码分析</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近一个月都在看RN的问题，因为线上RN包出现一个偶现的崩溃问题，在react-native github上也没人回复。搞得头都大了，每天都是查埋点，抓日志。想找出一个复现的具体步骤，但是根据埋点和日志信息都没能复现定位到线上崩溃问题。所以想通过源码集成的方式，能在RN Android源码层面加一些日志来辅助定位。随便看看RN源码是怎么实现JS和Android之间的交互和通信的</p>
+<h3 id="ReactNative源码集成"><a href="#ReactNative源码集成" class="headerlink" title="ReactNative源码集成"></a>ReactNative源码集成</h3><p>1、下载React-Native源代码</p>
+<pre><code class="hljs git">git clone https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react-native
 
+git tag v0.64.0</code></pre>
 
-              </div>
+<p>切换到对应版本，react-native是通过git tag来区分版本的。所以代码拉取完成后需要通过git tag来切换到对应的版本上。本文是基于<strong>0.64</strong>版本</p>
+<p>2、npm安装环境</p>
+<p>在react-native根目录下，通过npm安装依赖</p>
+<pre><code class="hljs npm">npm install</code></pre>
+
+<p>3、通过Android Studio打开<strong>react-native/ReactAndroid</strong>。编译即可</p>
+<p>react-native官网上具体的集成方式：<a target="_blank" rel="noopener" href="https://reactnative.cn/docs/building-from-source">从源代码编译React Native</a></p>
+<h4 id="React-Native源码分析"><a href="#React-Native源码分析" class="headerlink" title="React-Native源码分析"></a>React-Native源码分析</h4><p>主要分析ReactNative的启动流程、Android端的渲染原理、通信机制等方面</p>
+<ul>
+<li><a href="">ReactNative的启动流程</a></li>
+<li>渲染原理</li>
+<li>通信机制</li>
+</ul>
+
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/ReactNative/">ReactNative</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/aa1fa5ba.html">
+                        <span class="hidden-mobile">自动化打包</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
   </main>
 
@@ -289,6 +368,31 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
 
 
   <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
@@ -296,7 +400,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "归档&nbsp;",
+        "ReactNative源码分析&nbsp;",
       ],
       cursorChar: "*",
       typeSpeed: 100,
@@ -311,6 +415,21 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
 
 
   <script  src="/js/local-search.js" ></script>
@@ -324,6 +443,20 @@
   </script>
 
 
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
 
 
 

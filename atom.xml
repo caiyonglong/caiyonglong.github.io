@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.musiclake.cn/"/>
-  <updated>2021-03-30T15:26:18.045Z</updated>
+  <updated>2021-05-06T12:15:21.036Z</updated>
   <id>https://blog.musiclake.cn/</id>
   
   <author>
@@ -15,6 +15,51 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ReactNative源码分析</title>
+    <link href="https://blog.musiclake.cn/posts/aa74f4e0.html"/>
+    <id>https://blog.musiclake.cn/posts/aa74f4e0.html</id>
+    <published>2021-05-06T10:15:00.000Z</published>
+    <updated>2021-05-06T12:15:21.036Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近一个月都在看RN的问题，因为线上RN包出现一个偶现的崩溃问题，在react-native github上也没人回复。搞得头都大了，每天都是查埋点，抓日志。想找出一个复现的具体步骤，但是根据埋点和日志信息都没能复现定位到线上崩溃问题。所以想通过源码集成的方式，能在RN Android源码层面加一些日志来辅助定位。随便看看RN源码是怎么实现JS和Android之间的交互和通信的</p><h3 id="ReactNative源码集成"><a href="#ReactNative源码集成" class="headerlink" title="ReactNative源码集成"></a>ReactNative源码集成</h3><p>1、下载React-Native源代码</p><pre><code class="hljs git">git clone https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react-nativegit tag v0.64.0</code></pre><p>切换到对应版本，react-native是通过git tag来区分版本的。所以代码拉取完成后需要通过git tag来切换到对应的版本上。本文是基于<strong>0.64</strong>版本</p><p>2、npm安装环境</p><p>在react-native根目录下，通过npm安装依赖</p><pre><code class="hljs npm">npm install</code></pre><p>3、通过Android Studio打开<strong>react-native/ReactAndroid</strong>。编译即可</p><p>react-native官网上具体的集成方式：<a href="https://reactnative.cn/docs/building-from-source">从源代码编译React Native</a></p><h4 id="React-Native源码分析"><a href="#React-Native源码分析" class="headerlink" title="React-Native源码分析"></a>React-Native源码分析</h4><p>主要分析ReactNative的启动流程、Android端的渲染原理、通信机制等方面</p><ul><li><a href="">ReactNative的启动流程</a></li><li>渲染原理</li><li>通信机制</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;最近一个月都在看RN的问题，因为线上RN包出现一个偶现的崩溃问题，在react-native github上也没人回复。搞得头都大了，每天都
+      
+    
+    </summary>
+    
+    
+      <category term="ReactNative" scheme="https://blog.musiclake.cn/tags/ReactNative/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自动化打包</title>
+    <link href="https://blog.musiclake.cn/posts/aa1fa5ba.html"/>
+    <id>https://blog.musiclake.cn/posts/aa1fa5ba.html</id>
+    <published>2021-03-31T15:35:00.000Z</published>
+    <updated>2021-05-06T12:17:06.074Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在日常开发过程中，编译打包是必不可少的流程，特别是开发转测试阶段。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在日常开发过程中，编译打包是必不可少的流程，特别是开发转测试阶段。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>LeakCanary 集成和原理分析</title>
@@ -450,43 +495,6 @@
     </summary>
     
       <category term="Android" scheme="https://blog.musiclake.cn/categories/Android/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>常用第三方库源码分析——Dagger2</title>
-    <link href="https://blog.musiclake.cn/posts/5880a2ff.html"/>
-    <id>https://blog.musiclake.cn/posts/5880a2ff.html</id>
-    <published>2019-08-15T02:04:02.000Z</published>
-    <updated>2021-03-25T14:41:50.856Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Dagger2-是什么？"><a href="#Dagger2-是什么？" class="headerlink" title="Dagger2 是什么？"></a>Dagger2 是什么？</h1><p>Dagger2是Dagger的升级版，是一个依赖注入框架,第一代由大名鼎鼎的Square公司共享出来，第二代则是由谷歌接手后推出的，现在由Google接手维护.</p><p>Google dagger <a href="https://github.com/google/dagger">Github 地址</a></p><p>Dagger是依赖注入的编译时框架。 它不使用反射或运行时字节码生成，在编译时进行所有分析，并生成纯Java源代码。</p><p>Gladle引入</p><pre><code class="hljs roboconf">// Add Dagger dependenciesdependencies &#123;  <span class="hljs-attribute">api &#x27;com.google.dagger</span>:dagger:2<span class="hljs-variable">.x</span>&#x27;  annotationProcessor &#x27;com<span class="hljs-variable">.google</span><span class="hljs-variable">.dagger</span>:dagger-compiler:2<span class="hljs-variable">.x</span>&#x27;&#125;</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Dagger2-是什么？&quot;&gt;&lt;a href=&quot;#Dagger2-是什么？&quot; class=&quot;headerlink&quot; title=&quot;Dagger2 是什么？&quot;&gt;&lt;/a&gt;Dagger2 是什么？&lt;/h1&gt;&lt;p&gt;Dagger2是Dagger的升级版，是一个依赖注入框架,第
-      
-    
-    </summary>
-    
-      <category term="源码分析" scheme="https://blog.musiclake.cn/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>help</title>
-    <link href="https://blog.musiclake.cn/posts/8875cac.html"/>
-    <id>https://blog.musiclake.cn/posts/8875cac.html</id>
-    <published>2019-03-23T07:30:40.000Z</published>
-    <updated>2021-03-25T14:41:50.832Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
     
     
   </entry>
