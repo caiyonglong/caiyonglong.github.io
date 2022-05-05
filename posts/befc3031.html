@@ -1,0 +1,558 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" type="image/png" href="/img/favicon.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="这就是一个简单的描述">
+  <meta name="author" content="caiyonglong">
+  <meta name="keywords" content="">
+  <title>RecyclerView和ListView的区别 - caiyonglong&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Yonglong</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2016-10-20 16:21" pubdate>
+      2016年10月20日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      821 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      10
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">RecyclerView和ListView的区别</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="RecyclerView是什么"><a href="#RecyclerView是什么" class="headerlink" title="RecyclerView是什么?"></a>RecyclerView是什么?</h1><blockquote>
+<p>RecyclerView is a more advanced and flexible version of ListView. This<br>widget is a container for large sets of views that can be recycled and<br>scrolled very efficiently. Use the RecyclerView widget when you have<br>lists with elements that change dynamically.</p>
+</blockquote>
+<blockquote>
+<p>RecyclerView是ListView的更高度定制版，当你需要高效的展示大量数据时候，动态改变元素的列表的时候，就用这个。</p>
+</blockquote>
+<p>RecyclerView是support-v7包中新组件,官方介绍RecyclerView 是 ListView 的升级版本，更加先进和灵活,是一个强大的滑动组件，与传统的ListView相比较，他同样拥有item回收复用的功能，但是RecyclerView可以直接把ViewHolder的实现封装起来，用户只要实现自己的ViewHoler就可以了。<br>RecyclerView新特性有：ViewHolder，ItemDecorator，LayoutManager，SmothScroller以及增加或删除item时item动画。</p>
+<span id="more"></span>
+<h1 id="RecyclerView-用法"><a href="#RecyclerView-用法" class="headerlink" title="RecyclerView 用法"></a>RecyclerView 用法</h1><pre><code class="hljs java">mRecyclerView = findViewById(R.id.recyclerview);
+<span class="hljs-comment">//设置布局管理器</span>
+mRecyclerView.setLayoutManager(layout);
+<span class="hljs-comment">//设置adapter</span>
+mRecyclerView.setAdapter(adapter)
+<span class="hljs-comment">//设置Item增加、移除动画</span>
+mRecyclerView.setItemAnimator(<span class="hljs-keyword">new</span> DefaultItemAnimator());
+<span class="hljs-comment">//添加分割线</span>
+mRecyclerView.addItemDecoration(<span class="hljs-keyword">new</span> DividerItemDecoration(
+                getActivity(), DividerItemDecoration.HORIZONTAL_LIST));</code></pre>
+
+<blockquote>
+<p>1、将 layout 抽象成了一个 LayoutManager，RecylerView 不负责子 View 的布局， 我们可以自定义 LayoutManager 来实现不同的布局效果， 目前只提供了LinearLayoutManager。 LinearLayoutManager 可以指定方向，默认是垂直， 可以指定水平等，能支持线性布局、网格布局、瀑布流布局三种，而且同时还能够控制横向还是纵向滚动。</p>
+</blockquote>
+<blockquote>
+<p>2、标准化了 ViewHolder， 编写 Adapter 面向的是 ViewHoder 而不在是View 了， 复用的逻辑被封装了， 写起来更加简单。<br>3、局部刷新<br>4、动画效果：增加或删除item时item动画</p>
+</blockquote>
+<h1 id="RecyclerView-相对于ListView的优缺点"><a href="#RecyclerView-相对于ListView的优缺点" class="headerlink" title="RecyclerView 相对于ListView的优缺点"></a>RecyclerView 相对于ListView的优缺点</h1><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>1、它封装了viewholder的回收复用。RecyclerView.ViewHolder<br>2、RecyclerView使用布局管理器管理子view的位置（目前尚只提供了LinearLayoutManager），也就是说你再不用拘泥于ListView的线性展示方式，如果之后提供其他customLayoutManager的支持，你能够使用复杂的布局来展示一个动态组件。</p>
+<pre><code class="hljs java">StaggeredGridLayoutManager mStaggeredGridLayoutManager =
+<span class="hljs-keyword">new</span> StaggeredGridLayoutManager(<span class="hljs-number">2</span>, StaggeredGridLayoutManager.VERTICAL);
+<span class="hljs-comment">//表示两列，并且是竖直方向的瀑布流</span>
+mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);</code></pre>
+<p>在布局上支持三种StaggeredGridLayoutManager， GridLayoutManager LinearLayoutManager。<br>3、自带了ItemAnimation，可以设置加载和移除时的动画，方便做出各种动态浏览的效果。<br>4、将ListView中的getView分成了onCreateViewHolder和onBindViewHolder两个方法，更利于代码的维护。<br>5、相对简单<br>我们看下Listview他背后的继承关系</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbsListView</span> </span>
+<span class="hljs-class"><span class="hljs-title">public</span> <span class="hljs-title">abstract</span> <span class="hljs-title">class</span> <span class="hljs-title">AbsListView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AdapterView</span>&lt;<span class="hljs-title">ListAdapter</span>&gt;</span>
+<span class="hljs-class"><span class="hljs-title">public</span> <span class="hljs-title">abstract</span> <span class="hljs-title">class</span> <span class="hljs-title">AdapterView</span>&lt;<span class="hljs-title">T</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Adapter</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">ViewGroup</span></span></code></pre>
+<p>三重继承，内容还挺多的，不是直接继承ViewGroup，而相反的RecycleView却是直接继承自ViewGroup的。</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>1、不能简单的加头和尾。<br>2、不能简单的设置子item的点击事件。<br>    解决方案：自定义接口实现点击事件。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>ListView可以设置选择模式，并添加MultiChoiceModeListener</p>
+<pre><code class="hljs java">listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+listView.setMultiChoiceModeListener(<span class="hljs-keyword">new</span> MultiChoiceModeListener() &#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onCreateActionMode</span><span class="hljs-params">(ActionMode mode, Menu menu)</span> </span>&#123; ... &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onItemCheckedStateChanged</span><span class="hljs-params">(ActionMode mode, <span class="hljs-keyword">int</span> position,</span></span>
+<span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">long</span> id, <span class="hljs-keyword">boolean</span> checked)</span> </span>&#123; ... &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onActionItemClicked</span><span class="hljs-params">(ActionMode mode, MenuItem item)</span> </span>&#123;
+        <span class="hljs-keyword">switch</span> (item.getItemId()) &#123;
+            <span class="hljs-keyword">case</span> R.id.menu_item_delete_crime:
+            CrimeAdapter adapter = (CrimeAdapter)getListAdapter();
+            CrimeLab crimeLab = CrimeLab.get(getActivity());
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = adapter.getCount() - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
+                <span class="hljs-keyword">if</span> (getListView().isItemChecked(i)) &#123;
+                    crimeLab.deleteCrime(adapter.getItem(i));
+                &#125;
+          &#125;
+        mode.finish();
+        adapter.notifyDataSetChanged();
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">default</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+&#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onPrepareActionMode</span><span class="hljs-params">(ActionMode mode, Menu menu)</span> </span>&#123; ... &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onDestroyActionMode</span><span class="hljs-params">(ActionMode mode)</span> </span>&#123; ... &#125;
+&#125;);</code></pre>
+
+<p>参考链接：<a target="_blank" rel="noopener" href="http://blog.csdn.net/sanjay_f/article/details/48830311">http://blog.csdn.net/sanjay_f/article/details/48830311</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android/">Android</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9F%BA%E7%A1%80/">基础</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/f5c535ea.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">适配器模式</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post">
+                        <span class="hidden-mobile">8-25</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">湘ICP备19015354号</a>
+    
+      <a
+        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=19015354"
+        rel="nofollow noopener"
+        class="beian-police"
+        target="_blank"
+      >
+        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
+        
+          <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
+        
+        <span>湘ICP备19015354号-1</span>
+      </a>
+     
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "RecyclerView和ListView的区别&nbsp;",
+      ],
+      cursorChar: "*",
+      typeSpeed: 100,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>caiyonglong&#39;blog</title>
+  
+  <subtitle>Talk is cheap. Show me the code.</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://blog.musiclake.cn/"/>
+  <updated>2022-05-05T09:56:06.448Z</updated>
+  <id>https://blog.musiclake.cn/</id>
+  
+  <author>
+    <name>caiyonglong</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://blog.musiclake.cn/posts/0.html"/>
+    <id>https://blog.musiclake.cn/posts/0.html</id>
+    <published>2022-05-05T09:56:06.448Z</published>
+    <updated>2022-05-05T09:56:06.448Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;&lt;/h1&gt;
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ReactNative源码分析</title>
+    <link href="https://blog.musiclake.cn/posts/aa74f4e0.html"/>
+    <id>https://blog.musiclake.cn/posts/aa74f4e0.html</id>
+    <published>2021-05-06T10:15:00.000Z</published>
+    <updated>2022-05-05T09:56:06.450Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近一个月都在看RN的问题，因为线上RN包出现一个偶现的崩溃问题，在react-native github上也没人回复。搞得头都大了，每天都是查埋点，抓日志。想找出一个复现的具体步骤，但是根据埋点和日志信息都没能复现定位到线上崩溃问题。所以想通过源码集成的方式，能在RN Android源码层面加一些日志来辅助定位。随便看看RN源码是怎么实现JS和Android之间的交互和通信的</p><h3 id="ReactNative源码集成"><a href="#ReactNative源码集成" class="headerlink" title="ReactNative源码集成"></a>ReactNative源码集成</h3><p>1、下载React-Native源代码</p><pre><code class="hljs git">git clone https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react-nativegit tag v0.64.0</code></pre><p>切换到对应版本，react-native是通过git tag来区分版本的。所以代码拉取完成后需要通过git tag来切换到对应的版本上。本文是基于<strong>0.64</strong>版本</p><p>2、npm安装环境</p><p>在react-native根目录下，通过npm安装依赖</p><pre><code class="hljs npm">npm install</code></pre><p>3、通过Android Studio打开<strong>react-native/ReactAndroid</strong>。编译即可</p><p>react-native官网上具体的集成方式：<a href="https://reactnative.cn/docs/building-from-source">从源代码编译React Native</a></p><h4 id="React-Native源码分析"><a href="#React-Native源码分析" class="headerlink" title="React-Native源码分析"></a>React-Native源码分析</h4><p>主要分析ReactNative的启动流程、Android端的渲染原理、通信机制等方面</p><ul><li><a href="">ReactNative的启动流程</a></li><li>渲染原理</li><li>通信机制</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;最近一个月都在看RN的问题，因为线上RN包出现一个偶现的崩溃问题，在react-native github上也没人回复。搞得头都大了，每天都
+      
+    
+    </summary>
+    
+    
+      <category term="ReactNative" scheme="https://blog.musiclake.cn/tags/ReactNative/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自动化打包</title>
+    <link href="https://blog.musiclake.cn/posts/aa1fa5ba.html"/>
+    <id>https://blog.musiclake.cn/posts/aa1fa5ba.html</id>
+    <published>2021-03-31T15:35:00.000Z</published>
+    <updated>2022-05-05T09:56:06.450Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在日常开发过程中，编译打包是必不可少的流程，特别是开发转测试阶段。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在日常开发过程中，编译打包是必不可少的流程，特别是开发转测试阶段。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>LeakCanary 集成和原理分析</title>
+    <link href="https://blog.musiclake.cn/posts/LeakCanary.html"/>
+    <id>https://blog.musiclake.cn/posts/LeakCanary.html</id>
+    <published>2021-03-30T14:35:00.000Z</published>
+    <updated>2022-05-05T09:56:06.445Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近看到项目中用到的LeakCanary版本还是1.6.3版本，所以想升级一下。看到LeakCanary的官方文档，最新版已经是2.7了，所以想记录一下以及分析一下新版的原理</p><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><a href="https://square.github.io/leakcanary/">LeakCanary</a>是适用于Android的内存泄漏检测库。</p><p>官方解释：</p><blockquote><p>LeakCanary’s knowledge of the internals of the Android Framework gives it a unique ability to narrow down the cause of each leak, helping developers dramatically reduce OutOfMemoryError crashes.</p></blockquote><p>LeakCanary可以帮忙定位内存泄漏问题，从而帮助开发人员大大减少OutOfMemoryError崩溃。</p><p>集成到项目中后，一般是测试包和开发包会用到，生产包不需要依赖。</p><h2 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h2><p>在<strong>app/build.gradle</strong> 添加一下依赖</p><pre><code class="hljs gradle"><span class="hljs-keyword">dependencies</span> &#123;  <span class="hljs-comment">// debugImplementation because LeakCanary should only run in debug builds.</span>  debugImplementation <span class="hljs-string">&#x27;com.squareup.leakcanary:leakcanary-android:2.7&#x27;</span>&#125;</code></pre><p>可以在 <strong>Logcat</strong> 里面通过过滤搜索 <strong>LeakCanary</strong>，来判断LeakCanary是否运行</p><pre><code class="hljs applescript">LeakCanary: LeakCanary <span class="hljs-keyword">is</span> <span class="hljs-built_in">running</span> <span class="hljs-keyword">and</span> ready <span class="hljs-keyword">to</span> detect leaks</code></pre><h3 id="1-6-版本和2-0版本差别对比"><a href="#1-6-版本和2-0版本差别对比" class="headerlink" title="1.6.版本和2.0版本差别对比"></a>1.6.版本和2.0版本差别对比</h3><p>对比老版本<code>1.6.3</code>和新版本 <code>2.7</code>。主要的更新点如下（官方文档比较多，这里只写一下主要的点）：</p><ul><li>集成更加方便，原来需要一次集成多个依赖库，新版只需要集成一个依赖</li><li>内存泄漏支持分组，相同的内存泄漏会自动分为一类，方便查看</li><li>使用Kotlin重写</li><li>新的堆解析器，比旧版减少了90%内存，速度快了6倍。个人体验确实比1.6.3版本快了很多</li></ul><h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>未完待续…</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近看到项目中用到的LeakCanary版本还是1.6.3版本，所以想升级一下。看到LeakCanary的官方文档，最新版已经是2.7了，所以想记录一下以及分析一下新版的原理&lt;/p&gt;
+&lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; 
+      
+    
+    </summary>
+    
+      <category term="内存优化" scheme="https://blog.musiclake.cn/categories/%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>音乐湖环境部署</title>
+    <link href="https://blog.musiclake.cn/posts/musicLakeBuild.html"/>
+    <id>https://blog.musiclake.cn/posts/musicLakeBuild.html</id>
+    <published>2021-03-29T10:21:16.000Z</published>
+    <updated>2022-05-05T09:56:06.447Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="音乐湖环境部署"><a href="#音乐湖环境部署" class="headerlink" title="音乐湖环境部署"></a>音乐湖环境部署</h1><p>音乐湖项目主要包含了Android端，PC端，微信小程序端，歌单服务器等几个项目，具体项目地址如下：</p><p><a href="https://github.com/caiyonglong/MusicLake">Android客户端 MusicLake</a><br><a href="https://github.com/sunzongzheng/music">PC端 music</a><br><a href="https://github.com/sunzongzheng/player-be">云歌单服务器 play-be</a><br><a href="https://github.com/sunzongzheng/musicApi">音乐解析 Api</a></p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为涉及音乐版权问题，被官方警告了。所以我们就不再提供可用的应用以及接口API了，目前主要偏向于学习研究。在群里也有人反馈看不懂README，部署比较困难，看到别人的部署博客，非常详细，非常好，所以作为开发者的我们也应该写一篇来记录记录。<br>如果只是想用单纯的使用音乐湖软件听歌，不建议搭建这一套环境体系。</p><h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a><a href="./musicLake.html">项目介绍</a></h2><p>本项目采用CS架构，客户端-服务器模式，搭建部署整个音乐播放服务。</p><p>客户端：MusicLake、PC客户端<br>服务器：play-be（登录、云歌单）、NeteaseMusicApi（网易云音乐api）</p><h2 id="云歌单服务器部署"><a href="#云歌单服务器部署" class="headerlink" title="云歌单服务器部署"></a>云歌单服务器部署</h2><p><a href="https://github.com/sunzongzheng/player-be">云歌单服务器 play-be</a></p><h3 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h3><p>cp config/default.js config/local.js<br>修改config/local.js相应配置<br>npm install<br>npm run start</p><h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><ul><li>cp config/default.js config/local.js</li><li>修改config/local.js相应配置</li><li>以下三种方式任选一<pre><code class="hljs crmsh">docker-compose up -d <span class="hljs-comment"># Docker Compose（Recommended）</span>pm2 <span class="hljs-literal">start</span> pm2.production.json <span class="hljs-comment"># PM2, daemon run</span>npm run <span class="hljs-literal">start</span> <span class="hljs-comment"># Just run it</span></code></pre></li></ul><h2 id="PC客户端部署"><a href="#PC客户端部署" class="headerlink" title="PC客户端部署"></a>PC客户端部署</h2><p>如果想直接使用体验，github 支持<code>workflow</code>部署，release下有打包好的生成包，可以直接选择对应的客户端下载安装即可。</p><p>也可以自己打包</p><h3 id="打包环境要求"><a href="#打包环境要求" class="headerlink" title="打包环境要求"></a>打包环境要求</h3><ul><li>nodejs v12.1.0 版本及以上</li><li>yarn</li></ul><h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><pre><code class="hljs dockerfile">yarn <span class="hljs-keyword">run</span><span class="bash"> build</span></code></pre><p>更多请见 <a href="https://github.com/sunzongzheng/music/blob/master/build.md">github</a></p><h2 id="Android客户端部署"><a href="#Android客户端部署" class="headerlink" title="Android客户端部署"></a>Android客户端部署</h2><p>未完待续…</p><h2 id="Github登录服务配置"><a href="#Github登录服务配置" class="headerlink" title="Github登录服务配置"></a>Github登录服务配置</h2><p>未完待续…</p><h2 id="QQ登录配置"><a href="#QQ登录配置" class="headerlink" title="QQ登录配置"></a>QQ登录配置</h2><p>这个需要备案的域名，才能使用。建议推荐Github登录配置</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;音乐湖环境部署&quot;&gt;&lt;a href=&quot;#音乐湖环境部署&quot; class=&quot;headerlink&quot; title=&quot;音乐湖环境部署&quot;&gt;&lt;/a&gt;音乐湖环境部署&lt;/h1&gt;&lt;p&gt;音乐湖项目主要包含了Android端，PC端，微信小程序端，歌单服务器等几个项目，具体项目地址如下：
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://blog.musiclake.cn/categories/Android/"/>
+    
+    
+      <category term="MusicLake" scheme="https://blog.musiclake.cn/tags/MusicLake/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>音乐湖（MusicLake）项目介绍</title>
+    <link href="https://blog.musiclake.cn/posts/musicLake.html"/>
+    <id>https://blog.musiclake.cn/posts/musicLake.html</id>
+    <published>2021-03-29T10:21:16.000Z</published>
+    <updated>2022-05-05T09:56:06.448Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="MusicLake"><a href="#MusicLake" class="headerlink" title="MusicLake"></a>MusicLake</h1><p><img src="https://github.com/caiyonglong/MusicLake/workflows/Check/badge.svg" alt="Workflow result"></p><p><a href="https://github.com/caiyonglong/MusicLake/tree/dev_musiclib">MediaPlayer、ExoPlayer音乐库封装</a></p><h1 id="编译-amp-服务器部署"><a href="#编译-amp-服务器部署" class="headerlink" title="编译&amp;服务器部署"></a>编译&amp;服务器部署</h1><p> <a href="BUILD.md">build.md</a></p><h1 id="功能版本"><a href="#功能版本" class="headerlink" title="功能版本"></a>功能版本</h1><ul><li>Android 音乐播放器(本地/在线播放) （最低支持Android版本5.0）</li><li>支持多平台音乐源，百度音乐，虾米音乐、网易云音乐、Youtube（需要翻墙）</li><li>歌词播放、桌面歌词、桌面小控件</li><li>通知栏控制、线控播放、音频焦点控制</li><li>QQ登录、微博登陆、在线歌单同步</li><li>网易云热门歌手，百度电台列表，网易云mv排行榜，mv播放评论</li><li>酷狗歌词搜索、修改歌词样式、歌词翻译</li><li><a href="https://github.com/sunzongzheng/music">PC端</a></li></ul><h3 id="开源不易，有兴趣可给个star，支持一下哦！"><a href="#开源不易，有兴趣可给个star，支持一下哦！" class="headerlink" title="开源不易，有兴趣可给个star，支持一下哦！"></a>开源不易，有兴趣可给个star，支持一下哦！</h3><ul><li>群聊已经解散，有什么问题可以提<a href="https://github.com/caiyonglong/MusicLake/issues">issues</a>！，有想法可以提PR。感谢关注🙏</li></ul><p><img src="screenshots/features.png" alt="功能"></p><h1 id="相关项目-音乐API"><a href="#相关项目-音乐API" class="headerlink" title="相关项目|音乐API"></a>相关项目|音乐API</h1><ul><li><a href="https://github.com/caiyonglong/MusicApi">客户端音乐API</a></li><li><a href="https://github.com/sunzongzheng/musicApi">客户端/PC音乐共用API</a></li><li><a href="https://github.com/sunzongzheng/player-be">后台/云歌单API</a></li><li><a href="https://github.com/Binaryify/NeteaseCloudMusicApi">三方/NeteaseCloudMusicApi</a></li></ul><h1 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h1><ul><li><a href="https://github.com/ReactiveX/RxJava">rxjava</a></li><li><a href="https://github.com/square/retrofit">retrofit</a></li><li><a href="https://github.com/google/dagger">dagger2</a></li><li><a href="https://github.com/bumptech/glide">Glide</a></li><li><a href="https://github.com/LitePalFramework/LitePal">LitePal</a></li><li><a href="https://github.com/wendux/DSBridge-Android">DSBridge</a></li><li><a href="https://github.com/CymChad/BaseRecyclerViewAdapterHelper">BaseRecyclerViewAdapterHelper</a></li><li><a href="https://github.com/caiyonglong/MusicLake/blob/develop/app/build.gradle">More..</a></li></ul><h1 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h1><ul><li><p>主要功能截图</p><p><img src="screenshots/preview1.png" width="225" height="400"/><img src="screenshots/preview2.png" width="225" height="400"/><img src="screenshots/preview3.png" width="225" height="400"/><img src="screenshots/preview4.png" width="225" height="400"/><img src="screenshots/preview5.png" width="225" height="400"/><img src="screenshots/preview6.png" width="225" height="400"/><img src="screenshots/preview7.png" width="225" height="400"/><img src="screenshots/preview8.png" width="225" height="400"/><img src="screenshots/preview9.png" width="225" height="400"/><img src="screenshots/preview10.png" width="225" height="400"/><img src="screenshots/preview11.png" width="225" height="400"/><img src="screenshots/preview12.png" width="225" height="400"/><img src="screenshots/preview13.png" width="225" height="400"/></p></li><li><p>夜间模式相关截图</p></li></ul><p><img src="screenshots/dark_preview1.png" width="225" height="400"/><img src="screenshots/dark_preview2.png" width="225" height="400"/><img src="screenshots/dark_preview3.png" width="225" height="400"/><img src="screenshots/dark_preview4.png" width="225" height="400"/><img src="screenshots/dark_preview5.png" width="225" height="400"/></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;MusicLake&quot;&gt;&lt;a href=&quot;#MusicLake&quot; class=&quot;headerlink&quot; title=&quot;MusicLake&quot;&gt;&lt;/a&gt;MusicLake&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;https://github.com/caiyonglong/M
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://blog.musiclake.cn/categories/Android/"/>
+    
+    
+      <category term="MusicLake" scheme="https://blog.musiclake.cn/tags/MusicLake/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常用设计模式</title>
+    <link href="https://blog.musiclake.cn/posts/1e80ad29.html"/>
+    <id>https://blog.musiclake.cn/posts/1e80ad29.html</id>
+    <published>2021-03-25T13:55:03.000Z</published>
+    <updated>2022-05-05T09:56:06.451Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="为什么学习设计模式"><a href="#为什么学习设计模式" class="headerlink" title="为什么学习设计模式"></a>为什么学习设计模式</h1><p>设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p><p><strong>设计模式</strong>是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。</p><p>以上都是官方套话，在平时开发中，我们会遇到各种代码设计问题，比如抱怨别人写的代码可读性，可维护性很差，虽然最终都实现了功能，但是代码质量不高，随着新需求的不断调整，只能继续旧代码基础上写代码，最后越写越难受，复杂的代码，自己都看不懂。所以如果有个什么方式能够让我们写出可维护、可复用、可扩展及灵活的代码。</p><h1 id="设计模式有什么作用"><a href="#设计模式有什么作用" class="headerlink" title="设计模式有什么作用"></a>设计模式有什么作用</h1><p>有助于项目架构设计，提高项目代码的可读性和可维护性</p><h1 id="设计模式六大原则"><a href="#设计模式六大原则" class="headerlink" title="设计模式六大原则"></a>设计模式六大原则</h1><ul><li><p>开闭原则</p><p>开闭原则的意思是：<strong>对扩展开放，对修改关闭</strong>。在程序需要进行拓展的时候，不能去修改原有的代码，实现一个热插拔的效果。简言之，是为了使程序的扩展性好，易于维护和升级。想要达到这样的效果，需要使用接口和抽象类。</p></li><li><p>里式代换原则</p><p>里氏代换原则是面向对象设计的基本原则之一。 里氏代换原则中说，任何基类可以出现的地方，子类一定可以出现。LSP 是继承复用的基石，只有当派生类可以替换掉基类，且软件单位的功能不受到影响时，基类才能真正被复用，而派生类也能够在基类的基础上增加新的行为。里氏代换原则是对开闭原则的补充。实现开闭原则的关键步骤就是抽象化，而基类与子类的继承关系就是抽象化的具体实现，所以里氏代换原则是对实现抽象化的具体步骤的规范。</p></li><li><p>依赖倒转原则</p><p>这个原则是开闭原则的基础，具体内容：针对接口编程，依赖于抽象而不依赖于具体。</p></li><li><p>接口隔离原则</p><p>这个原则的意思是：使用多个隔离的接口，比使用单个接口要好。它还有另外一个意思是：降低类之间的耦合度。由此可见，其实设计模式就是从大型软件架构出发、便于升级和维护的软件设计思想，它强调降低依赖，降低耦合。</p></li><li><p>迪米特法则，又称最少知道远着</p><p>最少知道原则是指：一个实体应当尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立。</p></li><li><p>合成复用原则</p><p>合成复用原则是指：尽量使用合成/聚合的方式，而不是使用继承。</p></li></ul><h1 id="设计模式有多少种"><a href="#设计模式有多少种" class="headerlink" title="设计模式有多少种"></a>设计模式有多少种</h1><p>总共有23种设计模式，这些设计模式可分为三类，创建型模式（Creational Patterns）、结构型模式（Structural Patterns）、行为型模式（Behavioral Patterns）</p><h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><p>这些设计模式提供了一种在创建对象的同时隐藏创建逻辑的方式，而不是使用 new 运算符直接实例化对象。这使得程序在判断针对某个给定实例需要创建哪些对象时更加灵活。    </p><ul><li>工厂模式</li><li>抽象工厂模式</li><li>建造者模式</li><li><a href="./f1601c3e.html">单例模式</a></li><li>原型模式</li></ul><h2 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h2><p>这些设计模式关注类和对象的组合。继承的概念被用来组合接口和定义组合对象获得新功能的方式。</p><ul><li><p>适配器模式</p></li><li><p>桥接模式</p></li><li><p>组合模式</p></li><li><p>装饰器模式</p></li><li><p>外观模式</p></li><li><p>享元模式</p></li><li><p>代理模式</p><h2 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h2><p>这些设计模式特别关注对象之间的通信。</p></li><li><p>责任链模式</p></li><li><p>迭代器模式</p></li><li><p>备忘录模式</p></li><li><p>命令模式</p></li><li><p>中介者模式</p></li><li><p>观察者模式</p></li><li><p>状态模式</p></li><li><p>策略模式</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;为什么学习设计模式&quot;&gt;&lt;a href=&quot;#为什么学习设计模式&quot; class=&quot;headerlink&quot; title=&quot;为什么学习设计模式&quot;&gt;&lt;/a&gt;为什么学习设计模式&lt;/h1&gt;&lt;p&gt;设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软
+      
+    
+    </summary>
+    
+      <category term="设计模式" scheme="https://blog.musiclake.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="设计模式" scheme="https://blog.musiclake.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【RN】RN工程化架构-redux</title>
+    <link href="https://blog.musiclake.cn/posts/854d3cbf.html"/>
+    <id>https://blog.musiclake.cn/posts/854d3cbf.html</id>
+    <published>2020-09-08T01:57:17.000Z</published>
+    <updated>2022-05-05T09:56:06.448Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>对于RN官网上介绍的RN代码示例，都是一些单界面的示例，但是在实际项目开发过程中，这些远远不能满足负责的业务逻辑，跟不上项目迭代速度</p><h1 id="Redux介绍"><a href="#Redux介绍" class="headerlink" title="Redux介绍"></a>Redux介绍</h1><h1 id="Redux在React-Native中的使用"><a href="#Redux在React-Native中的使用" class="headerlink" title="Redux在React Native中的使用"></a>Redux在React Native中的使用</h1><h1 id="项目级架构"><a href="#项目级架构" class="headerlink" title="项目级架构"></a>项目级架构</h1>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;对于RN官网上介绍的RN代码示例，都是一些单界面的示例，但是在实际项目开发过程中，这些远远不能满足负责的业务逻辑，跟不上项目迭代速度&lt;/p&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="RN" scheme="https://blog.musiclake.cn/tags/RN/"/>
+    
+      <category term="跨平台" scheme="https://blog.musiclake.cn/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android事件分发机制</title>
+    <link href="https://blog.musiclake.cn/posts/7bbb2ea5.html"/>
+    <id>https://blog.musiclake.cn/posts/7bbb2ea5.html</id>
+    <published>2019-09-22T04:12:01.000Z</published>
+    <updated>2022-05-05T09:56:06.447Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这是很常见的面试题，几乎每次面试都会问到，每次问的区别就是问的深度不一样。虽然网上有很多面经，很多总结，但是自己还是想花点时间来总结一下，加深印象。</p><h1 id="常见面试问题"><a href="#常见面试问题" class="headerlink" title="常见面试问题"></a>常见面试问题</h1><ul><li>说一下Android事件分发的流程</li><li>分发、拦截方法和Touch_Down、Touch_Move、Touch_Up 的执行顺序</li></ul><h1 id="事件分发基本概念"><a href="#事件分发基本概念" class="headerlink" title="事件分发基本概念"></a>事件分发基本概念</h1><p>Activity -&gt; ViewGroup -&gt;View</p><p>dispatchTouchEvent 分发</p><p>onInterceptTouchEvent 拦截</p><p>View 没有拦截事件</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;这是很常见的面试题，几乎每次面试都会问到，每次问的区别就是问的深度不一样。虽然网上有很多面经，很多总结，但是自己还是想花点时间来总结一下，加
+      
+    
+    </summary>
+    
+      <category term="源码分析" scheme="https://blog.musiclake.cn/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="面试" scheme="https://blog.musiclake.cn/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="dasd" scheme="https://blog.musiclake.cn/tags/dasd/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Activity的启动流程</title>
+    <link href="https://blog.musiclake.cn/posts/3f706ac0.html"/>
+    <id>https://blog.musiclake.cn/posts/3f706ac0.html</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2022-05-05T09:56:06.449Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Ativity的启动流程一般可以分为两部分</p><ul><li>从桌面Launcher点击小图标，启动应打开主Activity</li><li>应用内startActivity启动其他Activity</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;Ativity的启动流程一般可以分为两部分&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从桌面Launcher点击小图标，启动应打开主Activity&lt;/li
+      
+    
+    </summary>
+    
+      <category term="源码分析" scheme="https://blog.musiclake.cn/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>常用第三方库源码分析——EventBus</title>
+    <link href="https://blog.musiclake.cn/posts/6ba9cd28.html"/>
+    <id>https://blog.musiclake.cn/posts/6ba9cd28.html</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2022-05-05T09:56:06.449Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>EventBus是适用于Android和Java的发布/订阅事件总线。<br><img src="/images/EventBus-Publish-Subscribe.png"></p><p>1、定义事件<br>2、准备订阅者，声明并注释订阅方法，也可以指定线程模式<br>注册和注销订阅者<br>3、发送事件</p><h1 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h1><p>注册方法，Eventbus实例注册订阅者事件</p><pre><code class="hljs aspectj"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">register</span><span class="hljs-params">(Object subscriber)</span> </span>&#123;        <span class="hljs-comment">//获取注册的对象的类型</span>        Class&lt;?&gt; subscriberClass = subscriber.getClass();        <span class="hljs-comment">//查找并获取注册的对象的订阅方法</span>        List&lt;SubscriberMethod&gt; subscriberMethods = subscriberMethodFinder.findSubscriberMethods(subscriberClass);        <span class="hljs-comment">//加锁，在同步锁中订阅方法</span>        <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;            <span class="hljs-keyword">for</span> (SubscriberMethod subscriberMethod : subscriberMethods) &#123;                <span class="hljs-comment">//对订阅方法进行注册</span>                subscribe(subscriber, subscriberMethod);            &#125;        &#125;    &#125;</code></pre><p>查找订阅者的订阅方法，METHOD_CACHE方法缓存，使用ConcurrentHashMap存储</p><pre><code class="hljs php"><span class="hljs-keyword">List</span>&lt;SubscriberMethod&gt; findSubscriberMethods(<span class="hljs-class"><span class="hljs-keyword">Class</span>&lt;?&gt; <span class="hljs-title">subscriberClass</span>) </span>&#123;    <span class="hljs-comment">//从缓存中获取订阅方法</span>    <span class="hljs-keyword">List</span>&lt;SubscriberMethod&gt; subscriberMethods = METHOD_CACHE.get(subscriberClass);    <span class="hljs-keyword">if</span> (subscriberMethods != <span class="hljs-literal">null</span>) &#123;        <span class="hljs-keyword">return</span> subscriberMethods;    &#125;    <span class="hljs-comment">//如果缓存中没有，则是否强制使用反射还是使用索引获取订阅方法</span>    <span class="hljs-keyword">if</span> (ignoreGeneratedIndex) &#123;        subscriberMethods = findUsingReflection(subscriberClass);    &#125; <span class="hljs-keyword">else</span> &#123;        subscriberMethods = findUsingInfo(subscriberClass);    &#125;    <span class="hljs-keyword">if</span> (subscriberMethods.isEmpty()) &#123;        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> EventBusException(<span class="hljs-string">&quot;Subscriber &quot;</span> + subscriberClass                + <span class="hljs-string">&quot; and its super classes have no public methods with the @Subscribe annotation&quot;</span>);    &#125; <span class="hljs-keyword">else</span> &#123;        METHOD_CACHE.put(subscriberClass, subscriberMethods);        <span class="hljs-keyword">return</span> subscriberMethods;    &#125;&#125;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;EventBus是适用于Android和Java的发布/订阅事件总线。&lt;br&gt;&lt;img src=&quot;/images/EventBus-Publ
+      
+    
+    </summary>
+    
+      <category term="源码分析" scheme="https://blog.musiclake.cn/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Eventbus" scheme="https://blog.musiclake.cn/tags/Eventbus/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常用第三方库源码分析——Glide</title>
+    <link href="https://blog.musiclake.cn/posts/a7a0829e.html"/>
+    <id>https://blog.musiclake.cn/posts/a7a0829e.html</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2022-05-05T09:56:06.449Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="源码分析" scheme="https://blog.musiclake.cn/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Glide" scheme="https://blog.musiclake.cn/tags/Glide/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Handler消息机制</title>
+    <link href="https://blog.musiclake.cn/posts/c6dbe339.html"/>
+    <id>https://blog.musiclake.cn/posts/c6dbe339.html</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2022-05-05T09:56:06.449Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>平时工作中缺乏总结，写博客不是为别人，而是为自己，虽然网上很多类似的，但是自己还是得写一遍加深印象</p><h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><p>消息机制包含 Handler、MessageQueue、Message、Looper</p><p>拖欠图</p><p>Handler 发送消息，消息存入到消息队列中，然后Looper 循环执行消息队列。</p><h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="Handler-为什么会造成内存泄漏"><a href="#Handler-为什么会造成内存泄漏" class="headerlink" title="Handler 为什么会造成内存泄漏"></a>Handler 为什么会造成内存泄漏</h2><p>因为在Activity中，handler内部类引用了它，而该handler实例可能被MessageQueue引用着。比如发送了一个延时消息到队列中，那么就可能在队列中存在很长时间，而消息队列（MessageQueue）的生命周期等于它所在的线程。当大到Activity被finish()了后还在队列中时，就满足了上面的短生命周期引用长生命周期的条件。根据Java GC的规则，Activity的引用计数不为0，故不会回收</p><ul><li><p>解决办法</p><p>  1、保证Activity被finish()时该线程的消息队列没有这个Activity的handler内部类的引用<br>  2、要么让这个handler不持有Activity等外部组件实例，让该Handler成为静态内部类。（静态内部类是不持有外部类的实例的，因而也就调用不了外部的实例方法了）<br>  3、在2方法的基础上，为了能调用外部的实例方法，传递一个外部的弱引用进来</p></li></ul><h2 id="为什么消息Handler能实现跨线程通信"><a href="#为什么消息Handler能实现跨线程通信" class="headerlink" title="为什么消息Handler能实现跨线程通信"></a>为什么消息Handler能实现跨线程通信</h2><h2 id="为什么Looper循环不会导致ANR"><a href="#为什么Looper循环不会导致ANR" class="headerlink" title="为什么Looper循环不会导致ANR"></a>为什么Looper循环不会导致ANR</h2><p>ANR的基本概念</p><pre><code>1：5s内无法响应用户输入事件(例如键盘输入, 触摸屏幕等)2：BroadcastReceiver在10s内无法结束3：ServiceTimeout(20s) --小概率类型，Service在特定的时间内无法处理完成</code></pre><p>Android是事件驱动的，在Loop.loop()中不断接收事件、处理事件，而Activity的生命周期都依靠于主线程的Loop.loop()来调度，所以可想而知它的存活周期和Activity也是一致的。当没有事件需要处理时，主线程就会阻塞；当子线程往消息队列发送消息，并且往管道文件写数据时，主线程就被唤醒。</p><p>主线程在没有事件需要处理的时候就是处于阻塞的状态。想让主线程活动起来一般有两种方式：</p><ul><li>第一种是系统唤醒主线程，并且将点击事件传递给主线程；</li><li>第二种是其他线程使用Handler向MessageQueue中存放了一条消息，导致loop被唤醒继续执行。</li></ul><p>主线程Looper从消息队列读取消息，当读完所有消息时，主线程阻塞。子线程往消息队列发送消息，并且往管道文件写数据，主线程即被唤醒，从管道文件读取数据，主线程被唤醒只是为了读取消息，当消息读取完毕，再次睡眠。因此loop的循环并不会对CPU性能有过多的消耗。</p><p>总结： Looer.loop()方法可能会引起主线程的阻塞，但只要它的消息循环没有被阻塞，能一直处理事件就不会产生ANR异常。</p><p>主线程Looper在哪里初始化</p><p>ActivityThread 类里面</p><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">String</span>[] args)</span> </span>&#123;       Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, <span class="hljs-string">&quot;ActivityThreadMain&quot;</span>);       <span class="hljs-comment">// CloseGuard defaults to true and can be quite spammy.  We</span>       <span class="hljs-comment">// disable it here, but selectively enable it later (via</span>       <span class="hljs-comment">// StrictMode) on debug builds, but using DropBox, not logs.</span>       CloseGuard.setEnabled(<span class="hljs-literal">false</span>);       Environment.initForCurrentUser();       <span class="hljs-comment">// Set the reporter for event logging in libcore</span>       EventLogger.setReporter(<span class="hljs-keyword">new</span> EventLoggingReporter());       <span class="hljs-comment">// Make sure TrustedCertificateStore looks in the right place for CA certificates</span>       <span class="hljs-keyword">final</span> <span class="hljs-built_in">File</span> configDir = Environment.getUserConfigDirectory(UserHandle.myUserId());       TrustedCertificateStore.setDefaultUserDirectory(configDir);       <span class="hljs-built_in">Process</span>.setArgV0(<span class="hljs-string">&quot;&lt;pre-initialized&gt;&quot;</span>);       Looper.prepareMainLooper();       <span class="hljs-comment">// Find the value for &#123;@link #PROC_START_SEQ_IDENT&#125; if provided on the command line.</span>       <span class="hljs-comment">// It will be in the format &quot;seq=114&quot;</span>       <span class="hljs-keyword">long</span> startSeq = <span class="hljs-number">0</span>;       <span class="hljs-keyword">if</span> (args != null) &#123;           <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = args.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; --i) &#123;               <span class="hljs-keyword">if</span> (args[i] != null &amp;&amp; args[i].startsWith(PROC_START_SEQ_IDENT)) &#123;                   startSeq = Long.parseLong(                           args[i].substring(PROC_START_SEQ_IDENT.length()));               &#125;           &#125;       &#125;       ActivityThread thread = <span class="hljs-keyword">new</span> ActivityThread();       thread.<span class="hljs-built_in">attach</span>(<span class="hljs-literal">false</span>, startSeq);       <span class="hljs-keyword">if</span> (sMainThreadHandler == null) &#123;           sMainThreadHandler = thread.getHandler();       &#125;       <span class="hljs-keyword">if</span> (<span class="hljs-literal">false</span>) &#123;           Looper.myLooper().setMessageLogging(<span class="hljs-keyword">new</span>                   LogPrinter(Log.DEBUG, <span class="hljs-string">&quot;ActivityThread&quot;</span>));       &#125;       <span class="hljs-comment">// End of event ActivityThreadMain.</span>       Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);       Looper.<span class="hljs-built_in">loop</span>();       <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;Main thread loop unexpectedly exited&quot;</span>);   &#125;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;平时工作中缺乏总结，写博客不是为别人，而是为自己，虽然网上很多类似的，但是自己还是得写一遍加深印象&lt;/p&gt;
+&lt;h1 id=&quot;基本原理&quot;&gt;&lt;a
+      
+    
+    </summary>
+    
+      <category term="源码分析" scheme="https://blog.musiclake.cn/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Handler" scheme="https://blog.musiclake.cn/tags/Handler/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常用第三方库源码分析——Okhttp</title>
+    <link href="https://blog.musiclake.cn/posts/3c273908.html"/>
+    <id>https://blog.musiclake.cn/posts/3c273908.html</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2022-05-05T09:56:06.450Z</updated>
+    
+    <content type="html"><![CDATA[<p>以前总想分析一下一些开源框架的源码，看看被人的设计思想和功能</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;以前总想分析一下一些开源框架的源码，看看被人的设计思想和功能&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="源码分析" scheme="https://blog.musiclake.cn/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Okhttp" scheme="https://blog.musiclake.cn/tags/Okhttp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常用网络请求库对比——Volley、Okhttp、Retrofit对比</title>
+    <link href="https://blog.musiclake.cn/posts/b0301fc2.html"/>
+    <id>https://blog.musiclake.cn/posts/b0301fc2.html</id>
+    <published>2019-09-21T16:00:00.000Z</published>
+    <updated>2022-05-05T09:56:06.450Z</updated>
+    
+    <content type="html"><![CDATA[<p>Volley、Okhttp、Retrofit三大网络请求库分析</p><h1 id="1-原生"><a href="#1-原生" class="headerlink" title="1. 原生"></a>1. 原生</h1><p>Android 原生使用HttpUrlConnection</p><h1 id="2-Volley"><a href="#2-Volley" class="headerlink" title="2. Volley"></a>2. Volley</h1><p>Volley 是 Google 官方出的一套小而巧的异步请求库，该框架封装的扩展性很强，支持 HttpClient、HttpUrlConnection，甚至支持 OkHttp，具体方法可以看 Jake 大神的这个 Gist 文件</p><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>在BasicNetwork中判断了statusCode(statusCode &lt; 200 || statusCode &gt; 299)，如何符合条件直接抛出IOException()，不够合理</p><p>导致401等其他状态抛出IOException<br>解决方案 :<br><a href="http://blog.csdn.net/kufeiyun/article/details/44646145">http://blog.csdn.net/kufeiyun/article/details/44646145</a><br><a href="http://stackoverflow.com/questions/30476584/android-volley-strange-error-with-http-code-401-java-io-ioexception-no-authe">http://stackoverflow.com/questions/30476584/android-volley-strange-error-with-http-code-401-java-io-ioexception-no-authe</a></p><p>图片加载性能一般</p><p>对大资源下载支持不够</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Volley、Okhttp、Retrofit三大网络请求库分析&lt;/p&gt;
+&lt;h1 id=&quot;1-原生&quot;&gt;&lt;a href=&quot;#1-原生&quot; class=&quot;headerlink&quot; title=&quot;1. 原生&quot;&gt;&lt;/a&gt;1. 原生&lt;/h1&gt;&lt;p&gt;Android 原生使用HttpUrlCo
+      
+    
+    </summary>
+    
+      <category term="源码分析" scheme="https://blog.musiclake.cn/categories/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>建造者模式</title>
+    <link href="https://blog.musiclake.cn/posts/fe816c3c.html"/>
+    <id>https://blog.musiclake.cn/posts/fe816c3c.html</id>
+    <published>2019-09-13T16:00:16.000Z</published>
+    <updated>2022-05-05T09:56:06.451Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>建造者模式（Builder Pattern）使用多个简单的对象一步一步构建成一个复杂的对象。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。<br>一个 Builder 类会一步一步构造最终的对象。该 Builder 类是独立于其他对象的。</p><h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>Android 中AlertDialog </p><p>```<br>public class AlertDialog extends AppCompatDialog implements DialogInterface {</p><pre><code>//只展示部分代码...public static class Builder &#123;    private final AlertParams P;    private final int mTheme;    public Builder(@NonNull Context context) &#123;        this(context, AlertDialog.resolveDialogTheme(context, 0));    &#125;    public Builder(@NonNull Context context, @StyleRes int themeResId) &#123;        this.P = new AlertParams(new ContextThemeWrapper(context, AlertDialog.resolveDialogTheme(context, themeResId)));        this.mTheme = themeResId;    &#125;    //只展示部分代码    ....&#125;</code></pre><p>}</p>]]></content>
+    
+    <summary type="html">
+    
+      建造者模式
+    
+    </summary>
+    
+      <category term="设计模式" scheme="https://blog.musiclake.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="设计模式" scheme="https://blog.musiclake.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>责任链模式</title>
+    <link href="https://blog.musiclake.cn/posts/6208627e.html"/>
+    <id>https://blog.musiclake.cn/posts/6208627e.html</id>
+    <published>2019-09-13T06:00:16.000Z</published>
+    <updated>2022-05-05T09:56:06.452Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>责任链模式 (Chain of Responsibility Pattern)是一种常见的行为模式。<br>责任链模式为请求创建了一个接收者对象的链。这种模式给予请求的类型，对请求的发送者和接收者进行解耦。这种类型的设计模式属于行为型模式。<br>在这种模式中，通常每个接收者都包含对另一个接收者的引用。如果一个对象不能处理该请求，那么它会把相同的请求传给下一个接收者，依此类推。</p><h1 id="典型实例"><a href="#典型实例" class="headerlink" title="典型实例"></a>典型实例</h1><p>okhttp 拦截器（Interceptor）就使用了责任链模式</p>]]></content>
+    
+    <summary type="html">
+    
+      责任链模式
+    
+    </summary>
+    
+      <category term="设计模式" scheme="https://blog.musiclake.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="设计模式" scheme="https://blog.musiclake.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>暴走P图项目重构</title>
+    <link href="https://blog.musiclake.cn/posts/db3d6b05.html"/>
+    <id>https://blog.musiclake.cn/posts/db3d6b05.html</id>
+    <published>2019-09-11T02:04:02.000Z</published>
+    <updated>2022-05-05T09:56:06.445Z</updated>
+    
+    <content type="html"><![CDATA[<p>将MVP 代码重构 MVVM 总结</p><p>1、首先将整个工程 迁移到AndroidX（可做可不做，为了跟紧最新技术）<br>AndroidX 是 Google 推出了的，目的是为了统一 android.support.xxx 兼容包<br>主要迁移是利用Android Studio 的 Refacetor -&gt; Migrate to AndroidX 操作<br>可以通过查看 gradle.properties 中 </p><pre><code class="hljs ini"><span class="hljs-attr">android.useAndroidX</span>=<span class="hljs-literal">true</span></code></pre><p>来确定是否迁移了AndroidX<br>最后查看app/build.gradle 中是否导入了相关的三方库<br>如</p><pre><code class="hljs apache"><span class="hljs-attribute">implementation</span> &#x27;androidx.appcompat:appcompat:<span class="hljs-number">1</span>.<span class="hljs-number">1</span>.<span class="hljs-number">0</span>&#x27;<span class="hljs-attribute">implementation</span> &#x27;androidx.recyclerview:recyclerview:<span class="hljs-number">1</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>&#x27;<span class="hljs-attribute">implementation</span> &#x27;androidx.constraintlayout:constraintlayout:<span class="hljs-number">2</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>-beta<span class="hljs-number">2</span>&#x27;<span class="hljs-attribute">implementation</span> <span class="hljs-string">&quot;androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion&quot;</span><span class="hljs-attribute">implementation</span> <span class="hljs-string">&quot;androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion&quot;</span><span class="hljs-attribute">implementation</span> <span class="hljs-string">&quot;androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion&quot;</span></code></pre><p>2、将MVP 转成 MVVM<br>根据项目架构（如包结构），可以对包结构做一个具体分析，<br>根据业务功能，划分数据包、功能包、适配器包、工具包等<br>然后在功能包内再 定义各个功能的viewmodel。</p><p>初始想法是 先将 XXXPresenter 重命名为 XXXViewModel，然后再根据具体的业务，使用LiveData观察会改变的数据类</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;将MVP 代码重构 MVVM 总结&lt;/p&gt;
+&lt;p&gt;1、首先将整个工程 迁移到AndroidX（可做可不做，为了跟紧最新技术）&lt;br&gt;AndroidX 是 Google 推出了的，目的是为了统一 android.support.xxx 兼容包&lt;br&gt;主要迁移是利用Androi
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://blog.musiclake.cn/categories/Android/"/>
+    
+    
+      <category term="重构" scheme="https://blog.musiclake.cn/tags/%E9%87%8D%E6%9E%84/"/>
+    
+      <category term="想法" scheme="https://blog.musiclake.cn/tags/%E6%83%B3%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android 系统适配</title>
+    <link href="https://blog.musiclake.cn/posts/adb2609a.html"/>
+    <id>https://blog.musiclake.cn/posts/adb2609a.html</id>
+    <published>2019-09-09T02:04:02.000Z</published>
+    <updated>2022-05-05T09:56:06.445Z</updated>
+    
+    <content type="html"><![CDATA[<p>Android系统适配<br>主要介绍一下适配各个版本系统的特性</p><h1 id="Android-5-0"><a href="#Android-5-0" class="headerlink" title="Android 5.0"></a>Android 5.0</h1><ul><li>5.1 通知栏适配<h1 id="Android-6-0"><a href="#Android-6-0" class="headerlink" title="Android 6.0"></a>Android 6.0</h1></li><li>6.1 动态权限申请</li></ul><h1 id="Android-7-0"><a href="#Android-7-0" class="headerlink" title="Android 7.0"></a>Android 7.0</h1><ul><li>7.1 应用间共享文件<br>Fileprovider</li><li>7.2 org.apache不支持问题</li><li>7.3 SharedPreferences闪退<br>SharedPreferences read = getSharedPreferences(RELEASE_POOL_DATA, MODE_WORLD_READABLE);<br>//MODE_WORLD_READABLE ：7.0以后不能使用这个获取，会闪退，修改成MODE_PRIVATE</li></ul><h1 id="Android-8-0"><a href="#Android-8-0" class="headerlink" title="Android 8.0"></a>Android 8.0</h1><ul><li><p>8.1 通知适配.增加渠道ID<br>安装APK.允许安装未知来源</p></li><li><p>8.2 通知适配<br>安卓8.0中，为了更好的管制通知的提醒，不想一些不重要的通知打扰用户，新增了通知渠道，用户可以根据渠道来屏蔽一些不想要的通知</p></li><li><p>8.3 安装APK<br>  首先在AndroidManifest文件中添加安装未知来源应用的权限:</p><pre><code class="hljs routeros">&lt;uses-permission android:<span class="hljs-attribute">name</span>=<span class="hljs-string">&quot;android.permission.REQUEST_INSTALL_PACKAGES&quot;</span>/&gt;</code></pre></li><li><p>8.4 SecurityException的闪退</p></li><li><p>8.5 静态广播无法正常接收<br>  问题原因： Android 8.0 引入了新的广播接收器限制，因此您应该移除所有为隐式广播 Intent 注册的广播接收器</p></li><li><p>8.6 Caused by: java.lang.IllegalStateException: Only fullscreen opaque activities can request orientation<br>问题原因： Android 8.0 非全屏透明页面不允许设置方向（后面8.1系统谷歌就去掉了这个限制，可能很多人真的不习惯吧）</p></li></ul><p>解决方案：<br>        （1）android:windowIsTranslucent设置为false<br>        （2）如果还是想用的话，就去掉清单文件中Activity中的android:screenOrientation=”portrait”，<br>        （3）就是使用透明的dialog或者PopupWindow来代替，也可以用DialogFragment，看自己的需求和喜好</p><h1 id="Android-9-0"><a href="#Android-9-0" class="headerlink" title="Android 9.0"></a>Android 9.0</h1><ul><li>9.1 CLEARTEXT communication to life.115.com not permitted by network security policy</li></ul><ul><li>http明文网络请求问题</li></ul><ul><li>9.2 其他Api的修改</li></ul><h1 id="Android-10"><a href="#Android-10" class="headerlink" title="Android 10"></a>Android 10</h1><p>Android 10版本对于用户的隐私权限要求更严了，所以需要对于权限这块做好适配，如 ime</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://juejin.im/post/5beaf27fe51d45332a4568e9">参考1</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Android系统适配&lt;br&gt;主要介绍一下适配各个版本系统的特性&lt;/p&gt;
+&lt;h1 id=&quot;Android-5-0&quot;&gt;&lt;a href=&quot;#Android-5-0&quot; class=&quot;headerlink&quot; title=&quot;Android 5.0&quot;&gt;&lt;/a&gt;Android 5.0&lt;/
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://blog.musiclake.cn/categories/Android/"/>
+    
+    
+      <category term="适配" scheme="https://blog.musiclake.cn/tags/%E9%80%82%E9%85%8D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MVC ，MVP，MVVM 的理解</title>
+    <link href="https://blog.musiclake.cn/posts/234507b1.html"/>
+    <id>https://blog.musiclake.cn/posts/234507b1.html</id>
+    <published>2019-08-30T16:00:00.000Z</published>
+    <updated>2022-05-05T09:56:06.444Z</updated>
+    
+    <content type="html"><![CDATA[<p>一切都是为了解耦合，开发更加方便</p><h1 id="MVC简单介绍"><a href="#MVC简单介绍" class="headerlink" title="MVC简单介绍"></a>MVC简单介绍</h1><p>Model、View、Controller<br>Model 处理网络数据，数据库数据等<br>View xml<br>Controller activity</p><h1 id="MVP"><a href="#MVP" class="headerlink" title="MVP"></a>MVP</h1><p>Model View Presenter</p><p>Model 处理网络数据，数据库数据等</p><p>Presenter 主要把model 和 view 隔离，减少耦合，拆分Controller层</p><h1 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h1><p>基于MVP模式的基础上，将P变成ViewModel，使用databinding 实现数据的双向绑定。</p><p>Viewmodel</p><h2 id="Databinding"><a href="#Databinding" class="headerlink" title="Databinding"></a>Databinding</h2><p><a href="https://developer.android.com/topic/libraries/data-binding">Google 官方介绍</a><br>官方解释：<br>数据绑定库是一个支持库，允许您使用声明性格式而不是以编程方式将布局中的UI组件绑定到应用程序中的数据源。</p><p>布局通常在具有调用UI框架方法的代码的活动中定义。 例如，下面的代码调用findViewById（）来查找TextView小部件并将其绑定到viewModel变量的userName属性：</p><p>DataBinding 是谷歌官方发布的一个框架，顾名思义即为数据绑定，是 MVVM 模式在 Android 上的一种实现，用于降低布局和逻辑的耦合性，使代码逻辑更加清晰。MVVM 相对于 MVP，其实就是将 Presenter 层替换成了 ViewModel 层。DataBinding 能够省去我们一直以来的 findViewById() 步骤，大量减少 Activity 内的代码，数据能够单向或双向绑定到 layout 文件中，有助于防止内存泄漏，而且能自动进行空检测以避免空指针异常</p><p>启用 DataBinding 的方法是在对应 Model 的 build.gradle 文件里加入以下代码，同步后就能引入对 DataBinding 的支持</p><pre><code class="hljs nginx"><span class="hljs-section">android</span> &#123;    <span class="hljs-section">dataBinding</span> &#123;        <span class="hljs-attribute">enabled</span> = <span class="hljs-literal">true</span>    &#125;&#125;</code></pre><h2 id="LiveData"><a href="#LiveData" class="headerlink" title="LiveData"></a>LiveData</h2><p>LiveData是一个数据持有类，它可以通过添加观察者被其他组件观察其变更。不同于普通的观察者，它最重要的特性就是遵从应用程序的生命周期，如在Activity中如果数据更新了但Activity已经是destroy状态，LivaeData就不会通知Activity(observer)。当然。LiveData的优点还有很多，如不会造成内存泄漏等。<br>LiveData通常会配合ViewModel来使用，ViewModel负责触发数据的更新，更新会通知到LiveData，然后LiveData再通知活跃状态的观察者。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;一切都是为了解耦合，开发更加方便&lt;/p&gt;
+&lt;h1 id=&quot;MVC简单介绍&quot;&gt;&lt;a href=&quot;#MVC简单介绍&quot; class=&quot;headerlink&quot; title=&quot;MVC简单介绍&quot;&gt;&lt;/a&gt;MVC简单介绍&lt;/h1&gt;&lt;p&gt;Model、View、Controller&lt;br&gt;M
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://blog.musiclake.cn/categories/Android/"/>
+    
+    
+  </entry>
+  
+</feed>

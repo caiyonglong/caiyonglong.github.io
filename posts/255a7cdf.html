@@ -1,0 +1,622 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" type="image/png" href="/img/favicon.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="这就是一个简单的描述">
+  <meta name="author" content="caiyonglong">
+  <meta name="keywords" content="">
+  <title>音乐湖项目遇到的问题 - caiyonglong&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Yonglong</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2018-04-23 18:21" pubdate>
+      2018年4月23日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      891 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">音乐湖项目遇到的问题</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>1、ViewPager中fragment A，点击跳转切换到另外一个Fragment B(addFragment 添加B),<br>然后返回到A(回退栈顶的A)。A中的数据不刷新。尝试了在onResume中,添加更新,但是效果还是一样。</p>
+<p>解决办法,引入事件总线RxBus.</p>
+<p>2、适配Android 8.0 出现<br>java.lang.IllegalStateException: Only fullscreen opaque activities can request orientation</p>
+<p>只有全屏不透明的活动才能请求方向.主要是manifest中定义了android:screenOrientation=”portrait” 和设置半透明主题导致。</p>
+<p>3、使用Rxbus时，退出Activity。然后从通知栏进入程序崩溃。</p>
+<p>4、Retrofit gson解析数据QQ音乐歌词数据时，抛出异常，因为返回的数据不是一个完整的json数据。</p>
+<pre><code class="hljs sql">io.reactivex.exceptions.OnErrorNotImplementedException: <span class="hljs-keyword">Use</span> JsonReader.setLenient(<span class="hljs-literal">true</span>) <span class="hljs-keyword">to</span> <span class="hljs-keyword">accept</span> malformed <span class="hljs-keyword">JSON</span> <span class="hljs-keyword">at</span> line <span class="hljs-number">1</span> <span class="hljs-keyword">column</span> <span class="hljs-number">1</span> <span class="hljs-keyword">path</span> $
+....</code></pre>
+<p>返回数据格式jsonp格式：MusicJsonCallback({…})。<br>通过下面的解决方法，不会抛出异常。但是获得的String 数据只有MusicJsonCallback( .这部分<br>重要部分不知道去哪了…</p>
+<pre><code class="hljs reasonml">Gson gson = <span class="hljs-keyword">new</span> <span class="hljs-constructor">GsonBuilder()</span>
+        .set<span class="hljs-constructor">Lenient()</span>
+        .create<span class="hljs-literal">()</span>;
+
+Retrofit retrofit = <span class="hljs-keyword">new</span> Retrofit.<span class="hljs-constructor">Builder()</span>
+        .base<span class="hljs-constructor">Url(BASE_URL)</span>
+        .client(client)
+        .add<span class="hljs-constructor">ConverterFactory(GsonConverterFactory.<span class="hljs-params">create</span>(<span class="hljs-params">gson</span>)</span>)
+        .build<span class="hljs-literal">()</span>;</code></pre>
+
+<p>不得已，最后尝试重写GSON转换器。遇到一个大坑那就是ResponseBody //ResponseData中的流只能使用一次，我们先将流中的数据读出在byte数组中。这个方法中已经关闭了ResponseBody,所以不需要再关闭了  </p>
+<p>5、Observable<T> 转换成 Observable<S></p>
+<pre><code class="hljs php"><span class="hljs-comment">//lamba表达式</span>
+Observable.flatMap(T -&gt; &#123;
+    <span class="hljs-keyword">return</span> Observable.fromArray(S);
+&#125;
+<span class="hljs-comment">//Java表达式</span>
+Observable.flatMap(<span class="hljs-keyword">new</span> <span class="hljs-function"><span class="hljs-keyword">Function</span>&lt;<span class="hljs-title">T</span>, <span class="hljs-title">ObservableSource</span>&lt;?&gt;&gt;(<span class="hljs-params"></span>) </span>&#123;
+                    @Override
+                    <span class="hljs-keyword">public</span> ObservableSource<span class="hljs-meta">&lt;?</span>&gt; apply(T tt) throws <span class="hljs-built_in">Exception</span> &#123;
+                        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+                    &#125;
+                &#125;);</code></pre>
+
+<p>6、Retrofit 多个网络请求合并使用</p>
+<pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Observable</span>.</span></span>merge(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">QQApiServiceImpl</span>.</span></span>search(key, limit, page), <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">XiamiServiceImpl</span>.</span></span>search(key, limit, page))
+               .subscribe<span class="hljs-constructor">On(Schedulers.<span class="hljs-params">io</span>()</span>)
+               .observe<span class="hljs-constructor">On(AndroidSchedulers.<span class="hljs-params">mainThread</span>()</span>)
+               .subscribe(<span class="hljs-keyword">new</span> Observer&lt;List&lt;Music&gt;&gt;<span class="hljs-literal">()</span> &#123;
+                   @Override
+                   public void on<span class="hljs-constructor">Subscribe(Disposable <span class="hljs-params">d</span>)</span> &#123;
+
+                   &#125;
+
+                   @Override
+                   public void on<span class="hljs-constructor">Next(List&lt;Music&gt; <span class="hljs-params">results</span>)</span> &#123;
+                       mView.show<span class="hljs-constructor">SearchResult(<span class="hljs-params">results</span>)</span>;
+                   &#125;
+
+                   @Override
+                   public void on<span class="hljs-constructor">Error(Throwable <span class="hljs-params">e</span>)</span> &#123;
+                       mView.show<span class="hljs-constructor">EmptyView()</span>;
+                       mView.hide<span class="hljs-constructor">Loading()</span>;
+                   &#125;
+
+                   @Override
+                   public void on<span class="hljs-constructor">Complete()</span> &#123;
+                       mView.hide<span class="hljs-constructor">Loading()</span>;
+                   &#125;
+               &#125;);
+</code></pre>
+<p>7、封装MediaPlayer，prepareAsync()装载异常，还有getDuration会出现数据异常</p>
+<pre><code class="hljs reasonml"><span class="hljs-comment">//异步装载数据</span>
+player.prepare<span class="hljs-constructor">Async()</span>;
+<span class="hljs-comment">//设置异步装载完毕监听事件</span>
+player.set<span class="hljs-constructor">OnPreparedListener(<span class="hljs-params">this</span>)</span>;
+<span class="hljs-comment">//设置异步装载进度</span>
+player.set<span class="hljs-constructor">OnBufferingUpdateListener(<span class="hljs-params">this</span>)</span>;</code></pre>
+<p>8、ViewPager中 多点触碰导致</p>
+<pre><code class="hljs oxygene">java.lang.IllegalArgumentException: pointerIndex <span class="hljs-keyword">out</span> <span class="hljs-keyword">of</span> range
+    at android.view.MotionEvent.nativeGetAxisValue(Native <span class="hljs-function"><span class="hljs-keyword">Method</span>)</span>
+<span class="hljs-function"></span></code></pre>
+<p>原因分析：<br>在LrcView中,因为调用了requestDisallowInterceptTouchEvent来区分左右滑动和上下滑动，<br>所以会导致父类的view多点触摸有些情况下会出现数组溢出的情况.<br>解决办法</p>
+<ul>
+<li>利用try{}catch(){}抛出异常</li>
+<li>重写ViewPager中的onTouchEvent 和onInterceptTouchEvent。<pre><code class="hljs aspectj"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MultiTouchViewPager</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ViewPager</span> </span>&#123;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MultiTouchViewPager</span><span class="hljs-params">(Context context)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>(context);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MultiTouchViewPager</span><span class="hljs-params">(Context context, AttributeSet attrs)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>(context, attrs);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">onTouchEvent</span><span class="hljs-params">(MotionEvent ev)</span> </span>&#123;
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-function"><span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.<span class="hljs-title">onTouchEvent</span><span class="hljs-params">(ev)</span></span>;
+        &#125; <span class="hljs-keyword">catch</span> (IllegalArgumentException ex) &#123;
+            ex.printStackTrace();
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">onInterceptTouchEvent</span><span class="hljs-params">(MotionEvent ev)</span> </span>&#123;
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-function"><span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.<span class="hljs-title">onInterceptTouchEvent</span><span class="hljs-params">(ev)</span></span>;
+        &#125; <span class="hljs-keyword">catch</span> (IllegalArgumentException ex) &#123;
+            ex.printStackTrace();
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    &#125;
+&#125;</code></pre>
+
+</li>
+</ul>
+<p>9、InputEventReceiver: Attempted to finish an input event but the input event receiver has already been disposed.</p>
+<p>10、重构数据库，当插入十几条数据或更多时，其中重复的数据更新数据库，不重复的添加进去，能不能用一条语句实现？</p>
+<p>11、再次设计数据库，播放队列，播放历史设计成一种特殊的歌单数据。</p>
+<p>12、增加setNextMediaPlayer方法时，抛出异常<br>E/MediaPlayer: next player is not prepared</p>
+<p>13、Observable.flatmap 操作符的使用</p>
+<p>14、Attempt to invoke interface method 接口<br>下载服务接口更新下载状态。</p>
+<p>15、AudioManager控制播放</p>
+<p>16、播放暂停恢复，音量变化</p>
+<p>17、线控</p>
+<p>18、对于ViewPager+Fragment+Tablayout中 懒加载优化。</p>
+<p>19、getwidth()和getheight()已经过时使用point<br>//屏幕宽高</p>
+<pre><code>     Displaydisplay = getWindowManager().getDefaultDisplay();
+
+     Pointsize = newPoint();
+
+     display.getSize(size);
+
+     width = size.x;
+
+     height = size.y;</code></pre>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android/">Android</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/MusicLake/">MusicLake</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/c8d0539d.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/be0c7f93.html">
+                        <span class="hidden-mobile">git使用---修改历史提交记录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">湘ICP备19015354号</a>
+    
+      <a
+        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=19015354"
+        rel="nofollow noopener"
+        class="beian-police"
+        target="_blank"
+      >
+        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
+        
+          <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
+        
+        <span>湘ICP备19015354号-1</span>
+      </a>
+     
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "音乐湖项目遇到的问题&nbsp;",
+      ],
+      cursorChar: "*",
+      typeSpeed: 100,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

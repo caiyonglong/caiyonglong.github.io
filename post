@@ -1,0 +1,573 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" type="image/png" href="/img/favicon.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="这就是一个简单的描述">
+  <meta name="author" content="caiyonglong">
+  <meta name="keywords" content="">
+  <title>8-25 - caiyonglong&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Yonglong</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2016-08-25 08:21" pubdate>
+      2016年8月25日 早上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">8-25</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p> 感觉每天都过得非常快，都没有认真总结所学的。俗话说，好记性不如烂笔头，所以想每天挤出一点时间来写点总结。</p>
+<span id="more"></span>
+<h1 id="Android-中的数据库操作"><a href="#Android-中的数据库操作" class="headerlink" title="Android 中的数据库操作"></a>Android 中的数据库操作</h1><p>其实我们可以对数据进行的操作也就无非四种，即 CRUD。其中 C 代表添加 （Create）， R代表查询（Retrieve）， U代表更新（Update）， D代表删除（Delete）。每一种操 作又各自对应了一种 SQL命令，如果你比较熟悉 SQL语言的话，一定会知道添加数据时使 用 insert，查询数据时使用 select，更新数据时使用 update，删除数据时使用 delete。（引用第一行代码的一句话）<br>下面是以一个简单的数据表为例。<br>music 表<br>| id     | title  | artist |<br>| :—-: | :—-: | :—:  |<br>| 12345  | 歌名    | 歌手   |<br>| 12346  | 歌名    | 歌手   |</p>
+<h2 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h2><h3 id="query-方法"><a href="#query-方法" class="headerlink" title="query()方法"></a>query()方法</h3><p> query()方法用于对数据进行查询。这个方法的参数非常复杂，最短的一个方法重载也需要传入七个参数。那我们就先来看一下 这七个参数各自的含义吧，第一个参数不用说，当然还是表名，表示我们希望从哪张表中查 询数据。第二个参数用于指定去查询哪几列，如果不指定则默认查询所有列。第三、第四个 参数用于去约束查询某一行或某几行的数据，不指定则默认是查询所有行的数据。第五个参 数用于指定需要去 group by的列，不指定则表示不对查询结果进行 group by操作。第六个参 数用于对 group by之后的数据进行进一步的过滤，不指定则表示不进行过滤。第七个参数用 于指定查询结果的排序方式，不指定则表示使用默认的排序方式。</p>
+<pre><code class="hljs java">SQLiteDatabase db = dbHelper.getWritableDatabase();
+<span class="hljs-comment">// 查询music表中所有的数据   </span>
+Cursor cursor = db.query(<span class="hljs-string">&quot;music&quot;</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>); 
+<span class="hljs-comment">//再遍历游标cursor，获取数据库中的值</span>
+<span class="hljs-keyword">if</span>(cursor.moveToFirst()) &#123;
+...
+&#125;</code></pre>
+<h4 id="query参数详情"><a href="#query参数详情" class="headerlink" title="query参数详情"></a>query参数详情</h4><table>
+<thead>
+<tr>
+<th align="center">query()方法参数</th>
+<th align="center">对应 SQL部分</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">table</td>
+<td align="center">from table_name</td>
+<td align="center">指定查询的表名</td>
+</tr>
+<tr>
+<td align="center">columns</td>
+<td align="center">select column1, column2</td>
+<td align="center">指定查询的列名</td>
+</tr>
+<tr>
+<td align="center">selection</td>
+<td align="center">where column = value</td>
+<td align="center">指定 where的约束条件</td>
+</tr>
+<tr>
+<td align="center">selectionArgs</td>
+<td align="center">-</td>
+<td align="center">为 where中的占位符提供具体的值</td>
+</tr>
+<tr>
+<td align="center">group By</td>
+<td align="center">group by column</td>
+<td align="center">指定需要 group by的列</td>
+</tr>
+<tr>
+<td align="center">having</td>
+<td align="center">where column = value</td>
+<td align="center">指定 where的约束条件</td>
+</tr>
+<tr>
+<td align="center">order By</td>
+<td align="center">having column = value</td>
+<td align="center">对 group by后的结果进一步约束</td>
+</tr>
+</tbody></table>
+<h3 id="select-查询语句"><a href="#select-查询语句" class="headerlink" title="select 查询语句"></a>select 查询语句</h3><p>使用sql语句查询</p>
+<pre><code class="hljs java">sql = <span class="hljs-string">&quot;select * from table_name&quot;</span>;
+db.execSQL(sql);</code></pre>
+<p>过滤重复数据<br>select distinct  “字段名”  from  “表名” </p>
+<pre><code class="hljs java"><span class="hljs-comment">//方法一：</span>
+sql = <span class="hljs-string">&quot;select distinct title from music &quot;</span>;
+db.execSQL(sql);</code></pre>
+
+<h2 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h2><h3 id="insert-方法"><a href="#insert-方法" class="headerlink" title="insert()方法"></a>insert()方法</h3><p>insert()方法是专门用于添加数据，有三个参数，第一个参数是表名，我们希望向哪张表里添加数据，这里就传入该表的名字。第二个 参数用于在未指定添加数据的情况下给某些可为空的列自动赋值 NULL，一般我们用不到这 个功能，直接传入 null即可。第三个参数是一个 ContentValues对象，它提供了一系列的 put() 方法重载，用于向 ContentValues 中添加数据。</p>
+<pre><code class="hljs java">ContentValues values = <span class="hljs-keyword">new</span> ContentValues(); 
+<span class="hljs-comment">// 开始组装第一条数据   </span>
+values.put(<span class="hljs-string">&quot;title&quot;</span>, <span class="hljs-string">&quot;歌名1&quot;</span>);     
+values.put(<span class="hljs-string">&quot;artist&quot;</span>, <span class="hljs-string">&quot;歌手1&quot;</span>);     
+db.insert(<span class="hljs-string">&quot;music&quot;</span>, <span class="hljs-keyword">null</span>, values);</code></pre>
+
+<h2 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h2><h3 id="delete-方法"><a href="#delete-方法" class="headerlink" title="delete()方法"></a>delete()方法</h3><p>delete()方法专门用于删除数据，这个方法接收三个参数，第一 个参数仍然是表名，这个已经没什么好说的了，第二、第三个参数又是用于去约束删除某一 行或某几行的数据，不指定的话默认就是删除所有行。 </p>
+<pre><code class="hljs java">db.delete(<span class="hljs-string">&quot;music&quot;</span>, <span class="hljs-string">&quot;title = ?&quot;</span>, <span class="hljs-keyword">new</span> String[] &#123; <span class="hljs-string">&quot;歌名&quot;</span> &#125;);</code></pre>
+
+<h2 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h2><h3 id="update-方法"><a href="#update-方法" class="headerlink" title="update()方法"></a>update()方法</h3><p> update()方法用于对数据进行更新，这个方法 接收四个参数，第一个参数和 insert()方法一样，也是表名，在这里指定去更新哪张表里的数 据。第二个参数是 ContentValues 对象，要把更新数据在这里组装进去。第三、第四个参数 用于去约束更新某一行或某几行中的数据，不指定的话默认就是更新所有行。 </p>
+<pre><code class="hljs java">values.put(<span class="hljs-string">&quot;artist&quot;</span>,<span class="hljs-string">&quot;歌手2&quot;</span>);   
+db.update(<span class="hljs-string">&quot;music&quot;</span>, values, <span class="hljs-string">&quot;id = ?&quot;</span>, <span class="hljs-keyword">new</span> String[] &#123; <span class="hljs-string">&quot;12345&quot;</span> &#125;);</code></pre>
+
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>虽然现在有些流行开源的sql框架，但基础的sql还是需要的。持续更新中… </p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android/">Android</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9F%BA%E7%A1%80/">基础</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/befc3031.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">RecyclerView和ListView的区别</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/28ffda2f.html">
+                        <span class="hidden-mobile">音乐接口</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">湘ICP备19015354号</a>
+    
+      <a
+        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=19015354"
+        rel="nofollow noopener"
+        class="beian-police"
+        target="_blank"
+      >
+        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
+        
+          <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
+        
+        <span>湘ICP备19015354号-1</span>
+      </a>
+     
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "8-25&nbsp;",
+      ],
+      cursorChar: "*",
+      typeSpeed: 100,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

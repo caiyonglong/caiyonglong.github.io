@@ -1,0 +1,1079 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title></title>
+    <link href="/posts/0.html"/>
+    <url>/posts/0.html</url>
+    
+    <content type="html"><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ReactNative源码分析</title>
+    <link href="/posts/aa74f4e0.html"/>
+    <url>/posts/aa74f4e0.html</url>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近一个月都在看RN的问题，因为线上RN包出现一个偶现的崩溃问题，在react-native github上也没人回复。搞得头都大了，每天都是查埋点，抓日志。想找出一个复现的具体步骤，但是根据埋点和日志信息都没能复现定位到线上崩溃问题。所以想通过源码集成的方式，能在RN Android源码层面加一些日志来辅助定位。随便看看RN源码是怎么实现JS和Android之间的交互和通信的</p><h3 id="ReactNative源码集成"><a href="#ReactNative源码集成" class="headerlink" title="ReactNative源码集成"></a>ReactNative源码集成</h3><p>1、下载React-Native源代码</p><pre><code class="hljs git">git clone https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react-nativegit tag v0.64.0</code></pre><p>切换到对应版本，react-native是通过git tag来区分版本的。所以代码拉取完成后需要通过git tag来切换到对应的版本上。本文是基于<strong>0.64</strong>版本</p><p>2、npm安装环境</p><p>在react-native根目录下，通过npm安装依赖</p><pre><code class="hljs npm">npm install</code></pre><p>3、通过Android Studio打开<strong>react-native/ReactAndroid</strong>。编译即可</p><p>react-native官网上具体的集成方式：<a href="https://reactnative.cn/docs/building-from-source">从源代码编译React Native</a></p><h4 id="React-Native源码分析"><a href="#React-Native源码分析" class="headerlink" title="React-Native源码分析"></a>React-Native源码分析</h4><p>主要分析ReactNative的启动流程、Android端的渲染原理、通信机制等方面</p><ul><li><a href="">ReactNative的启动流程</a></li><li>渲染原理</li><li>通信机制</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>ReactNative</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>自动化打包</title>
+    <link href="/posts/aa1fa5ba.html"/>
+    <url>/posts/aa1fa5ba.html</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在日常开发过程中，编译打包是必不可少的流程，特别是开发转测试阶段。</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>LeakCanary 集成和原理分析</title>
+    <link href="/posts/LeakCanary.html"/>
+    <url>/posts/LeakCanary.html</url>
+    
+    <content type="html"><![CDATA[<p>最近看到项目中用到的LeakCanary版本还是1.6.3版本，所以想升级一下。看到LeakCanary的官方文档，最新版已经是2.7了，所以想记录一下以及分析一下新版的原理</p><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><a href="https://square.github.io/leakcanary/">LeakCanary</a>是适用于Android的内存泄漏检测库。</p><p>官方解释：</p><blockquote><p>LeakCanary’s knowledge of the internals of the Android Framework gives it a unique ability to narrow down the cause of each leak, helping developers dramatically reduce OutOfMemoryError crashes.</p></blockquote><p>LeakCanary可以帮忙定位内存泄漏问题，从而帮助开发人员大大减少OutOfMemoryError崩溃。</p><p>集成到项目中后，一般是测试包和开发包会用到，生产包不需要依赖。</p><h2 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h2><p>在<strong>app/build.gradle</strong> 添加一下依赖</p><pre><code class="hljs gradle"><span class="hljs-keyword">dependencies</span> &#123;  <span class="hljs-comment">// debugImplementation because LeakCanary should only run in debug builds.</span>  debugImplementation <span class="hljs-string">&#x27;com.squareup.leakcanary:leakcanary-android:2.7&#x27;</span>&#125;</code></pre><p>可以在 <strong>Logcat</strong> 里面通过过滤搜索 <strong>LeakCanary</strong>，来判断LeakCanary是否运行</p><pre><code class="hljs applescript">LeakCanary: LeakCanary <span class="hljs-keyword">is</span> <span class="hljs-built_in">running</span> <span class="hljs-keyword">and</span> ready <span class="hljs-keyword">to</span> detect leaks</code></pre><h3 id="1-6-版本和2-0版本差别对比"><a href="#1-6-版本和2-0版本差别对比" class="headerlink" title="1.6.版本和2.0版本差别对比"></a>1.6.版本和2.0版本差别对比</h3><p>对比老版本<code>1.6.3</code>和新版本 <code>2.7</code>。主要的更新点如下（官方文档比较多，这里只写一下主要的点）：</p><ul><li>集成更加方便，原来需要一次集成多个依赖库，新版只需要集成一个依赖</li><li>内存泄漏支持分组，相同的内存泄漏会自动分为一类，方便查看</li><li>使用Kotlin重写</li><li>新的堆解析器，比旧版减少了90%内存，速度快了6倍。个人体验确实比1.6.3版本快了很多</li></ul><h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>未完待续…</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>内存优化</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>音乐湖环境部署</title>
+    <link href="/posts/musicLakeBuild.html"/>
+    <url>/posts/musicLakeBuild.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="音乐湖环境部署"><a href="#音乐湖环境部署" class="headerlink" title="音乐湖环境部署"></a>音乐湖环境部署</h1><p>音乐湖项目主要包含了Android端，PC端，微信小程序端，歌单服务器等几个项目，具体项目地址如下：</p><p><a href="https://github.com/caiyonglong/MusicLake">Android客户端 MusicLake</a><br><a href="https://github.com/sunzongzheng/music">PC端 music</a><br><a href="https://github.com/sunzongzheng/player-be">云歌单服务器 play-be</a><br><a href="https://github.com/sunzongzheng/musicApi">音乐解析 Api</a></p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为涉及音乐版权问题，被官方警告了。所以我们就不再提供可用的应用以及接口API了，目前主要偏向于学习研究。在群里也有人反馈看不懂README，部署比较困难，看到别人的部署博客，非常详细，非常好，所以作为开发者的我们也应该写一篇来记录记录。<br>如果只是想用单纯的使用音乐湖软件听歌，不建议搭建这一套环境体系。</p><h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a><a href="./musicLake.html">项目介绍</a></h2><p>本项目采用CS架构，客户端-服务器模式，搭建部署整个音乐播放服务。</p><p>客户端：MusicLake、PC客户端<br>服务器：play-be（登录、云歌单）、NeteaseMusicApi（网易云音乐api）</p><h2 id="云歌单服务器部署"><a href="#云歌单服务器部署" class="headerlink" title="云歌单服务器部署"></a>云歌单服务器部署</h2><p><a href="https://github.com/sunzongzheng/player-be">云歌单服务器 play-be</a></p><h3 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h3><p>cp config/default.js config/local.js<br>修改config/local.js相应配置<br>npm install<br>npm run start</p><h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><ul><li>cp config/default.js config/local.js</li><li>修改config/local.js相应配置</li><li>以下三种方式任选一<pre><code class="hljs crmsh">docker-compose up -d <span class="hljs-comment"># Docker Compose（Recommended）</span>pm2 <span class="hljs-literal">start</span> pm2.production.json <span class="hljs-comment"># PM2, daemon run</span>npm run <span class="hljs-literal">start</span> <span class="hljs-comment"># Just run it</span></code></pre></li></ul><h2 id="PC客户端部署"><a href="#PC客户端部署" class="headerlink" title="PC客户端部署"></a>PC客户端部署</h2><p>如果想直接使用体验，github 支持<code>workflow</code>部署，release下有打包好的生成包，可以直接选择对应的客户端下载安装即可。</p><p>也可以自己打包</p><h3 id="打包环境要求"><a href="#打包环境要求" class="headerlink" title="打包环境要求"></a>打包环境要求</h3><ul><li>nodejs v12.1.0 版本及以上</li><li>yarn</li></ul><h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><pre><code class="hljs dockerfile">yarn <span class="hljs-keyword">run</span><span class="bash"> build</span></code></pre><p>更多请见 <a href="https://github.com/sunzongzheng/music/blob/master/build.md">github</a></p><h2 id="Android客户端部署"><a href="#Android客户端部署" class="headerlink" title="Android客户端部署"></a>Android客户端部署</h2><p>未完待续…</p><h2 id="Github登录服务配置"><a href="#Github登录服务配置" class="headerlink" title="Github登录服务配置"></a>Github登录服务配置</h2><p>未完待续…</p><h2 id="QQ登录配置"><a href="#QQ登录配置" class="headerlink" title="QQ登录配置"></a>QQ登录配置</h2><p>这个需要备案的域名，才能使用。建议推荐Github登录配置</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MusicLake</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>音乐湖（MusicLake）项目介绍</title>
+    <link href="/posts/musicLake.html"/>
+    <url>/posts/musicLake.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="MusicLake"><a href="#MusicLake" class="headerlink" title="MusicLake"></a>MusicLake</h1><p><img src="https://github.com/caiyonglong/MusicLake/workflows/Check/badge.svg" alt="Workflow result"></p><p><a href="https://github.com/caiyonglong/MusicLake/tree/dev_musiclib">MediaPlayer、ExoPlayer音乐库封装</a></p><h1 id="编译-amp-服务器部署"><a href="#编译-amp-服务器部署" class="headerlink" title="编译&amp;服务器部署"></a>编译&amp;服务器部署</h1><p> <a href="BUILD.md">build.md</a></p><h1 id="功能版本"><a href="#功能版本" class="headerlink" title="功能版本"></a>功能版本</h1><ul><li>Android 音乐播放器(本地/在线播放) （最低支持Android版本5.0）</li><li>支持多平台音乐源，百度音乐，虾米音乐、网易云音乐、Youtube（需要翻墙）</li><li>歌词播放、桌面歌词、桌面小控件</li><li>通知栏控制、线控播放、音频焦点控制</li><li>QQ登录、微博登陆、在线歌单同步</li><li>网易云热门歌手，百度电台列表，网易云mv排行榜，mv播放评论</li><li>酷狗歌词搜索、修改歌词样式、歌词翻译</li><li><a href="https://github.com/sunzongzheng/music">PC端</a></li></ul><h3 id="开源不易，有兴趣可给个star，支持一下哦！"><a href="#开源不易，有兴趣可给个star，支持一下哦！" class="headerlink" title="开源不易，有兴趣可给个star，支持一下哦！"></a>开源不易，有兴趣可给个star，支持一下哦！</h3><ul><li>群聊已经解散，有什么问题可以提<a href="https://github.com/caiyonglong/MusicLake/issues">issues</a>！，有想法可以提PR。感谢关注🙏</li></ul><p><img src="screenshots/features.png" alt="功能"></p><h1 id="相关项目-音乐API"><a href="#相关项目-音乐API" class="headerlink" title="相关项目|音乐API"></a>相关项目|音乐API</h1><ul><li><a href="https://github.com/caiyonglong/MusicApi">客户端音乐API</a></li><li><a href="https://github.com/sunzongzheng/musicApi">客户端/PC音乐共用API</a></li><li><a href="https://github.com/sunzongzheng/player-be">后台/云歌单API</a></li><li><a href="https://github.com/Binaryify/NeteaseCloudMusicApi">三方/NeteaseCloudMusicApi</a></li></ul><h1 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h1><ul><li><a href="https://github.com/ReactiveX/RxJava">rxjava</a></li><li><a href="https://github.com/square/retrofit">retrofit</a></li><li><a href="https://github.com/google/dagger">dagger2</a></li><li><a href="https://github.com/bumptech/glide">Glide</a></li><li><a href="https://github.com/LitePalFramework/LitePal">LitePal</a></li><li><a href="https://github.com/wendux/DSBridge-Android">DSBridge</a></li><li><a href="https://github.com/CymChad/BaseRecyclerViewAdapterHelper">BaseRecyclerViewAdapterHelper</a></li><li><a href="https://github.com/caiyonglong/MusicLake/blob/develop/app/build.gradle">More..</a></li></ul><h1 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h1><ul><li><p>主要功能截图</p><p><img src="screenshots/preview1.png" width="225" height="400"/><img src="screenshots/preview2.png" width="225" height="400"/><img src="screenshots/preview3.png" width="225" height="400"/><img src="screenshots/preview4.png" width="225" height="400"/><img src="screenshots/preview5.png" width="225" height="400"/><img src="screenshots/preview6.png" width="225" height="400"/><img src="screenshots/preview7.png" width="225" height="400"/><img src="screenshots/preview8.png" width="225" height="400"/><img src="screenshots/preview9.png" width="225" height="400"/><img src="screenshots/preview10.png" width="225" height="400"/><img src="screenshots/preview11.png" width="225" height="400"/><img src="screenshots/preview12.png" width="225" height="400"/><img src="screenshots/preview13.png" width="225" height="400"/></p></li><li><p>夜间模式相关截图</p></li></ul><p><img src="screenshots/dark_preview1.png" width="225" height="400"/><img src="screenshots/dark_preview2.png" width="225" height="400"/><img src="screenshots/dark_preview3.png" width="225" height="400"/><img src="screenshots/dark_preview4.png" width="225" height="400"/><img src="screenshots/dark_preview5.png" width="225" height="400"/></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MusicLake</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>常用设计模式</title>
+    <link href="/posts/1e80ad29.html"/>
+    <url>/posts/1e80ad29.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="为什么学习设计模式"><a href="#为什么学习设计模式" class="headerlink" title="为什么学习设计模式"></a>为什么学习设计模式</h1><p>设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p><p><strong>设计模式</strong>是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。</p><p>以上都是官方套话，在平时开发中，我们会遇到各种代码设计问题，比如抱怨别人写的代码可读性，可维护性很差，虽然最终都实现了功能，但是代码质量不高，随着新需求的不断调整，只能继续旧代码基础上写代码，最后越写越难受，复杂的代码，自己都看不懂。所以如果有个什么方式能够让我们写出可维护、可复用、可扩展及灵活的代码。</p><h1 id="设计模式有什么作用"><a href="#设计模式有什么作用" class="headerlink" title="设计模式有什么作用"></a>设计模式有什么作用</h1><p>有助于项目架构设计，提高项目代码的可读性和可维护性</p><h1 id="设计模式六大原则"><a href="#设计模式六大原则" class="headerlink" title="设计模式六大原则"></a>设计模式六大原则</h1><ul><li><p>开闭原则</p><p>开闭原则的意思是：<strong>对扩展开放，对修改关闭</strong>。在程序需要进行拓展的时候，不能去修改原有的代码，实现一个热插拔的效果。简言之，是为了使程序的扩展性好，易于维护和升级。想要达到这样的效果，需要使用接口和抽象类。</p></li><li><p>里式代换原则</p><p>里氏代换原则是面向对象设计的基本原则之一。 里氏代换原则中说，任何基类可以出现的地方，子类一定可以出现。LSP 是继承复用的基石，只有当派生类可以替换掉基类，且软件单位的功能不受到影响时，基类才能真正被复用，而派生类也能够在基类的基础上增加新的行为。里氏代换原则是对开闭原则的补充。实现开闭原则的关键步骤就是抽象化，而基类与子类的继承关系就是抽象化的具体实现，所以里氏代换原则是对实现抽象化的具体步骤的规范。</p></li><li><p>依赖倒转原则</p><p>这个原则是开闭原则的基础，具体内容：针对接口编程，依赖于抽象而不依赖于具体。</p></li><li><p>接口隔离原则</p><p>这个原则的意思是：使用多个隔离的接口，比使用单个接口要好。它还有另外一个意思是：降低类之间的耦合度。由此可见，其实设计模式就是从大型软件架构出发、便于升级和维护的软件设计思想，它强调降低依赖，降低耦合。</p></li><li><p>迪米特法则，又称最少知道远着</p><p>最少知道原则是指：一个实体应当尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立。</p></li><li><p>合成复用原则</p><p>合成复用原则是指：尽量使用合成/聚合的方式，而不是使用继承。</p></li></ul><h1 id="设计模式有多少种"><a href="#设计模式有多少种" class="headerlink" title="设计模式有多少种"></a>设计模式有多少种</h1><p>总共有23种设计模式，这些设计模式可分为三类，创建型模式（Creational Patterns）、结构型模式（Structural Patterns）、行为型模式（Behavioral Patterns）</p><h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><p>这些设计模式提供了一种在创建对象的同时隐藏创建逻辑的方式，而不是使用 new 运算符直接实例化对象。这使得程序在判断针对某个给定实例需要创建哪些对象时更加灵活。    </p><ul><li>工厂模式</li><li>抽象工厂模式</li><li>建造者模式</li><li><a href="./f1601c3e.html">单例模式</a></li><li>原型模式</li></ul><h2 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h2><p>这些设计模式关注类和对象的组合。继承的概念被用来组合接口和定义组合对象获得新功能的方式。</p><ul><li><p>适配器模式</p></li><li><p>桥接模式</p></li><li><p>组合模式</p></li><li><p>装饰器模式</p></li><li><p>外观模式</p></li><li><p>享元模式</p></li><li><p>代理模式</p><h2 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h2><p>这些设计模式特别关注对象之间的通信。</p></li><li><p>责任链模式</p></li><li><p>迭代器模式</p></li><li><p>备忘录模式</p></li><li><p>命令模式</p></li><li><p>中介者模式</p></li><li><p>观察者模式</p></li><li><p>状态模式</p></li><li><p>策略模式</p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【RN】RN工程化架构-redux</title>
+    <link href="/posts/854d3cbf.html"/>
+    <url>/posts/854d3cbf.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>对于RN官网上介绍的RN代码示例，都是一些单界面的示例，但是在实际项目开发过程中，这些远远不能满足负责的业务逻辑，跟不上项目迭代速度</p><h1 id="Redux介绍"><a href="#Redux介绍" class="headerlink" title="Redux介绍"></a>Redux介绍</h1><h1 id="Redux在React-Native中的使用"><a href="#Redux在React-Native中的使用" class="headerlink" title="Redux在React Native中的使用"></a>Redux在React Native中的使用</h1><h1 id="项目级架构"><a href="#项目级架构" class="headerlink" title="项目级架构"></a>项目级架构</h1>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>RN</tag>
+      
+      <tag>跨平台</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Android事件分发机制</title>
+    <link href="/posts/7bbb2ea5.html"/>
+    <url>/posts/7bbb2ea5.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这是很常见的面试题，几乎每次面试都会问到，每次问的区别就是问的深度不一样。虽然网上有很多面经，很多总结，但是自己还是想花点时间来总结一下，加深印象。</p><h1 id="常见面试问题"><a href="#常见面试问题" class="headerlink" title="常见面试问题"></a>常见面试问题</h1><ul><li>说一下Android事件分发的流程</li><li>分发、拦截方法和Touch_Down、Touch_Move、Touch_Up 的执行顺序</li></ul><h1 id="事件分发基本概念"><a href="#事件分发基本概念" class="headerlink" title="事件分发基本概念"></a>事件分发基本概念</h1><p>Activity -&gt; ViewGroup -&gt;View</p><p>dispatchTouchEvent 分发</p><p>onInterceptTouchEvent 拦截</p><p>View 没有拦截事件</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>源码分析</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>面试</tag>
+      
+      <tag>dasd</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Activity的启动流程</title>
+    <link href="/posts/3f706ac0.html"/>
+    <url>/posts/3f706ac0.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Ativity的启动流程一般可以分为两部分</p><ul><li>从桌面Launcher点击小图标，启动应打开主Activity</li><li>应用内startActivity启动其他Activity</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>源码分析</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>常用第三方库源码分析——EventBus</title>
+    <link href="/posts/6ba9cd28.html"/>
+    <url>/posts/6ba9cd28.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>EventBus是适用于Android和Java的发布/订阅事件总线。<br><img src="/images/EventBus-Publish-Subscribe.png"></p><p>1、定义事件<br>2、准备订阅者，声明并注释订阅方法，也可以指定线程模式<br>注册和注销订阅者<br>3、发送事件</p><h1 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h1><p>注册方法，Eventbus实例注册订阅者事件</p><pre><code class="hljs aspectj"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">register</span><span class="hljs-params">(Object subscriber)</span> </span>&#123;        <span class="hljs-comment">//获取注册的对象的类型</span>        Class&lt;?&gt; subscriberClass = subscriber.getClass();        <span class="hljs-comment">//查找并获取注册的对象的订阅方法</span>        List&lt;SubscriberMethod&gt; subscriberMethods = subscriberMethodFinder.findSubscriberMethods(subscriberClass);        <span class="hljs-comment">//加锁，在同步锁中订阅方法</span>        <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;            <span class="hljs-keyword">for</span> (SubscriberMethod subscriberMethod : subscriberMethods) &#123;                <span class="hljs-comment">//对订阅方法进行注册</span>                subscribe(subscriber, subscriberMethod);            &#125;        &#125;    &#125;</code></pre><p>查找订阅者的订阅方法，METHOD_CACHE方法缓存，使用ConcurrentHashMap存储</p><pre><code class="hljs php"><span class="hljs-keyword">List</span>&lt;SubscriberMethod&gt; findSubscriberMethods(<span class="hljs-class"><span class="hljs-keyword">Class</span>&lt;?&gt; <span class="hljs-title">subscriberClass</span>) </span>&#123;    <span class="hljs-comment">//从缓存中获取订阅方法</span>    <span class="hljs-keyword">List</span>&lt;SubscriberMethod&gt; subscriberMethods = METHOD_CACHE.get(subscriberClass);    <span class="hljs-keyword">if</span> (subscriberMethods != <span class="hljs-literal">null</span>) &#123;        <span class="hljs-keyword">return</span> subscriberMethods;    &#125;    <span class="hljs-comment">//如果缓存中没有，则是否强制使用反射还是使用索引获取订阅方法</span>    <span class="hljs-keyword">if</span> (ignoreGeneratedIndex) &#123;        subscriberMethods = findUsingReflection(subscriberClass);    &#125; <span class="hljs-keyword">else</span> &#123;        subscriberMethods = findUsingInfo(subscriberClass);    &#125;    <span class="hljs-keyword">if</span> (subscriberMethods.isEmpty()) &#123;        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> EventBusException(<span class="hljs-string">&quot;Subscriber &quot;</span> + subscriberClass                + <span class="hljs-string">&quot; and its super classes have no public methods with the @Subscribe annotation&quot;</span>);    &#125; <span class="hljs-keyword">else</span> &#123;        METHOD_CACHE.put(subscriberClass, subscriberMethods);        <span class="hljs-keyword">return</span> subscriberMethods;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>源码分析</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Eventbus</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>常用第三方库源码分析——Glide</title>
+    <link href="/posts/a7a0829e.html"/>
+    <url>/posts/a7a0829e.html</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>源码分析</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Glide</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Handler消息机制</title>
+    <link href="/posts/c6dbe339.html"/>
+    <url>/posts/c6dbe339.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>平时工作中缺乏总结，写博客不是为别人，而是为自己，虽然网上很多类似的，但是自己还是得写一遍加深印象</p><h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><p>消息机制包含 Handler、MessageQueue、Message、Looper</p><p>拖欠图</p><p>Handler 发送消息，消息存入到消息队列中，然后Looper 循环执行消息队列。</p><h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="Handler-为什么会造成内存泄漏"><a href="#Handler-为什么会造成内存泄漏" class="headerlink" title="Handler 为什么会造成内存泄漏"></a>Handler 为什么会造成内存泄漏</h2><p>因为在Activity中，handler内部类引用了它，而该handler实例可能被MessageQueue引用着。比如发送了一个延时消息到队列中，那么就可能在队列中存在很长时间，而消息队列（MessageQueue）的生命周期等于它所在的线程。当大到Activity被finish()了后还在队列中时，就满足了上面的短生命周期引用长生命周期的条件。根据Java GC的规则，Activity的引用计数不为0，故不会回收</p><ul><li><p>解决办法</p><p>  1、保证Activity被finish()时该线程的消息队列没有这个Activity的handler内部类的引用<br>  2、要么让这个handler不持有Activity等外部组件实例，让该Handler成为静态内部类。（静态内部类是不持有外部类的实例的，因而也就调用不了外部的实例方法了）<br>  3、在2方法的基础上，为了能调用外部的实例方法，传递一个外部的弱引用进来</p></li></ul><h2 id="为什么消息Handler能实现跨线程通信"><a href="#为什么消息Handler能实现跨线程通信" class="headerlink" title="为什么消息Handler能实现跨线程通信"></a>为什么消息Handler能实现跨线程通信</h2><h2 id="为什么Looper循环不会导致ANR"><a href="#为什么Looper循环不会导致ANR" class="headerlink" title="为什么Looper循环不会导致ANR"></a>为什么Looper循环不会导致ANR</h2><p>ANR的基本概念</p><pre><code>1：5s内无法响应用户输入事件(例如键盘输入, 触摸屏幕等)2：BroadcastReceiver在10s内无法结束3：ServiceTimeout(20s) --小概率类型，Service在特定的时间内无法处理完成</code></pre><p>Android是事件驱动的，在Loop.loop()中不断接收事件、处理事件，而Activity的生命周期都依靠于主线程的Loop.loop()来调度，所以可想而知它的存活周期和Activity也是一致的。当没有事件需要处理时，主线程就会阻塞；当子线程往消息队列发送消息，并且往管道文件写数据时，主线程就被唤醒。</p><p>主线程在没有事件需要处理的时候就是处于阻塞的状态。想让主线程活动起来一般有两种方式：</p><ul><li>第一种是系统唤醒主线程，并且将点击事件传递给主线程；</li><li>第二种是其他线程使用Handler向MessageQueue中存放了一条消息，导致loop被唤醒继续执行。</li></ul><p>主线程Looper从消息队列读取消息，当读完所有消息时，主线程阻塞。子线程往消息队列发送消息，并且往管道文件写数据，主线程即被唤醒，从管道文件读取数据，主线程被唤醒只是为了读取消息，当消息读取完毕，再次睡眠。因此loop的循环并不会对CPU性能有过多的消耗。</p><p>总结： Looer.loop()方法可能会引起主线程的阻塞，但只要它的消息循环没有被阻塞，能一直处理事件就不会产生ANR异常。</p><p>主线程Looper在哪里初始化</p><p>ActivityThread 类里面</p><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">String</span>[] args)</span> </span>&#123;       Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, <span class="hljs-string">&quot;ActivityThreadMain&quot;</span>);       <span class="hljs-comment">// CloseGuard defaults to true and can be quite spammy.  We</span>       <span class="hljs-comment">// disable it here, but selectively enable it later (via</span>       <span class="hljs-comment">// StrictMode) on debug builds, but using DropBox, not logs.</span>       CloseGuard.setEnabled(<span class="hljs-literal">false</span>);       Environment.initForCurrentUser();       <span class="hljs-comment">// Set the reporter for event logging in libcore</span>       EventLogger.setReporter(<span class="hljs-keyword">new</span> EventLoggingReporter());       <span class="hljs-comment">// Make sure TrustedCertificateStore looks in the right place for CA certificates</span>       <span class="hljs-keyword">final</span> <span class="hljs-built_in">File</span> configDir = Environment.getUserConfigDirectory(UserHandle.myUserId());       TrustedCertificateStore.setDefaultUserDirectory(configDir);       <span class="hljs-built_in">Process</span>.setArgV0(<span class="hljs-string">&quot;&lt;pre-initialized&gt;&quot;</span>);       Looper.prepareMainLooper();       <span class="hljs-comment">// Find the value for &#123;@link #PROC_START_SEQ_IDENT&#125; if provided on the command line.</span>       <span class="hljs-comment">// It will be in the format &quot;seq=114&quot;</span>       <span class="hljs-keyword">long</span> startSeq = <span class="hljs-number">0</span>;       <span class="hljs-keyword">if</span> (args != null) &#123;           <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = args.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; --i) &#123;               <span class="hljs-keyword">if</span> (args[i] != null &amp;&amp; args[i].startsWith(PROC_START_SEQ_IDENT)) &#123;                   startSeq = Long.parseLong(                           args[i].substring(PROC_START_SEQ_IDENT.length()));               &#125;           &#125;       &#125;       ActivityThread thread = <span class="hljs-keyword">new</span> ActivityThread();       thread.<span class="hljs-built_in">attach</span>(<span class="hljs-literal">false</span>, startSeq);       <span class="hljs-keyword">if</span> (sMainThreadHandler == null) &#123;           sMainThreadHandler = thread.getHandler();       &#125;       <span class="hljs-keyword">if</span> (<span class="hljs-literal">false</span>) &#123;           Looper.myLooper().setMessageLogging(<span class="hljs-keyword">new</span>                   LogPrinter(Log.DEBUG, <span class="hljs-string">&quot;ActivityThread&quot;</span>));       &#125;       <span class="hljs-comment">// End of event ActivityThreadMain.</span>       Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);       Looper.<span class="hljs-built_in">loop</span>();       <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;Main thread loop unexpectedly exited&quot;</span>);   &#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>源码分析</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Handler</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>常用第三方库源码分析——Okhttp</title>
+    <link href="/posts/3c273908.html"/>
+    <url>/posts/3c273908.html</url>
+    
+    <content type="html"><![CDATA[<p>以前总想分析一下一些开源框架的源码，看看被人的设计思想和功能</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>源码分析</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Okhttp</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>常用网络请求库对比——Volley、Okhttp、Retrofit对比</title>
+    <link href="/posts/b0301fc2.html"/>
+    <url>/posts/b0301fc2.html</url>
+    
+    <content type="html"><![CDATA[<p>Volley、Okhttp、Retrofit三大网络请求库分析</p><h1 id="1-原生"><a href="#1-原生" class="headerlink" title="1. 原生"></a>1. 原生</h1><p>Android 原生使用HttpUrlConnection</p><h1 id="2-Volley"><a href="#2-Volley" class="headerlink" title="2. Volley"></a>2. Volley</h1><p>Volley 是 Google 官方出的一套小而巧的异步请求库，该框架封装的扩展性很强，支持 HttpClient、HttpUrlConnection，甚至支持 OkHttp，具体方法可以看 Jake 大神的这个 Gist 文件</p><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>在BasicNetwork中判断了statusCode(statusCode &lt; 200 || statusCode &gt; 299)，如何符合条件直接抛出IOException()，不够合理</p><p>导致401等其他状态抛出IOException<br>解决方案 :<br><a href="http://blog.csdn.net/kufeiyun/article/details/44646145">http://blog.csdn.net/kufeiyun/article/details/44646145</a><br><a href="http://stackoverflow.com/questions/30476584/android-volley-strange-error-with-http-code-401-java-io-ioexception-no-authe">http://stackoverflow.com/questions/30476584/android-volley-strange-error-with-http-code-401-java-io-ioexception-no-authe</a></p><p>图片加载性能一般</p><p>对大资源下载支持不够</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>源码分析</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>建造者模式</title>
+    <link href="/posts/fe816c3c.html"/>
+    <url>/posts/fe816c3c.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>建造者模式（Builder Pattern）使用多个简单的对象一步一步构建成一个复杂的对象。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。<br>一个 Builder 类会一步一步构造最终的对象。该 Builder 类是独立于其他对象的。</p><h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>Android 中AlertDialog </p><p>```<br>public class AlertDialog extends AppCompatDialog implements DialogInterface {</p><pre><code>//只展示部分代码...public static class Builder &#123;    private final AlertParams P;    private final int mTheme;    public Builder(@NonNull Context context) &#123;        this(context, AlertDialog.resolveDialogTheme(context, 0));    &#125;    public Builder(@NonNull Context context, @StyleRes int themeResId) &#123;        this.P = new AlertParams(new ContextThemeWrapper(context, AlertDialog.resolveDialogTheme(context, themeResId)));        this.mTheme = themeResId;    &#125;    //只展示部分代码    ....&#125;</code></pre><p>}</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>责任链模式</title>
+    <link href="/posts/6208627e.html"/>
+    <url>/posts/6208627e.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>责任链模式 (Chain of Responsibility Pattern)是一种常见的行为模式。<br>责任链模式为请求创建了一个接收者对象的链。这种模式给予请求的类型，对请求的发送者和接收者进行解耦。这种类型的设计模式属于行为型模式。<br>在这种模式中，通常每个接收者都包含对另一个接收者的引用。如果一个对象不能处理该请求，那么它会把相同的请求传给下一个接收者，依此类推。</p><h1 id="典型实例"><a href="#典型实例" class="headerlink" title="典型实例"></a>典型实例</h1><p>okhttp 拦截器（Interceptor）就使用了责任链模式</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>暴走P图项目重构</title>
+    <link href="/posts/db3d6b05.html"/>
+    <url>/posts/db3d6b05.html</url>
+    
+    <content type="html"><![CDATA[<p>将MVP 代码重构 MVVM 总结</p><p>1、首先将整个工程 迁移到AndroidX（可做可不做，为了跟紧最新技术）<br>AndroidX 是 Google 推出了的，目的是为了统一 android.support.xxx 兼容包<br>主要迁移是利用Android Studio 的 Refacetor -&gt; Migrate to AndroidX 操作<br>可以通过查看 gradle.properties 中 </p><pre><code class="hljs ini"><span class="hljs-attr">android.useAndroidX</span>=<span class="hljs-literal">true</span></code></pre><p>来确定是否迁移了AndroidX<br>最后查看app/build.gradle 中是否导入了相关的三方库<br>如</p><pre><code class="hljs apache"><span class="hljs-attribute">implementation</span> &#x27;androidx.appcompat:appcompat:<span class="hljs-number">1</span>.<span class="hljs-number">1</span>.<span class="hljs-number">0</span>&#x27;<span class="hljs-attribute">implementation</span> &#x27;androidx.recyclerview:recyclerview:<span class="hljs-number">1</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>&#x27;<span class="hljs-attribute">implementation</span> &#x27;androidx.constraintlayout:constraintlayout:<span class="hljs-number">2</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>-beta<span class="hljs-number">2</span>&#x27;<span class="hljs-attribute">implementation</span> <span class="hljs-string">&quot;androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion&quot;</span><span class="hljs-attribute">implementation</span> <span class="hljs-string">&quot;androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion&quot;</span><span class="hljs-attribute">implementation</span> <span class="hljs-string">&quot;androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion&quot;</span></code></pre><p>2、将MVP 转成 MVVM<br>根据项目架构（如包结构），可以对包结构做一个具体分析，<br>根据业务功能，划分数据包、功能包、适配器包、工具包等<br>然后在功能包内再 定义各个功能的viewmodel。</p><p>初始想法是 先将 XXXPresenter 重命名为 XXXViewModel，然后再根据具体的业务，使用LiveData观察会改变的数据类</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>重构</tag>
+      
+      <tag>想法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Android 系统适配</title>
+    <link href="/posts/adb2609a.html"/>
+    <url>/posts/adb2609a.html</url>
+    
+    <content type="html"><![CDATA[<p>Android系统适配<br>主要介绍一下适配各个版本系统的特性</p><h1 id="Android-5-0"><a href="#Android-5-0" class="headerlink" title="Android 5.0"></a>Android 5.0</h1><ul><li>5.1 通知栏适配<h1 id="Android-6-0"><a href="#Android-6-0" class="headerlink" title="Android 6.0"></a>Android 6.0</h1></li><li>6.1 动态权限申请</li></ul><h1 id="Android-7-0"><a href="#Android-7-0" class="headerlink" title="Android 7.0"></a>Android 7.0</h1><ul><li>7.1 应用间共享文件<br>Fileprovider</li><li>7.2 org.apache不支持问题</li><li>7.3 SharedPreferences闪退<br>SharedPreferences read = getSharedPreferences(RELEASE_POOL_DATA, MODE_WORLD_READABLE);<br>//MODE_WORLD_READABLE ：7.0以后不能使用这个获取，会闪退，修改成MODE_PRIVATE</li></ul><h1 id="Android-8-0"><a href="#Android-8-0" class="headerlink" title="Android 8.0"></a>Android 8.0</h1><ul><li><p>8.1 通知适配.增加渠道ID<br>安装APK.允许安装未知来源</p></li><li><p>8.2 通知适配<br>安卓8.0中，为了更好的管制通知的提醒，不想一些不重要的通知打扰用户，新增了通知渠道，用户可以根据渠道来屏蔽一些不想要的通知</p></li><li><p>8.3 安装APK<br>  首先在AndroidManifest文件中添加安装未知来源应用的权限:</p><pre><code class="hljs routeros">&lt;uses-permission android:<span class="hljs-attribute">name</span>=<span class="hljs-string">&quot;android.permission.REQUEST_INSTALL_PACKAGES&quot;</span>/&gt;</code></pre></li><li><p>8.4 SecurityException的闪退</p></li><li><p>8.5 静态广播无法正常接收<br>  问题原因： Android 8.0 引入了新的广播接收器限制，因此您应该移除所有为隐式广播 Intent 注册的广播接收器</p></li><li><p>8.6 Caused by: java.lang.IllegalStateException: Only fullscreen opaque activities can request orientation<br>问题原因： Android 8.0 非全屏透明页面不允许设置方向（后面8.1系统谷歌就去掉了这个限制，可能很多人真的不习惯吧）</p></li></ul><p>解决方案：<br>        （1）android:windowIsTranslucent设置为false<br>        （2）如果还是想用的话，就去掉清单文件中Activity中的android:screenOrientation=”portrait”，<br>        （3）就是使用透明的dialog或者PopupWindow来代替，也可以用DialogFragment，看自己的需求和喜好</p><h1 id="Android-9-0"><a href="#Android-9-0" class="headerlink" title="Android 9.0"></a>Android 9.0</h1><ul><li>9.1 CLEARTEXT communication to life.115.com not permitted by network security policy</li></ul><ul><li>http明文网络请求问题</li></ul><ul><li>9.2 其他Api的修改</li></ul><h1 id="Android-10"><a href="#Android-10" class="headerlink" title="Android 10"></a>Android 10</h1><p>Android 10版本对于用户的隐私权限要求更严了，所以需要对于权限这块做好适配，如 ime</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://juejin.im/post/5beaf27fe51d45332a4568e9">参考1</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>适配</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>MVC ，MVP，MVVM 的理解</title>
+    <link href="/posts/234507b1.html"/>
+    <url>/posts/234507b1.html</url>
+    
+    <content type="html"><![CDATA[<p>一切都是为了解耦合，开发更加方便</p><h1 id="MVC简单介绍"><a href="#MVC简单介绍" class="headerlink" title="MVC简单介绍"></a>MVC简单介绍</h1><p>Model、View、Controller<br>Model 处理网络数据，数据库数据等<br>View xml<br>Controller activity</p><h1 id="MVP"><a href="#MVP" class="headerlink" title="MVP"></a>MVP</h1><p>Model View Presenter</p><p>Model 处理网络数据，数据库数据等</p><p>Presenter 主要把model 和 view 隔离，减少耦合，拆分Controller层</p><h1 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h1><p>基于MVP模式的基础上，将P变成ViewModel，使用databinding 实现数据的双向绑定。</p><p>Viewmodel</p><h2 id="Databinding"><a href="#Databinding" class="headerlink" title="Databinding"></a>Databinding</h2><p><a href="https://developer.android.com/topic/libraries/data-binding">Google 官方介绍</a><br>官方解释：<br>数据绑定库是一个支持库，允许您使用声明性格式而不是以编程方式将布局中的UI组件绑定到应用程序中的数据源。</p><p>布局通常在具有调用UI框架方法的代码的活动中定义。 例如，下面的代码调用findViewById（）来查找TextView小部件并将其绑定到viewModel变量的userName属性：</p><p>DataBinding 是谷歌官方发布的一个框架，顾名思义即为数据绑定，是 MVVM 模式在 Android 上的一种实现，用于降低布局和逻辑的耦合性，使代码逻辑更加清晰。MVVM 相对于 MVP，其实就是将 Presenter 层替换成了 ViewModel 层。DataBinding 能够省去我们一直以来的 findViewById() 步骤，大量减少 Activity 内的代码，数据能够单向或双向绑定到 layout 文件中，有助于防止内存泄漏，而且能自动进行空检测以避免空指针异常</p><p>启用 DataBinding 的方法是在对应 Model 的 build.gradle 文件里加入以下代码，同步后就能引入对 DataBinding 的支持</p><pre><code class="hljs nginx"><span class="hljs-section">android</span> &#123;    <span class="hljs-section">dataBinding</span> &#123;        <span class="hljs-attribute">enabled</span> = <span class="hljs-literal">true</span>    &#125;&#125;</code></pre><h2 id="LiveData"><a href="#LiveData" class="headerlink" title="LiveData"></a>LiveData</h2><p>LiveData是一个数据持有类，它可以通过添加观察者被其他组件观察其变更。不同于普通的观察者，它最重要的特性就是遵从应用程序的生命周期，如在Activity中如果数据更新了但Activity已经是destroy状态，LivaeData就不会通知Activity(observer)。当然。LiveData的优点还有很多，如不会造成内存泄漏等。<br>LiveData通常会配合ViewModel来使用，ViewModel负责触发数据的更新，更新会通知到LiveData，然后LiveData再通知活跃状态的观察者。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>常用第三方库源码分析——Dagger2</title>
+    <link href="/posts/5880a2ff.html"/>
+    <url>/posts/5880a2ff.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="Dagger2-是什么？"><a href="#Dagger2-是什么？" class="headerlink" title="Dagger2 是什么？"></a>Dagger2 是什么？</h1><p>Dagger2是Dagger的升级版，是一个依赖注入框架,第一代由大名鼎鼎的Square公司共享出来，第二代则是由谷歌接手后推出的，现在由Google接手维护.</p><p>Google dagger <a href="https://github.com/google/dagger">Github 地址</a></p><p>Dagger是依赖注入的编译时框架。 它不使用反射或运行时字节码生成，在编译时进行所有分析，并生成纯Java源代码。</p><p>Gladle引入</p><pre><code class="hljs roboconf">// Add Dagger dependenciesdependencies &#123;  <span class="hljs-attribute">api &#x27;com.google.dagger</span>:dagger:2<span class="hljs-variable">.x</span>&#x27;  annotationProcessor &#x27;com<span class="hljs-variable">.google</span><span class="hljs-variable">.dagger</span>:dagger-compiler:2<span class="hljs-variable">.x</span>&#x27;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>源码分析</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>help</title>
+    <link href="/posts/8875cac.html"/>
+    <url>/posts/8875cac.html</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>接入Google、FaceBook第三方登录</title>
+    <link href="/posts/baa940ea.html"/>
+    <url>/posts/baa940ea.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="通过Firebase接入Google、FaceBook等第三方登录"><a href="#通过Firebase接入Google、FaceBook等第三方登录" class="headerlink" title="通过Firebase接入Google、FaceBook等第三方登录"></a>通过Firebase接入Google、FaceBook等第三方登录</h1><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul><li>科学上网</li><li>google 账号，facebook账号</li></ul><h2 id="接入指南"><a href="#接入指南" class="headerlink" title="接入指南"></a>接入指南</h2><p>主要分为三部分。</p><ul><li>Google登录</li><li>Facebook登录</li><li>Firebase集成接入google,facebook登录</li></ul><h3 id="Google登录"><a href="#Google登录" class="headerlink" title="Google登录"></a>Google登录</h3><p>推荐只接入Google登录，不接入Firebase</p><p><a href="https://developers.google.com/identity/sign-in/android/start?authuser=0">接入指南</a></p><p>主要步骤<br>1、新建应用，或者已有的选择应用<br>2、创建应用的凭借，即token</p><p>核心代码</p><pre><code class="hljs reasonml"><span class="hljs-comment">// Configure sign-in to request the user&#x27;s ID, email address, and basic</span><span class="hljs-comment">// profile. ID and basic profile are included in DEFAULT_SIGN_IN.</span>GoogleSignInOptions gso = <span class="hljs-keyword">new</span> GoogleSignInOptions.<span class="hljs-constructor">Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)</span>        .request<span class="hljs-constructor">Email()</span>        .build<span class="hljs-literal">()</span>;</code></pre><pre><code class="hljs reasonml"><span class="hljs-comment">// Build a GoogleSignInClient with the options specified by gso.</span>mGoogleSignInClient = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">GoogleSignIn</span>.</span></span>get<span class="hljs-constructor">Client(<span class="hljs-params">this</span>, <span class="hljs-params">gso</span>)</span>;</code></pre><pre><code class="hljs reasonml"><span class="hljs-keyword">private</span> void sign<span class="hljs-constructor">In()</span> &#123;    Intent signInIntent = mGoogleSignInClient.get<span class="hljs-constructor">SignInIntent()</span>;    start<span class="hljs-constructor">ActivityForResult(<span class="hljs-params">signInIntent</span>, RC_SIGN_IN)</span>;&#125;</code></pre><h3 id="Facebook登录"><a href="#Facebook登录" class="headerlink" title="Facebook登录"></a>Facebook登录</h3><p>推荐只接入Facebook登录，不接入Firebase</p><p><a href="https://developers.facebook.com/apps/">Facebook应用管理</a></p><p>主要流程</p><ul><li>1、首先进入facebook应用开发面板，新建应用，并添加Facebook 登录</li><li>2、跟着步骤一步步完成所有配置（注意点：生成秘钥序列）</li><li>3、然后一步步点击完成</li><li>4、测试OK</li></ul><h3 id="Firebase集成接入google-facebook登录"><a href="#Firebase集成接入google-facebook登录" class="headerlink" title="Firebase集成接入google,facebook登录"></a>Firebase集成接入google,facebook登录</h3><p>如果项目中已经集成了Firebase，则推荐使用这种方式</p><p><a href="https://console.firebase.google.com/">Firebase项目管理界面</a> 创建项目</p><ul><li>1、进入项目设置 开发-&gt;Authentication-&gt;登录方法。启用登录提供方中的Google，facebook。</li><li>2、关联google登录，只需要更新项目设置，添加应用，然后根据要求添加sha1指纹，填写包名，下载google-service.json文件引入到项目中。</li><li>3、启动facebook登录，按facebook登录步骤，启动facebook登录，然后配置应用token。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>接口</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>api</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Flutter 学习</title>
+    <link href="/posts/2d016662.html"/>
+    <url>/posts/2d016662.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="Flutter简介"><a href="#Flutter简介" class="headerlink" title="Flutter简介"></a>Flutter简介</h1><p>Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质量的原生用户界面。 Flutter可以与现有的代码一起工作。在全世界，Flutter正在被越来越多的开发者和组织使用，并且Flutter是完全免费、开源的。</p><p>具备多个特点</p><ul><li>快速开发：主要是毫秒级的热重载，能够在代码修改之后能立即刷新界面</li><li>富有表现力和灵活的UI：快速发布聚焦于原生体验的功能。分层的架构允许您完全自定义，从而实现难以置信的快速渲染和富有表现力、灵活的设计。</li><li>原生性能：Flutter包含了许多核心的widget，如滚动、导航、图标和字体等，这些都可以在iOS和Android上达到原生应用一样的性能。</li></ul><p>使用编程语言：Dart</p><h1 id="入门踩坑注意点"><a href="#入门踩坑注意点" class="headerlink" title="入门踩坑注意点"></a>入门踩坑注意点</h1><ul><li>项目结构划分，android 或 ios 底层源码编辑</li><li>命名规范，主要包括文件名命名，变量命名和方法命名</li><li>多语言支持</li><li>待续…</li></ul><h1 id="Dart简介及基本命名规范"><a href="#Dart简介及基本命名规范" class="headerlink" title="Dart简介及基本命名规范"></a>Dart简介及基本命名规范</h1><p>原文：<a href="https://www.dartlang.org/guides/language/effective-dart/style">dart官方文档</a></p><p>总结几点<br>1.类名使用大驼峰式<br>2.变量名使用小驼峰<br>3.文件名使用小写字母加下划线<br>4.不要使用前缀字母<br>5.注意导入包的排序<br>6.对于所有的控制流结构使用花括号</p><p>具体<a href="https://www.dartlang.org/guides/language/effective-dart/style">样例</a></p><h1 id="其他资源"><a href="#其他资源" class="headerlink" title="其他资源"></a>其他资源</h1><p><a href="https://flutter.dev/">Flutter 官方网站</a><br><a href="https://flutterchina.club/">Flutter 中文网</a><br><a href="https://pub.dev/flutter/packages?q=">Flutter 三方库搜索</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>音频焦点管理</title>
+    <link href="/posts/68e283a1.html"/>
+    <url>/posts/68e283a1.html</url>
+    
+    <content type="html"><![CDATA[<p>#前言<br>随着Android版本的升级，以前用的一些api都提过时，项目中使用<br>AudioFocusRequest 顾名思义是一个音频焦点请求类。</p><p>一个封装音频焦点请求信息的类,AudioFocusRequest通过Builder实例化，有两个方法requestAudioFocus和abandonAudioFocusRequest。</p><p>#什么是焦点请求？</p><p>音频焦点是API 8中引入的一个概念。它主要作用于用户在同一个时刻只能关注单个音频流，例如，不能在同一时间听音乐或广播。在某些情况下，可以同时播放多个音频流，但只有一个用户会真正听到（关注），而其他的是背景音。例如在驾驶时正在说话，低音量播放音乐。（又称为低音）。</p><p>当应用程序请求音频焦点时，它表示它有意“拥有”音频焦点播放音频。我们来回顾一下不同类型的焦点请求，请求后的返回值，以及对损失的回应。</p><p>注意：在授予焦点之前，应用程序不应播放任何内容。</p><h3 id="不同类型的焦点请求"><a href="#不同类型的焦点请求" class="headerlink" title="不同类型的焦点请求"></a>不同类型的焦点请求</h3><ul><li><p>AUDIOFOCUS_GAIN：用于指示音频焦点的增益或未知持续时间的音频焦点请求。</p></li><li><p>AUDIOFOCUS_GAIN_TRANSIENT：用于指示临时增益或音频焦点请求，预计持续时间短</p></li><li><p>AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK：用于指示音频焦点的临时请求，预计持续时间较短时间量，以及其他音频应用程序可以继续播放的位置降低产出水平后（也称为“回避”）。临时改变的例子是回放音乐播放的行车路线在后台是可以接受的。</p></li><li><p>AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE：用于指示音频焦点的临时请求，预计持续时间较短，没有其他应用程序或系统组件应该播放的时间量、任何东西。 独占和瞬态音频焦点请求的例子是语音、备忘记录和语音识别，在此期间系统不应该播放任何内容通知，媒体播放应暂停。</p></li><li><p>AUDIOFOCUS_LOSS：用于指示未知持续时间的音频焦点丢失。</p></li><li><p>AUDIOFOCUS_LOSS_TRANSIENT：用于指示音频焦点的瞬时丢失。</p></li><li><p>AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK：用于指示音频焦点的失败者可能发生的音频焦点的瞬时丢失，如果它想继续播放（也称为“躲避”），则降低其输出音量，新的焦点所有者不需要其他人保持沉默。</p></li></ul><pre><code class="hljs php"><span class="hljs-comment">/**</span><span class="hljs-comment">    * Used to indicate no audio focus has been gained or lost, or requested.</span><span class="hljs-comment">    */</span>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_NONE = <span class="hljs-number">0</span>;   <span class="hljs-comment">/**</span><span class="hljs-comment">    * Used to indicate a gain of audio focus, or a request of audio focus, of unknown duration.</span><span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span><span class="hljs-comment">    * <span class="hljs-doctag">@see</span> #requestAudioFocus(OnAudioFocusChangeListener, int, int)</span><span class="hljs-comment">    */</span>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_GAIN = <span class="hljs-number">1</span>;   <span class="hljs-comment">/**</span><span class="hljs-comment">    * Used to indicate a temporary gain or request of audio focus, anticipated to last a short</span><span class="hljs-comment">    * amount of time. Examples of temporary changes are the playback of driving directions, or an</span><span class="hljs-comment">    * event notification.</span><span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span><span class="hljs-comment">    * <span class="hljs-doctag">@see</span> #requestAudioFocus(OnAudioFocusChangeListener, int, int)</span><span class="hljs-comment">    */</span>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_GAIN_TRANSIENT = <span class="hljs-number">2</span>;   <span class="hljs-comment">/**</span><span class="hljs-comment">    * Used to indicate a temporary request of audio focus, anticipated to last a short</span><span class="hljs-comment">    * amount of time, and where it is acceptable for other audio applications to keep playing</span><span class="hljs-comment">    * after having lowered their output level (also referred to as &quot;ducking&quot;).</span><span class="hljs-comment">    * Examples of temporary changes are the playback of driving directions where playback of music</span><span class="hljs-comment">    * in the background is acceptable.</span><span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span><span class="hljs-comment">    * <span class="hljs-doctag">@see</span> #requestAudioFocus(OnAudioFocusChangeListener, int, int)</span><span class="hljs-comment">    */</span>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK = <span class="hljs-number">3</span>;   <span class="hljs-comment">/**</span><span class="hljs-comment">    * Used to indicate a temporary request of audio focus, anticipated to last a short</span><span class="hljs-comment">    * amount of time, during which no other applications, or system components, should play</span><span class="hljs-comment">    * anything. Examples of exclusive and transient audio focus requests are voice</span><span class="hljs-comment">    * memo recording and speech recognition, during which the system shouldn&#x27;t play any</span><span class="hljs-comment">    * notifications, and media playback should have paused.</span><span class="hljs-comment">    * <span class="hljs-doctag">@see</span> #requestAudioFocus(OnAudioFocusChangeListener, int, int)</span><span class="hljs-comment">    */</span>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE = <span class="hljs-number">4</span>;   <span class="hljs-comment">/**</span><span class="hljs-comment">    * Used to indicate a loss of audio focus of unknown duration.</span><span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span><span class="hljs-comment">    */</span>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_LOSS = <span class="hljs-number">-1</span> * AUDIOFOCUS_GAIN;   <span class="hljs-comment">/**</span><span class="hljs-comment">    * Used to indicate a transient loss of audio focus.</span><span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span><span class="hljs-comment">    */</span>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_LOSS_TRANSIENT = <span class="hljs-number">-1</span> * AUDIOFOCUS_GAIN_TRANSIENT;   <span class="hljs-comment">/**</span><span class="hljs-comment">    * Used to indicate a transient loss of audio focus where the loser of the audio focus can</span><span class="hljs-comment">    * lower its output volume if it wants to continue playing (also referred to as &quot;ducking&quot;), as</span><span class="hljs-comment">    * the new focus owner doesn&#x27;t require others to be silent.</span><span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span><span class="hljs-comment">    */</span>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK =           <span class="hljs-number">-1</span> * AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK;</code></pre><h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>初始化audio focus request</p><pre><code class="hljs reasonml">mAudioManager = (AudioManager) <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Context</span>.</span></span>get<span class="hljs-constructor">SystemService(Context.AUDIO_SERVICE)</span>;mPlaybackAttributes = <span class="hljs-keyword">new</span> AudioAttributes.<span class="hljs-constructor">Builder()</span>        .set<span class="hljs-constructor">Usage(AudioAttributes.USAGE_MEDIA)</span>        .set<span class="hljs-constructor">ContentType(AudioAttributes.CONTENT_TYPE_SPEECH)</span>        .build<span class="hljs-literal">()</span>;mFocusRequest = <span class="hljs-keyword">new</span> AudioFocusRequest.<span class="hljs-constructor">Builder(AudioManager.AUDIOFOCUS_GAIN)</span>        .set<span class="hljs-constructor">AudioAttributes(<span class="hljs-params">mPlaybackAttributes</span>)</span>        .set<span class="hljs-constructor">AcceptsDelayedFocusGain(<span class="hljs-params">true</span>)</span>        .set<span class="hljs-constructor">WillPauseWhenDucked(<span class="hljs-params">true</span>)</span>        .set<span class="hljs-constructor">OnAudioFocusChangeListener(<span class="hljs-params">this</span>, <span class="hljs-params">mMyHandler</span>)</span>        .build<span class="hljs-literal">()</span>;mMediaPlayer = <span class="hljs-keyword">new</span> <span class="hljs-constructor">MediaPlayer()</span>;mMediaPlayer.set<span class="hljs-constructor">AudioAttributes(<span class="hljs-params">mPlaybackAttributes</span>)</span>;final Object mFocusLock = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Object()</span>;     boolean mPlaybackDelayed = <span class="hljs-literal">false</span>;<span class="hljs-comment">// requesting audio focus</span><span class="hljs-built_in">int</span> res = mAudioManager.request<span class="hljs-constructor">AudioFocus(<span class="hljs-params">mFocusRequest</span>)</span>;synchronized (mFocusLock) &#123;    <span class="hljs-keyword">if</span> (res<span class="hljs-operator"> == </span>AUDIOFOCUS_REQUEST_FAILED) &#123;        mPlaybackDelayed = <span class="hljs-literal">false</span>;    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (res<span class="hljs-operator"> == </span>AUDIOFOCUS_REQUEST_GRANTED) &#123;        mPlaybackDelayed = <span class="hljs-literal">false</span>;        playback<span class="hljs-constructor">Now()</span>;    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (res<span class="hljs-operator"> == </span>AUDIOFOCUS_REQUEST_DELAYED) &#123;       mPlaybackDelayed = <span class="hljs-literal">true</span>;    &#125;&#125;</code></pre><p>实现音频焦点监听，OnAudioFocusChangeListener</p><pre><code class="hljs d">&amp;#<span class="hljs-number">64</span>;Override<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> onAudioFocusChange(<span class="hljs-keyword">int</span> focusChange) &#123;    <span class="hljs-keyword">switch</span> (focusChange) &#123;        <span class="hljs-keyword">case</span> AudioManager.AUDIOFOCUS_GAIN:            <span class="hljs-keyword">if</span> (mPlaybackDelayed || mResumeOnFocusGain) &#123;                <span class="hljs-keyword">synchronized</span> (mFocusLock) &#123;                    mPlaybackDelayed = <span class="hljs-literal">false</span>;                    mResumeOnFocusGain = <span class="hljs-literal">false</span>;                &#125;                playbackNow();            &#125;            <span class="hljs-keyword">break</span>;        <span class="hljs-keyword">case</span> AudioManager.AUDIOFOCUS_LOSS:            <span class="hljs-keyword">synchronized</span> (mFocusLock) &#123;                <span class="hljs-comment">// 长久失去音频焦点，停止播放</span>                mResumeOnFocusGain = <span class="hljs-literal">false</span>;                mPlaybackDelayed = <span class="hljs-literal">false</span>;            &#125;            pausePlayback();            <span class="hljs-keyword">break</span>;        <span class="hljs-keyword">case</span> AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:        <span class="hljs-keyword">case</span> AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:            <span class="hljs-comment">// 我们以同样的方式处理所有短暂的损失，因为我们从不聆听有声书</span>            <span class="hljs-keyword">synchronized</span> (mFocusLock) &#123;                <span class="hljs-comment">// we should only resume if playback was interrupted</span>                mResumeOnFocusGain = mMediaPlayer.isPlaying();                mPlaybackDelayed = <span class="hljs-literal">false</span>;            &#125;            pausePlayback();            <span class="hljs-keyword">break</span>;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>源码分析</tag>
+      
+      <tag>AudioFocus</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>总结</title>
+    <link href="/posts/c8d0539d.html"/>
+    <url>/posts/c8d0539d.html</url>
+    
+    <content type="html"><![CDATA[<p>总结一下</p><h2 id="基础知识点"><a href="#基础知识点" class="headerlink" title="基础知识点"></a>基础知识点</h2><p>1、View的绘制<br>2、View的事件分发机制<br>3、StringBuffer 和StringBuilder区别<br>4、常用的设计模式<br>5、Android activity的启动流程<br>6、动画、属性动画<br>7、MVP模式</p><h2 id="项目中的问题"><a href="#项目中的问题" class="headerlink" title="项目中的问题"></a>项目中的问题</h2><p>1、做这个项目有没有遇到什么问题<br>2、项目中使用的一些技术问题<br>3、这个效果是怎么实现的</p><h2 id="工作内容"><a href="#工作内容" class="headerlink" title="工作内容"></a>工作内容</h2><p>1、平时工作内容是什么<br>2、完成了什么任务</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>杂谈</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>杂谈</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>音乐湖项目遇到的问题</title>
+    <link href="/posts/255a7cdf.html"/>
+    <url>/posts/255a7cdf.html</url>
+    
+    <content type="html"><![CDATA[<p>1、ViewPager中fragment A，点击跳转切换到另外一个Fragment B(addFragment 添加B),<br>然后返回到A(回退栈顶的A)。A中的数据不刷新。尝试了在onResume中,添加更新,但是效果还是一样。</p><p>解决办法,引入事件总线RxBus.</p><p>2、适配Android 8.0 出现<br>java.lang.IllegalStateException: Only fullscreen opaque activities can request orientation</p><p>只有全屏不透明的活动才能请求方向.主要是manifest中定义了android:screenOrientation=”portrait” 和设置半透明主题导致。</p><p>3、使用Rxbus时，退出Activity。然后从通知栏进入程序崩溃。</p><p>4、Retrofit gson解析数据QQ音乐歌词数据时，抛出异常，因为返回的数据不是一个完整的json数据。</p><pre><code class="hljs sql">io.reactivex.exceptions.OnErrorNotImplementedException: <span class="hljs-keyword">Use</span> JsonReader.setLenient(<span class="hljs-literal">true</span>) <span class="hljs-keyword">to</span> <span class="hljs-keyword">accept</span> malformed <span class="hljs-keyword">JSON</span> <span class="hljs-keyword">at</span> line <span class="hljs-number">1</span> <span class="hljs-keyword">column</span> <span class="hljs-number">1</span> <span class="hljs-keyword">path</span> $....</code></pre><p>返回数据格式jsonp格式：MusicJsonCallback({…})。<br>通过下面的解决方法，不会抛出异常。但是获得的String 数据只有MusicJsonCallback( .这部分<br>重要部分不知道去哪了…</p><pre><code class="hljs reasonml">Gson gson = <span class="hljs-keyword">new</span> <span class="hljs-constructor">GsonBuilder()</span>        .set<span class="hljs-constructor">Lenient()</span>        .create<span class="hljs-literal">()</span>;Retrofit retrofit = <span class="hljs-keyword">new</span> Retrofit.<span class="hljs-constructor">Builder()</span>        .base<span class="hljs-constructor">Url(BASE_URL)</span>        .client(client)        .add<span class="hljs-constructor">ConverterFactory(GsonConverterFactory.<span class="hljs-params">create</span>(<span class="hljs-params">gson</span>)</span>)        .build<span class="hljs-literal">()</span>;</code></pre><p>不得已，最后尝试重写GSON转换器。遇到一个大坑那就是ResponseBody //ResponseData中的流只能使用一次，我们先将流中的数据读出在byte数组中。这个方法中已经关闭了ResponseBody,所以不需要再关闭了  </p><p>5、Observable<T> 转换成 Observable<S></p><pre><code class="hljs php"><span class="hljs-comment">//lamba表达式</span>Observable.flatMap(T -&gt; &#123;    <span class="hljs-keyword">return</span> Observable.fromArray(S);&#125;<span class="hljs-comment">//Java表达式</span>Observable.flatMap(<span class="hljs-keyword">new</span> <span class="hljs-function"><span class="hljs-keyword">Function</span>&lt;<span class="hljs-title">T</span>, <span class="hljs-title">ObservableSource</span>&lt;?&gt;&gt;(<span class="hljs-params"></span>) </span>&#123;                    @Override                    <span class="hljs-keyword">public</span> ObservableSource<span class="hljs-meta">&lt;?</span>&gt; apply(T tt) throws <span class="hljs-built_in">Exception</span> &#123;                        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;                    &#125;                &#125;);</code></pre><p>6、Retrofit 多个网络请求合并使用</p><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Observable</span>.</span></span>merge(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">QQApiServiceImpl</span>.</span></span>search(key, limit, page), <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">XiamiServiceImpl</span>.</span></span>search(key, limit, page))               .subscribe<span class="hljs-constructor">On(Schedulers.<span class="hljs-params">io</span>()</span>)               .observe<span class="hljs-constructor">On(AndroidSchedulers.<span class="hljs-params">mainThread</span>()</span>)               .subscribe(<span class="hljs-keyword">new</span> Observer&lt;List&lt;Music&gt;&gt;<span class="hljs-literal">()</span> &#123;                   @Override                   public void on<span class="hljs-constructor">Subscribe(Disposable <span class="hljs-params">d</span>)</span> &#123;                   &#125;                   @Override                   public void on<span class="hljs-constructor">Next(List&lt;Music&gt; <span class="hljs-params">results</span>)</span> &#123;                       mView.show<span class="hljs-constructor">SearchResult(<span class="hljs-params">results</span>)</span>;                   &#125;                   @Override                   public void on<span class="hljs-constructor">Error(Throwable <span class="hljs-params">e</span>)</span> &#123;                       mView.show<span class="hljs-constructor">EmptyView()</span>;                       mView.hide<span class="hljs-constructor">Loading()</span>;                   &#125;                   @Override                   public void on<span class="hljs-constructor">Complete()</span> &#123;                       mView.hide<span class="hljs-constructor">Loading()</span>;                   &#125;               &#125;);</code></pre><p>7、封装MediaPlayer，prepareAsync()装载异常，还有getDuration会出现数据异常</p><pre><code class="hljs reasonml"><span class="hljs-comment">//异步装载数据</span>player.prepare<span class="hljs-constructor">Async()</span>;<span class="hljs-comment">//设置异步装载完毕监听事件</span>player.set<span class="hljs-constructor">OnPreparedListener(<span class="hljs-params">this</span>)</span>;<span class="hljs-comment">//设置异步装载进度</span>player.set<span class="hljs-constructor">OnBufferingUpdateListener(<span class="hljs-params">this</span>)</span>;</code></pre><p>8、ViewPager中 多点触碰导致</p><pre><code class="hljs oxygene">java.lang.IllegalArgumentException: pointerIndex <span class="hljs-keyword">out</span> <span class="hljs-keyword">of</span> range    at android.view.MotionEvent.nativeGetAxisValue(Native <span class="hljs-function"><span class="hljs-keyword">Method</span>)</span><span class="hljs-function"></span></code></pre><p>原因分析：<br>在LrcView中,因为调用了requestDisallowInterceptTouchEvent来区分左右滑动和上下滑动，<br>所以会导致父类的view多点触摸有些情况下会出现数组溢出的情况.<br>解决办法</p><ul><li>利用try{}catch(){}抛出异常</li><li>重写ViewPager中的onTouchEvent 和onInterceptTouchEvent。<pre><code class="hljs aspectj"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MultiTouchViewPager</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ViewPager</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MultiTouchViewPager</span><span class="hljs-params">(Context context)</span> </span>&#123;        <span class="hljs-keyword">super</span>(context);    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MultiTouchViewPager</span><span class="hljs-params">(Context context, AttributeSet attrs)</span> </span>&#123;        <span class="hljs-keyword">super</span>(context, attrs);    &#125;    <span class="hljs-meta">@Override</span>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">onTouchEvent</span><span class="hljs-params">(MotionEvent ev)</span> </span>&#123;        <span class="hljs-keyword">try</span> &#123;            <span class="hljs-function"><span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.<span class="hljs-title">onTouchEvent</span><span class="hljs-params">(ev)</span></span>;        &#125; <span class="hljs-keyword">catch</span> (IllegalArgumentException ex) &#123;            ex.printStackTrace();        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;    <span class="hljs-meta">@Override</span>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">onInterceptTouchEvent</span><span class="hljs-params">(MotionEvent ev)</span> </span>&#123;        <span class="hljs-keyword">try</span> &#123;            <span class="hljs-function"><span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.<span class="hljs-title">onInterceptTouchEvent</span><span class="hljs-params">(ev)</span></span>;        &#125; <span class="hljs-keyword">catch</span> (IllegalArgumentException ex) &#123;            ex.printStackTrace();        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;    &#125;&#125;</code></pre></li></ul><p>9、InputEventReceiver: Attempted to finish an input event but the input event receiver has already been disposed.</p><p>10、重构数据库，当插入十几条数据或更多时，其中重复的数据更新数据库，不重复的添加进去，能不能用一条语句实现？</p><p>11、再次设计数据库，播放队列，播放历史设计成一种特殊的歌单数据。</p><p>12、增加setNextMediaPlayer方法时，抛出异常<br>E/MediaPlayer: next player is not prepared</p><p>13、Observable.flatmap 操作符的使用</p><p>14、Attempt to invoke interface method 接口<br>下载服务接口更新下载状态。</p><p>15、AudioManager控制播放</p><p>16、播放暂停恢复，音量变化</p><p>17、线控</p><p>18、对于ViewPager+Fragment+Tablayout中 懒加载优化。</p><p>19、getwidth()和getheight()已经过时使用point<br>//屏幕宽高</p><pre><code>     Displaydisplay = getWindowManager().getDefaultDisplay();     Pointsize = newPoint();     display.getSize(size);     width = size.x;     height = size.y;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MusicLake</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>git使用---修改历史提交记录</title>
+    <link href="/posts/be0c7f93.html"/>
+    <url>/posts/be0c7f93.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="git使用-总结"><a href="#git使用-总结" class="headerlink" title="git使用 总结"></a>git使用 总结</h1><p>@(总结)[git]</p><p>总结一下当前工作中经常使用的git命令</p><p>##日常使用</p><h3 id="git初始化和拉取git分支"><a href="#git初始化和拉取git分支" class="headerlink" title="git初始化和拉取git分支"></a>git初始化和拉取git分支</h3><pre><code class="hljs crmsh">git initgit <span class="hljs-keyword">clone</span> <span class="hljs-title">...</span></code></pre><h3 id="修改-amp-提交"><a href="#修改-amp-提交" class="headerlink" title="修改&amp;提交"></a>修改&amp;提交</h3><p>对于只有修改前先pull 一下代码，修改完成后再push</p><pre><code class="hljs properties"><span class="hljs-attr">git</span> <span class="hljs-string">add -u / -A </span><span class="hljs-attr">git</span> <span class="hljs-string">commit </span><span class="hljs-attr">git</span> <span class="hljs-string">push </span></code></pre><h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><pre><code class="hljs haxe">git branch git branch <span class="hljs-keyword">new</span><span class="hljs-type">branch</span><span class="hljs-type">git</span> checkout <span class="hljs-keyword">new</span><span class="hljs-type">branch</span></code></pre><h3 id="查看状态-amp-历史记录"><a href="#查看状态-amp-历史记录" class="headerlink" title="查看状态&amp;历史记录"></a>查看状态&amp;历史记录</h3><pre><code class="hljs fortran">git <span class="hljs-keyword">status</span>git <span class="hljs-built_in">log</span></code></pre><h3 id="移植"><a href="#移植" class="headerlink" title="移植"></a>移植</h3><pre><code class="hljs pgsql">git cherry-pick git <span class="hljs-keyword">commit</span> <span class="hljs-comment">--amend</span></code></pre><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h3><ul><li>git log 查看 <strong>当前分支</strong> 的提交记录</li><li>git log –stat</li><li>git log -5 –pretty –oneline 显示过去5次提交</li><li>git log –follow <path> 显示某个文件的版本历史，包括文件改名</li></ul><h3 id="git-status"><a href="#git-status" class="headerlink" title="git status"></a>git status</h3><p>显示git状态<br>主要分为工作区和暂存区两个，其中工作区又分为git 监控的和未被监控的两个区域。</p><h3 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h3><ul><li>git add filename </li><li>git add -A/.  添加当前目录 all tracked and untracked files 到暂存区</li><li>git add -u 添加当前目录的tracked files 到暂存区</li></ul><h3 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a>git commit</h3><p>将暂存区的提交当分支上</p><ul><li>git commit -m “the commit message” 提交</li><li>git commit –amend 增补提交. 会使用与当前提交节点相同的父节点进行一次新的提交,旧的提交将会被取消.</li></ul><h3 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h3><p>可以移出<strong>暂存区</strong>的文件、可以切换分支也可以切换到tag节点。</p><ul><li>git checkout branch 检出分支</li><li>git checkout tag_name 检出当前tag</li><li>git checkout file_name 放弃对文件的修改</li></ul><h3 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h3><p>可以用来创建、删除、查看分支，不管是远程的还是本地的都可以。</p><ul><li>git branch 显示本地仓库分支</li><li>git branch -a 查看本地远程仓库所有分支</li><li>git branch -r 显示远程仓库分支</li><li>git branch -D master 删除master分支</li><li>git branch master 新建master分支</li></ul><h3 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a>git reset</h3><p>用来回退版本，例如从当前commit 回退到历史提交中</p><ul><li>git reset –hard <commit> 重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致</li><li>git reset –soft <commit> 不会改变暂存区，仅仅将commit回退到了指定的提交</li><li>git reset –mixed <commit> 重置当前分支的HEAD为指定commit，工作区commit之后的全部放入暂存区</li></ul><h3 id="git-clean"><a href="#git-clean" class="headerlink" title="git clean"></a>git clean</h3><p>可以用来清理工作区中 Untracked files。 </p><ul><li>git clean -n 显示 将要 删除的 文件 和  目录</li><li>git clean -f 删除 文件</li><li>git clean -df 删除 文件 和 目录</li></ul><h3 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h3><p>从服务器拉取代码，也有些说法不推荐使用pull拉取代码，因为拉取的代码有可能会污染本地的提交记录。</p><h3 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h3><p>将本地分支推送到服务器上</p><ul><li>git push origin master 将本地分支推送到master远程分支</li></ul><h3 id="git-cherry-pick"><a href="#git-cherry-pick" class="headerlink" title="git cherry-pick"></a>git cherry-pick</h3><p>将其他分支的提交修改剪切到当前分支，cherry-pick 后面带上需要剪切移植的commit ID。当遇到cherry-pick冲突后，<br>需要解决冲突，然后使用 git commit –amend 修改提交信息即可。</p><ul><li>git cherry-pick <commit> 剪切过来提交过来后，直接提交到当前分支</li><li>git cherry-pick –no-commit <commit> 不直接提交当前分支，在暂存区可见修改记录的文件。</li></ul><h3 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h3><ul><li>git merge master 当前分支合并 master分支</li></ul><h3 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h3><p>显示暂存区和工作区的差异</p><h3 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h3><ul><li>git tag <tag> 新建一个tag在当前commit</li><li>git tag <tag> <commit> 新建一个tag在指定commit</li><li>git tag -d <tag> 删除本地tag</li><li>git push origin :refs/tags/<tag> 删除远程tag</li></ul><h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><ul><li>git stash save -a “message” 将当前改动保存到一个</li><li>git stash list 显示所有临时区的stash id</li><li>git stash pop  </li><li>git stash drop  </li></ul><h2 id="gitk-图形界面"><a href="#gitk-图形界面" class="headerlink" title="gitk 图形界面"></a>gitk 图形界面</h2><p><strong>gitk</strong> 是一个图形界面，可用用来查看提交记录和修改记录。<br>也可以使用其他的git 管理工具，例如source tree。感觉挺好用的。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>开发工具</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>git</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>git使用---修改历史提交记录</title>
+    <link href="/posts/be0c7f93.html"/>
+    <url>/posts/be0c7f93.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="git-cherry-pick所遇到的问题"><a href="#git-cherry-pick所遇到的问题" class="headerlink" title="git cherry-pick所遇到的问题"></a>git cherry-pick所遇到的问题</h1><p>使用git 也有很长一段时间了，所以想总结一下git 的使用。其中，在日常工作中copy代码（搬砖）是常有的事情。对于git 管理的分支来说，git cherry-pick就是另类的copy。说的正式点就是 <strong>移植</strong>。</p><p>而<strong>cherry-pick</strong> 就是移植命令。</p><p>–对于git cherry-pick过来的提交记录，有些是因为一点小错误导致重复提交的，还有一些是一个功能分了好几次提交，对于这些记录，如果全部按原来分支的提交记录提交，就感觉很麻烦，到底有没有一种方法能够合并几条提交记录呢？</p><p>还有就是当cherry-pick多条记录后，突然想修改其中一条修改记录时。发现很难办。这时 git rebase 就很轻松了解决掉了这些难处。</p><p>当然网上也有很多类似的介绍，也可以去借阅一下。</p><h2 id="1-合并多条修改"><a href="#1-合并多条修改" class="headerlink" title="1. 合并多条修改"></a>1. 合并多条修改</h2><p>初始时，通过git log 查看 提交记录，记录一下commit hash值。</p><pre><code class="hljs angelscript">@ubuntu:~/work/git$ git logcommit e916213e3c4cc9c977ec20902ae27ae45352eef3Date:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20</span>:<span class="hljs-number">05</span>:<span class="hljs-number">32</span> <span class="hljs-number">2018</span> +<span class="hljs-number">0800</span>    Third commitcommit <span class="hljs-number">358371</span>a2b2b15d847bf89e44e94e7b926fed2da0Date:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20</span>:<span class="hljs-number">04</span>:<span class="hljs-number">48</span> <span class="hljs-number">2018</span> +<span class="hljs-number">0800</span>    Second commitcommit ba82e7007559afab14ff124ea51e19772dedfe2cDate:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20</span>:<span class="hljs-number">03</span>:<span class="hljs-number">32</span> <span class="hljs-number">2018</span> +<span class="hljs-number">0800</span>    First commit</code></pre><p>然后通过 git rebase -i commit-id 命令编辑提交记录。</p><ul><li>git rebase  -i commit-id 表示，修改commit-id以后的提交记录，</li><li>也可以用git rebase -i HEAD ~n. n表示倒数第几条记录。</li></ul><pre><code class="hljs apache"><span class="hljs-attribute">pick</span> <span class="hljs-number">358371</span>a Second commit<span class="hljs-attribute">pick</span> e<span class="hljs-number">916213</span> Third commit<span class="hljs-comment"># Rebase ba82e70..e916213 onto ba82e70</span><span class="hljs-comment">#</span><span class="hljs-comment"># Commands:</span><span class="hljs-comment">#  p, pick = use commit</span><span class="hljs-comment">#  r, reword = use commit, but edit the commit message</span><span class="hljs-comment">#  e, edit = use commit, but stop for amending</span><span class="hljs-comment">#  s, squash = use commit, but meld into previous commit</span><span class="hljs-comment">#  f, fixup = like &quot;squash&quot;, but discard this commit&#x27;s log message</span><span class="hljs-comment">#  x, exec = run command (the rest of the line) using shell</span><span class="hljs-comment">#</span><span class="hljs-comment"># If you remove a line here THAT COMMIT WILL BE LOST.</span><span class="hljs-comment"># However, if you remove everything, the rebase will be aborted.</span><span class="hljs-comment">#</span></code></pre><p>其中</p><ul><li>pick 使用这条提交（保持不变）</li><li>reword 使用这条提交，可以编辑当前commit信息</li><li>edit 使用这条提交，放弃当前commit信息</li><li>squash 使用这条提交，合并前一条提交</li><li>fixup 和squash一样，但会放弃当前这个提交的信息</li><li>exec </li></ul><p>合并修改使用，将 e916213 Third commit 前的pick 改成squash 即可，然后保存退出。</p><pre><code class="hljs apache"><span class="hljs-attribute">pick</span> <span class="hljs-number">358371</span>a Second commit<span class="hljs-attribute">squash</span> e<span class="hljs-number">916213</span> Third commit</code></pre><p>修改完成后再次查看git log，已经合并到一起了。因为使用squash，所以两条记录得message都会合在一起。如果 使用fixup，则会放弃Third commit 的commit 信息。</p><pre><code class="hljs apache"><span class="hljs-attribute">commit</span> <span class="hljs-number">940</span>fec<span class="hljs-number">9</span>ea<span class="hljs-number">88</span>c<span class="hljs-number">69</span>a<span class="hljs-number">195</span>c<span class="hljs-number">546</span>d<span class="hljs-number">48</span>e<span class="hljs-number">5209</span>c<span class="hljs-number">4</span>cdb<span class="hljs-number">6</span>abec<span class="hljs-attribute">Date</span>:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20</span>:<span class="hljs-number">04</span>:<span class="hljs-number">48</span> <span class="hljs-number">2018</span> +<span class="hljs-number">0800</span>    <span class="hljs-attribute">Second</span> commit        <span class="hljs-attribute">Third</span> commit<span class="hljs-attribute">commit</span> ba<span class="hljs-number">82</span>e<span class="hljs-number">7007559</span>afab<span class="hljs-number">14</span>ff<span class="hljs-number">124</span>ea<span class="hljs-number">51</span>e<span class="hljs-number">19772</span>dedfe<span class="hljs-number">2</span>c<span class="hljs-attribute">Date</span>:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20</span>:<span class="hljs-number">03</span>:<span class="hljs-number">32</span> <span class="hljs-number">2018</span> +<span class="hljs-number">0800</span>    <span class="hljs-attribute">First</span> commit</code></pre><h2 id="2-修改提交记录中的commit-信息"><a href="#2-修改提交记录中的commit-信息" class="headerlink" title="2. 修改提交记录中的commit 信息"></a>2. 修改提交记录中的commit 信息</h2><p>同上面，只要在需要修改的记录前 将pick 换成reword，即可进入编辑界面，编辑commit message，然后保存退出。这样就修改完成了。</p><p>当使用edit时，虽然也可以修改，</p><pre><code class="hljs sql">Stopped at 3af42b9... reword Second <span class="hljs-keyword">commit</span>You can amend the <span class="hljs-keyword">commit</span> <span class="hljs-keyword">now</span>, <span class="hljs-keyword">with</span>git <span class="hljs-keyword">commit</span> <span class="hljs-comment">--amend</span>Once you <span class="hljs-keyword">are</span> satisfied <span class="hljs-keyword">with</span> your changes, rungit rebase <span class="hljs-comment">--continue</span></code></pre><ul><li>再使用<strong>git commit –amend</strong> 进入编辑界面修改。</li><li>保存，使用<strong>git rebase –continue</strong> 返回到最新节点。</li></ul><p>可以实际操作一下，如果怕玩坏工作分支，可以自己新建一个分支玩一玩。<br>这个git rebase 真的很神奇。对于rebase的其他功能也很强大。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>开发工具</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>git</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>WallpaperPicker分析</title>
+    <link href="/post"/>
+    <url>/post</url>
+    
+    <content type="html"><![CDATA[<h1 id="分析点"><a href="#分析点" class="headerlink" title="分析点"></a>分析点</h1><p>1.主要类介绍<br>2.WallpaperPicker中主要使用的设计模式——模板方法模式<br>3.图片的处理</p><p>原生Android系统中的WallpaperPicker主要Activity有WallpaperPickerActivity、WallpaperCropActivity 两个</p><h1 id="初始化流程"><a href="#初始化流程" class="headerlink" title="初始化流程"></a>初始化流程</h1><p>根据源码，壁纸Activity加载主要分为以下步骤：<br>创建 HandlerThread </p><pre><code class="hljs java">mLoaderThread = <span class="hljs-keyword">new</span> HandlerThread(<span class="hljs-string">&quot;wallpaper_loader&quot;</span>);mLoaderThread.start();mLoaderHandler = <span class="hljs-keyword">new</span> Handler(mLoaderThread.getLooper(), <span class="hljs-keyword">this</span>);</code></pre><p>调用 init()，加载布局、控件初始化、初始化一些操作</p><pre><code class="hljs clean">-&gt; mCropView初始化触摸监听-&gt; 初始化壁纸偏移量 mWallpaperParallaxOffset-&gt; 初始化壁纸数据库 加载填充存储壁纸-&gt; 加载填充Resources壁纸-&gt; 异步加载填充live壁纸-&gt; 加载填充第三方壁纸-&gt; Gallery增加tile-&gt; 初始化mCropView布局改变监听事件-&gt; 初始化资源壁纸列表-&gt; 为删除items时创建过渡动画-&gt; 设置actionBar监听事件</code></pre><h1 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h1><p>BitmapRegionTileSource:图片区域平铺资源</p><p>壁纸预览流程<br>-&gt; mCropView.addOnLayoutChangeListener<br>-&gt; onClick(mWallpapersView.getChildAt(mSelectedIndex))<br>-&gt; 根据当前壁纸信息Tag 获取 壁纸来源<br>-&gt; 然后根据不同的壁纸来源调用 onClick<br>-&gt; 以ResourceWallpaperInfo为例。<br>-&gt; 创建图片输入流BitmapRegionTileSource.InputStreamSource<br>-&gt; 裁剪图片<br>-&gt; 创建 LoadRequest，初始化数据<br>-&gt; 移除 MSG_LOAD_IMAGE 加载图片的消息<br>-&gt; 发送加载图片的消息<br>-&gt;&gt; 加载图片 流程<br>-&gt;&gt; 判断bitmapSource 是否为空<br>-&gt;&gt;&gt; 如果为空 返回默认壁纸的DrawableTileSource<br>req.src不为空，调用BitmapSource的 loadInBackground<br>-&gt;&gt;&gt;&gt; loadInBackground 数据流程<br>—–新建对象 InBitmapProvider<br>—–获取图片旋转角度getExifRotation<br>—–初始化图片大小解码器（主要获取宽高）<br>—–图片解码BitmapFactory.Options<br>/**<br>BitmapFactory.Options 详解</p><p>inPreferredConfig：<br>这个值是设置色彩模式，默认值是ARGB_8888，在这个模式下，一个像素点占用4bytes空间，一般对透明度不做要求的话，一般采用RGB_565模式，这个模式下一个像素点占用2bytes。<br>inJustDecodeBounds：<br>如果将这个值置为true，那么在解码的时候将不会返回bitmap，只会返回这个bitmap的尺寸。这个属性的目的是，如果你只想知道一个bitmap的尺寸，但又不想将其加载到内存时。这是一个非常有用的属性。<br>inSampleSize：<br>缩放比例，小于1时，当做1，缩放比例 = 1/inSampleSize。和图片的宽高及像素成正比。<br>inPreferQualityOverSpeed:<br>为true则优先保证Bitmap质量其次是解码速度<br>inMutable:<br>如果设置为true,将返回一个mutable的bitmap,可用于修改BitmapFactory加载而来的bitmap.<br>inBitmap ：<br>API Level 11开始。优化Bitmap的内存使用<br>**/<br>—-如果InBitmapProvider 不为空<br>—-计算当前像素 根据缩放比例计算<br>—-根据像素获取图片<br>—-根据像素获取图片<br>—-如果图片不为空设置 inBitmap 优化内存<br>—-根据opts加载预览图片<br>—-校验图片是否能应用在GL surface上<br>/**<br>GLUitls<br> 使用了getInternalFormat(mPreview)<br> 使用了getType(mPreview)<br>**/<br>—-返回加载状态<br>-&gt;&gt;&gt;&gt; loadInBackground 结束<br>-&gt;&gt; 根据req.src实例化返回结果BitmapRegionTileSource<br>—–BitmapRegionTileSource<br>—–获取平铺尺寸<br>—–获取旋转角度<br>—–获取图片平铺解码器<br>—–初始化 BitmapFactory.Options<br>—–获取预览图片<br>—–实例化纹理BitmapTexture</p><p>-&gt;&gt; 判断是否加载成功</p><p>Bitmap reusableBitmap = bitmapProvider.forPixelCount(expectedPixles);</p><p>-&gt; mCropView 可见</p><p><a href="https://blog.csdn.net/a771642/article/details/7794887">参考博客</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>源码分析</tag>
+      
+      <tag>WallpaperPicker</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Android 源码Launcher模块分析</title>
+    <link href="/posts/a37bdd71.html"/>
+    <url>/posts/a37bdd71.html</url>
+    
+    <content type="html"><![CDATA[<h2 id="提纲"><a href="#提纲" class="headerlink" title="提纲"></a>提纲</h2><p>1.什么是Launcher ,Launcher2 和 Launcher3的区别</p><p>2.Android 开机启动到Launcher运行的主要流程</p><p>3.Launcher 主要类介绍</p><p>4.Launcher 主要布局xml介绍</p><p>5.Launcher 一般主要需修改的地方</p><p>6.Launcher 动画，widget等</p><p>7.Launcher 主菜单界面UI</p><h2 id="Launcher启动的主要流程"><a href="#Launcher启动的主要流程" class="headerlink" title="Launcher启动的主要流程"></a>Launcher启动的主要流程</h2><p>手机开机-&gt;init进程-&gt;zygote进程-&gt;SystemServer-&gt;ActivityManagerService<br>-&gt;Launcher</p><p>init进程:</p><p>1.创建一些文件夹并挂载设备<br>2.初始化和启动属性服务<br>3.解析init.rc配置文件并启动zygote进程</p><p>初始化init进程<br>system/core/init/init.cpp<br>启动zygote进程<br>system/core/rootdir/root.rc<br>{import /init.${ro.zygote}.rc}<br>不同的平台（32、64及64_32）<br>system/core/rootdir/init.zygote64.rc</p><p>zygote进程:<br>zygote 进程在初始化时会启动虚拟机，并加载一些系统资源。<br>这样 zygote fork 出子进程后，子进程也继承了能正常工作的虚拟机和各种系统资源，<br>接下来只需装载 apk 文件的字节码就可以运行应用程序了，可以大大缩短应用的启动时间，<br>这就是 zygote 进程的主要作用。</p><p>SystemServer：<br>1.启动Binder线程池，这样就可以与其他进程进行通信。<br>2.创建SystemServiceManager用于对系统的服务进行创建、启动和生命周期管理。<br>3.启动各种系统服务。</p><p>Launcher<br>Launcher启动</p><p>1.Launcher.java:launcher中主要的activity。系统第一个启动的应用程序,在AndroidManifest.xml中定义了<category android:name="android.intent.category.HOME" /></p><p>2.LauncherApplication.java:应用程序全局初始化类,创建全局使用的应用程序缓存器Iconcache，创建全局使用的数据库加载类LauncherModel，注册事件监听器，注册数据库变化监听器</p><p>(在AndroidManifest.xml定义的Application)</p><p>3.IconCache.java:应用程序缓存器,通过一个HashMap&lt;ComponentName,CacheEntry&gt; mcache来缓存应用程序信息。内部类CachEntry对应存储应用程序的基本信息。makeDefaultIcon来创建默认的应用程序图标</p><p>4.LauncherModel.java:模型文件,封装了对数据库的操作。包含几个线程，加载所有应用程序和workspace的时候使用(loadAndBindAllApps，loadAndBindWorkspace)。其他的函数就是对数据库的封装，接口Callbacks提供加载程序和快捷方式的抽象方法。</p><p>5.LauncherProvider.java:launcher的数据库，里面存储了桌面的item的信息。在创建数据库的时候会调用loadFavorites(db)方法，解析xml目录下的default_workspace.xml文件，把其中的内容读出来写到数据库中，这样就得到了默认桌面的配置。</p><p>6.ItemInfo.java:对item的抽象，所有类型item的父类，item包含的属性有id（标识item的id）,cellX(在横向位置上的位置，从0开始),cellY（在纵向位置上的位置，从0开始） ,spanX（在横向位置上所占的单位格）,spanY（在纵向位置上所占的单位格）,screen（在workspace的第几屏，从0开始）,itemType（4种item类型，有widget，user_folder，application，shortcut）,container（三种item存放的地方desktop,application,user_folder）。</p><p>7.Workspace.java:抽象的桌面。由N个cellLayout组成, 从cellLayout更高一级的层面上对事件的处理。Launcher.java中通过bindItems添加cellLayout.实现了DropTarget, DragSource, DragScroller。既是拖拽源，又是拖拽目的地，还可以左右拖动。</p><p>8.CellLayout.java：桌面的某一屏。是组成workspace的view,被划分成4X4的cell空间，用boolean[][]mOccupied来标识每个cell是否被占用.</p><p>9.AllApp2D.java:显示和存储应用程序列表的视图。。android自带的AllApp2D包括一个GridView和一个HomeButton，MTK修改成PagerControl，HorizontalPager和4个imageview。</p><p>10.HorizontalPager.java:AllApp2D中间的网格控件。由N个GridView组成,AllApps2D.java中通过addGridView添加GridView。</p><p>11.DeleteZone.java:删除框。在平时是出于隐藏状态，在将item长按拖动的时候会显示出来，如果将item拖动到删除框位置时会删除item。DeleteZone实现了DropTarget和DragListener两个接口。</p><ol start="12"><li><p>DragLayer.java:launcher.xml的rootview。DragLayer实际上也是一个抽象的界面，用来处理拖动和对事件进行初步处理然后按情况分发下去，角色是一个DragController。它首先用onInterceptTouchEvent(MotionEvent)来拦截所有的touch事件，如果是长按item拖动的话不把事件传下去，直接交由onTouchEvent()处理，这样就可以实现item的移动了，如果不是拖动item的话就把事件传到目标view，交有目标view的事件处理函数做相应处理。</p></li><li><p>DragController.java:为拖拽定义的一个接口。包含一个接口,一个方法和两个静态常量。</p></li></ol><p>接口为DragListener（包含onDragStart()，onDragEnd()两个函数）,</p><p>onDragStart()是在刚开始拖动的时候被调用，</p><p>onDragEnd()是在拖动完成时被调用。</p><p>在launcher中典型的应用是DeleteZone，在长按拖动item时调用onDragStart()显示，在拖动结束的时候调用onDragEnd()隐藏。</p><p>一个函数包括用于在拖动是传递要拖动的item的信息以及拖动的方式</p><p>两个常量为DRAG_ACTION_MOVE，DRAG_ACTION_COPY来标识拖动的方式，DRAG_ACTION_MOVE为移动，表示在拖动的时候需要删除原来的item，</p><p>DRAG_ACTION_COPY为复制型的拖动，表示保留被拖动的item。</p><p>14.UserFolder.java: 用户创建的文件夹。实现了DropTarget，是拖拽目的地，可以将item拖进文件夹，单击时打开文件夹，暂不能处可以重命名文件夹。</p><p>15.LiveFolder.java:系统自带的文件夹。从系统中创建出的所有联系人的文件夹等。 </p><p>16.AddAdapter.java:长按桌面弹出的”添加到主屏幕”对话框所对应的适配器。。 </p><p>17.ShortcutAdapter.java:添加快捷方式的对话框所对应的适配器 </p><p>18.LauncherSettings.java:数据库项的字符串定义，</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>源码分析</tag>
+      
+      <tag>Launcher</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>单例模式</title>
+    <link href="/posts/f1601c3e.html"/>
+    <url>/posts/f1601c3e.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>说实话网上有很多介绍，那么为什么还要自己在写一遍呢？因为在网上看一遍容易忘掉，如果自己再重新写一遍，印象会深一点。</p><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。<br>这种模式涉及到一个单一的类，该类负责创建自己的对象，同时确保只有单个对象被创建。这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。</p><p>简单的说就是一个对象实例化只实例化一次。</p><h1 id="运用"><a href="#运用" class="headerlink" title="运用"></a>运用</h1><p>单例模式的实现方式有</p><h2 id="1、饿汉式-多线程安全"><a href="#1、饿汉式-多线程安全" class="headerlink" title="1、饿汉式 多线程安全"></a>1、饿汉式 多线程安全</h2><p>描述：这种方式比较常用，但容易产生垃圾对象。<br>优点：没有加锁，执行效率会提高。<br>缺点：类加载时就初始化，浪费内存。</p><pre><code class="hljs routeros">public class Singleton &#123;      private static Singleton<span class="hljs-built_in"> instance </span>= new Singleton();      private Singleton ()&#123;&#125;      public static Singleton getInstance() &#123;      return<span class="hljs-built_in"> instance; </span>     &#125;  &#125;</code></pre><h2 id="2、懒汉式，可以根据不同的条件也可以分类"><a href="#2、懒汉式，可以根据不同的条件也可以分类" class="headerlink" title="2、懒汉式，可以根据不同的条件也可以分类"></a>2、懒汉式，可以根据不同的条件也可以分类</h2><p>优点：没有加锁，执行效率会提高。<br>缺点：类加载时就初始化，浪费内存。</p><h3 id="懒汉式，线程不安全"><a href="#懒汉式，线程不安全" class="headerlink" title="懒汉式，线程不安全"></a>懒汉式，线程不安全</h3><p>因为没有加锁 synchronized，所以它是线程不安全的。</p><pre><code class="hljs routeros">public class Singleton &#123;      private static Singleton<span class="hljs-built_in"> instance; </span>     private Singleton ()&#123;&#125;      public static Singleton getInstance() &#123;      <span class="hljs-keyword">if</span> (instance == <span class="hljs-literal">null</span>) &#123;         <span class="hljs-built_in"> instance </span>= new Singleton();      &#125;      return<span class="hljs-built_in"> instance; </span>     &#125;  &#125;</code></pre><h3 id="懒汉式，线程安全"><a href="#懒汉式，线程安全" class="headerlink" title="懒汉式，线程安全"></a>懒汉式，线程安全</h3><p>增加同步锁，能够在多线程中很好的工作，但是，效率很低，99% 情况下不需要同步。<br>优点：第一次调用才初始化，避免内存浪费。<br>优点：第一次调用才初始化，避免内存浪费。<br>缺点：必须加锁 synchronized 才能保证单例，但加锁会影响效率。<br>getInstance() 的性能对应用程序不是很关键（该方法使用不太频繁）</p><pre><code class="hljs routeros">public class Singleton &#123;      private static Singleton<span class="hljs-built_in"> instance; </span>     private Singleton ()&#123;&#125;      public static synchronized Singleton getInstance() &#123;      <span class="hljs-keyword">if</span> (instance == <span class="hljs-literal">null</span>) &#123;         <span class="hljs-built_in"> instance </span>= new Singleton();      &#125;      return<span class="hljs-built_in"> instance; </span>     &#125;  &#125;</code></pre><h2 id="3、双检锁-双重校验锁（DCL，即-double-checked-locking）"><a href="#3、双检锁-双重校验锁（DCL，即-double-checked-locking）" class="headerlink" title="3、双检锁/双重校验锁（DCL，即 double-checked locking）"></a>3、双检锁/双重校验锁（DCL，即 double-checked locking）</h2><p>这种方式采用双锁机制，安全且在多线程情况下能保持高性能。</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;      <span class="hljs-keyword">private</span> <span class="hljs-keyword">volatile</span> <span class="hljs-keyword">static</span> Singleton singleton;      <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span> <span class="hljs-params">()</span></span>&#123;&#125;      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title">getSingleton</span><span class="hljs-params">()</span> </span>&#123;      <span class="hljs-keyword">if</span> (singleton == <span class="hljs-keyword">null</span>) &#123;          <span class="hljs-keyword">synchronized</span> (Singleton.class) &#123;          <span class="hljs-keyword">if</span> (singleton == <span class="hljs-keyword">null</span>) &#123;              singleton = <span class="hljs-keyword">new</span> Singleton();          &#125;          &#125;      &#125;      <span class="hljs-keyword">return</span> singleton;      &#125;  &#125;</code></pre><h3 id="问题：为什么有两个非空判断"><a href="#问题：为什么有两个非空判断" class="headerlink" title="问题：为什么有两个非空判断"></a>问题：为什么有两个非空判断</h3><h3 id="问题：双检锁单例的缺点是什么"><a href="#问题：双检锁单例的缺点是什么" class="headerlink" title="问题：双检锁单例的缺点是什么"></a>问题：双检锁单例的缺点是什么</h3><h2 id="4、登记式-静态内部类"><a href="#4、登记式-静态内部类" class="headerlink" title="4、登记式/静态内部类"></a>4、登记式/静态内部类</h2><p>这种方式能达到双检锁方式一样的功效，但实现更简单。对静态域使用延迟初始化，应使用这种方式而不是双检锁方式。这种方式只适用于静态域的情况，双检锁方式可在实例域需要延迟初始化时使用。</p><pre><code class="hljs cpp"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> &#123;</span>      <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingletonHolder</span> &#123;</span>      <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Singleton INSTANCE = <span class="hljs-keyword">new</span> Singleton();      &#125;      <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span> <span class="hljs-params">()</span></span>&#123;&#125;      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;      <span class="hljs-keyword">return</span> SingletonHolder.INSTANCE;      &#125;  &#125;</code></pre><h2 id="5、枚举"><a href="#5、枚举" class="headerlink" title="5、枚举"></a>5、枚举</h2><p>描述：这种实现方式还没有被广泛采用，但这是实现单例模式的最佳方法。它更简洁，自动支持序列化机制，绝对防止多次实例化。<br>这种方式是 Effective Java 作者 Josh Bloch 提倡的方式，它不仅能避免多线程同步问题，而且还自动支持序列化机制，防止反序列化重新创建新的对象，绝对防止多次实例化。不过，由于 JDK1.5 之后才加入 enum 特性，用这种方式写不免让人感觉生疏，在实际工作中，也很少用。<br>不能通过 reflection attack 来调用私有构造方法。</p><pre><code class="hljs crystal">public <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Singleton</span> &#123;  </span>    INSTANCE;      public void whateverMethod() &#123;      &#125;  &#125;</code></pre><p>参考链接<br><a href="http://www.runoob.com/design-pattern/singleton-pattern.html">http://www.runoob.com/design-pattern/singleton-pattern.html</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>客户化定制开机logo、开机动画</title>
+    <link href="/posts/17a37153.html"/>
+    <url>/posts/17a37153.html</url>
+    
+    <content type="html"><![CDATA[<h2 id="设置开机logo"><a href="#设置开机logo" class="headerlink" title="设置开机logo"></a>设置开机logo</h2><h3 id="高通平台"><a href="#高通平台" class="headerlink" title="高通平台"></a>高通平台</h3><pre><code class="hljs angelscript"><span class="hljs-number">1</span>、修改的文件路径LINUX/android/bootable/bootloader/lk/splash<span class="hljs-number">2</span>、准备好logo图片(png、bmp格式)<span class="hljs-number">3</span>、查看中原图片的分辨率，修改logo图片*保证分辨率一致*<span class="hljs-number">4</span>、生成splash.img镜像文件</code></pre><p>生成splash 步骤</p><pre><code class="hljs vim">The steps <span class="hljs-keyword">to</span> generate <span class="hljs-keyword">a</span> splash.<span class="hljs-keyword">im</span><span class="hljs-variable">g:</span><span class="hljs-number">1</span> sudo apt-<span class="hljs-built_in">get</span> install <span class="hljs-keyword">python</span>-imaging<span class="hljs-number">2</span> <span class="hljs-keyword">python</span> ./logo_gen.<span class="hljs-keyword">py</span> boot_001.png (*.bmp)</code></pre><h3 id="MTK平台"><a href="#MTK平台" class="headerlink" title="MTK平台"></a>MTK平台</h3><pre><code class="hljs latex">1、修改的文件路径vendor<span class="hljs-tag">\<span class="hljs-name">mediatek</span></span><span class="hljs-tag">\<span class="hljs-name">proprietary</span></span><span class="hljs-tag">\<span class="hljs-name">bootable</span></span><span class="hljs-tag">\<span class="hljs-name">bootloader</span></span><span class="hljs-tag">\<span class="hljs-name">lk</span></span><span class="hljs-tag">\<span class="hljs-name">dev</span></span><span class="hljs-tag">\<span class="hljs-name">logo</span></span>2、准备好logo图片(bmp格式)3、查看中原图片的分辨率，修改logo图片*保证分辨率一致*替换相应格式的logo</code></pre><h2 id="设置开关机动画"><a href="#设置开关机动画" class="headerlink" title="设置开关机动画"></a>设置开关机动画</h2><p>首先自己制作开关机动画包，如果有现成的压缩包那就不用了<br>，压缩包的压缩方式必须是存储方式的zip格式压缩。</p><pre><code class="hljs css"><span class="hljs-selector-tag">bootanimation</span><span class="hljs-selector-class">.zip</span><span class="hljs-selector-tag">shutdownanimation</span><span class="hljs-selector-class">.zip</span></code></pre><p>压缩包中有两个文件夹part0、part1和desc.txt文件</p><p>part0和part1中主要存放一些开机动画的帧图片</p><p>desc.txt中内容如下</p><pre><code class="hljs apache"><span class="hljs-attribute">720</span> <span class="hljs-number">1680</span> <span class="hljs-number">15</span><span class="hljs-attribute">p</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span> part<span class="hljs-number">1</span><span class="hljs-attribute">p</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> part<span class="hljs-number">0</span></code></pre><ul><li>720 1680 代表开机动画图片分辨率</li><li>15 代表播放速度。15 帧每秒</li><li>p 1（代表着播放一次） 0（空指令）part1 代表这part1文件夹内的图片只按名称顺序播放一次</li><li>p 0（代表着播放一次） 0（空指令）part0  代表这part0文件夹内的图片只按名称顺序循环播放直到结束</li></ul><p>预览：必须在已经root的手机下才能替换。</p><pre><code class="hljs stata"><span class="hljs-comment">//进入root权限</span>adb rootadb remount adb <span class="hljs-keyword">shell</span> <span class="hljs-comment">//进入开关机动画存放目录</span><span class="hljs-keyword">cd</span> system/media <span class="hljs-comment">//删除手机原先的开关机动画</span><span class="hljs-keyword">rm</span> bootanimation.<span class="hljs-keyword">zip</span><span class="hljs-keyword">rm</span> shutdownanimation.<span class="hljs-keyword">zip</span> <span class="hljs-comment">//将开关机动画push到手机</span>adb push 文件路径 system/media</code></pre><p>最后重启手机即可看到效果<br>Android 源代码中替换开关机压缩包</p><pre><code class="hljs awk">高通平台LINUX<span class="hljs-regexp">/android/</span>vendor<span class="hljs-regexp">/qcom/</span>proprietary<span class="hljs-regexp">/qrdplus/</span>Extension<span class="hljs-regexp">/apps/</span>BootAnimationMTK平台framework<span class="hljs-regexp">/base/</span>data/sounds</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>定制</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>代理模式</title>
+    <link href="/posts/7b510e10.html"/>
+    <url>/posts/7b510e10.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><p>代理模式（Proxy Pattern）也称为委托模式。是一种结构型设计模式。</p><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>为其他对象提供一种代理以控制对这个对象的访问</p><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>当无法或不想直接访问某个对象或访问某个对象存在困难时可以通过一个代理对象来间接访问，为了保证客户端使用的透明性，委托对象与代理对象需要实现相同的接口</p><h3 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h3><p>1、静态代理<br>2、动态代理<br>Java 提供了一个便捷的动态代理接口，InvocationHandler.</p><p>Android 的跨进程通信机制与AIDL<br>Binder 四个主要模块：Binder Client、Binder Server、ServerManager和Binder Driver。<br>一先创建一个接口x<br>二继承Binder创建一个Binder子类并实现接口X.<br>三继承Service创建一个Service子类来表示服务端。重写onBind方法返回一个IBinder对象。<br>四客户端Activity实现。</p><p>—-跨进程<br>定义一个额外进程的Service。使用刚刚的方法会报一个类型转换的错误。<br>使用AIDL定义接口。<br>结果一样。</p><p>AIDL相当于 Binder Server。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>模板方法模式</title>
+    <link href="/posts/ecc6414b.html"/>
+    <url>/posts/ecc6414b.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="模板方法模式"><a href="#模板方法模式" class="headerlink" title="模板方法模式"></a>模板方法模式</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>定义一个操作中的算法的框架，而将一些步骤延迟到子类中，使子类可以不改面一个算法的结构即可重定义该算法的某些特定步骤。<br>##使用场景<br>1、多个子类有公有方法，并且逻辑基本相同时。<br>2、重要、复杂的算法，可以吧核心算法设计为模板方法，周边的相关细节功能则由各个子类实现。<br>3、重构时，模板方法模式是一个经常使用的模式，把相同的代码抽取带父类中，然后通过钩子函数约束其行为。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.dp.example.templatemethod;<span class="hljs-comment">/**</span><span class="hljs-comment"> * 抽象的Computer</span><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mrsimple</span><span class="hljs-comment"> *</span><span class="hljs-comment"> */</span><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractComputer</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">powerOn</span><span class="hljs-params">()</span> </span>&#123;        System.out.println(<span class="hljs-string">&quot;开启电源&quot;</span>);    &#125;    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">checkHardware</span><span class="hljs-params">()</span> </span>&#123;        System.out.println(<span class="hljs-string">&quot;硬件检查&quot;</span>);    &#125;    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">loadOS</span><span class="hljs-params">()</span> </span>&#123;        System.out.println(<span class="hljs-string">&quot;载入操作系统&quot;</span>);    &#125;    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">login</span><span class="hljs-params">()</span> </span>&#123;        System.out.println(<span class="hljs-string">&quot;小白的电脑无验证，直接进入系统&quot;</span>);    &#125;    <span class="hljs-comment">/**</span><span class="hljs-comment">     * 启动电脑方法, 步骤固定为开启电源、系统检查、加载操作系统、用户登录。该方法为final， 防止算法框架被覆写.</span><span class="hljs-comment">     */</span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startUp</span><span class="hljs-params">()</span> </span>&#123;        System.out.println(<span class="hljs-string">&quot;------ 开机 START ------&quot;</span>);        powerOn();        checkHardware();        loadOS();        login();        System.out.println(<span class="hljs-string">&quot;------ 开机 END ------&quot;</span>);    &#125;&#125;<span class="hljs-keyword">package</span> com.dp.example.templatemethod;<span class="hljs-comment">/**</span><span class="hljs-comment"> * 码农的计算机</span><span class="hljs-comment"> * </span><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mrsimple</span><span class="hljs-comment"> */</span><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CoderComputer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractComputer</span> </span>&#123;    <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">login</span><span class="hljs-params">()</span> </span>&#123;        System.out.println(<span class="hljs-string">&quot;码农只需要进行用户和密码验证就可以了&quot;</span>);    &#125;&#125;<span class="hljs-keyword">package</span> com.dp.example.templatemethod;<span class="hljs-comment">/**</span><span class="hljs-comment"> * 军用计算机</span><span class="hljs-comment"> * </span><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mrsimple</span><span class="hljs-comment"> */</span><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MilitaryComputer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractComputer</span> </span>&#123;         <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">checkHardware</span><span class="hljs-params">()</span> </span>&#123;        <span class="hljs-keyword">super</span>.checkHardware();        System.out.println(<span class="hljs-string">&quot;检查硬件防火墙&quot;</span>);    &#125;        <span class="hljs-meta">@Override</span>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">login</span><span class="hljs-params">()</span> </span>&#123;        System.out.println(<span class="hljs-string">&quot;进行指纹之别等复杂的用户验证&quot;</span>);    &#125;&#125;<span class="hljs-keyword">package</span> com.dp.example.templatemethod;<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;        AbstractComputer comp = <span class="hljs-keyword">new</span> CoderComputer();        comp.startUp();        comp = <span class="hljs-keyword">new</span> MilitaryComputer();        comp.startUp();    &#125;&#125;</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>模板方法模式用四个字概括就是：流程封装。父类提取公共代码，提高代码复用率，同时也带来了更好的可扩展性。<br>优点：<br>封装不变部分，扩展可变部分<br>提取公共部分代码，便于维护<br>缺点<br>模板方法会带来代码阅读的难度，让用户觉得难以理解。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>状态模式</title>
+    <link href="/posts/8acb1976.html"/>
+    <url>/posts/8acb1976.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="状态模式"><a href="#状态模式" class="headerlink" title="状态模式"></a>状态模式</h1><p>状态模式中的行为是由状态来决定的，不同的状态下有不同的行为。<br>状态模式和策略模式的机构几乎完全一样，但是它们的目的、本质却完全不一样。<br>状态模式的行为是平行的、不可替代的，策略模式的行为是彼此独立、可相互替换的。<br>用一句话来表述，状态模式把对象的行为包装在不同的状态对象里，每一个状态对象都有一个共同的抽象状态基类。状态模式的意图是让一个对象在其内部状态改变的时候，其行为也随之改变。</p><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>当一个对象的内在状态改变时允许改变其行为，这个对象看起来像是改变了其类。</p><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>1、一个对象的行为取决于它的状态，并且它必须在运行时根据状态改变它的行为。<br>2、代码中包含大量与对象状态相关的条件语句，例如，一个操作类中含有庞大的多分支语句（if-else 或者switch-case），且这些分支依赖于该对象的状态。<br>状态模式将每一个条件分支放入一个独立的类中，这使得你可以根据对象自身的情况将对象的状态作为一个对象，这一对象可以不依赖与其他对象而独立变化，这样通过多态来去除过多的，重复的if-else等分支语句。</p><h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><p><a href="https://github.com/hehonghui/android_dp_analysis_code/tree/master/android_dp_state">用户登录系统</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>组合模式</title>
+    <link href="/posts/df879792.html"/>
+    <url>/posts/df879792.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h1><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>表示对象的部分-整体层次结构时。<br>从一个整体中能独立出部分模块或功能的场景。</p><h3 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h3><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>用到的比较少，一般更适用于对一些界面UI的架构设计上。<br>优点<br>组合模式可以清楚地定义分层次的复杂对象，表示对象的全部或部分层次，它让高层模块忽略了层次的差异，简化了高层模块的代码。<br>缺点</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>访问者模式</title>
+    <link href="/posts/64b51ed9.html"/>
+    <url>/posts/64b51ed9.html</url>
+    
+    <content type="html"><![CDATA[<p>1.观察者模式（Observer Pattern）<br>释义：观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象，这个主题对象在状态上发生变化时，会通知所有观察者对象，使他们能够自动更新自己。<br>故事理解：观察者想知道公司所有MM的情况，只要加入公司的MM情报邮件组就行了，tom负责搜集情报，当发现新情报时，不用一个一个通知我们，直接发布给邮件组，我们作为订阅者（观察者）就可以及时收到情报啦。<br>常见实例：1.BaseAdapter.registerDataSetObserver和BaseAdapter.unregisterDataSetObserver两方法来向BaseAdater注册、注销一个DataSetObserver ; 2.使用ContentObserver去监听数据库变化。<br>适用场景：1.当对一个对象的改变需要同时改变其他对象，而不知道具体有多少对象有待改变；2.当一个对象必须通知其它对象，而它又不能假定其它对象是谁.</p><p>观察者模式主要有观察者和被观察者2个对象，在该模式中，Observable表示被观察者，这个对象是一个抽象类，只能被继承。 Observer表示观察者，他是一个接口，所以观察者可以有多个，实现了该接口的类都是属于观察者。<br>这是网上一个生动细致的demo：<br>被观察者：</p><p>MyPerson是被观察者，类中调用了setChange()以及notifyObservers()两个方法，前者是告知数据改变，后者是发送信号通知观察者。</p><p>观察者需要实现Observer接口，其中只有一个update方法，当观察者收到 （被观察者）的通知信号，就会执行该动作。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>迭代器模式</title>
+    <link href="/posts/9055d217.html"/>
+    <url>/posts/9055d217.html</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>适配器模式</title>
+    <link href="/posts/f5c535ea.html"/>
+    <url>/posts/f5c535ea.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>说实话网上有很多介绍，那么为什么还要自己在写一遍呢？因为在网上看一遍容易忘掉，如果自己再重新写一遍，印象会深一点。</p><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>适配器模式（Adapter Pattern）是作为两个不兼容的接口之间的桥梁。这种类型的设计模式属于结构型模式，它结合了两个独立接口的功能。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>设计模式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>RecyclerView和ListView的区别</title>
+    <link href="/posts/befc3031.html"/>
+    <url>/posts/befc3031.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="RecyclerView是什么"><a href="#RecyclerView是什么" class="headerlink" title="RecyclerView是什么?"></a>RecyclerView是什么?</h1><blockquote><p>RecyclerView is a more advanced and flexible version of ListView. This<br>widget is a container for large sets of views that can be recycled and<br>scrolled very efficiently. Use the RecyclerView widget when you have<br>lists with elements that change dynamically.</p></blockquote><blockquote><p>RecyclerView是ListView的更高度定制版，当你需要高效的展示大量数据时候，动态改变元素的列表的时候，就用这个。</p></blockquote><p>RecyclerView是support-v7包中新组件,官方介绍RecyclerView 是 ListView 的升级版本，更加先进和灵活,是一个强大的滑动组件，与传统的ListView相比较，他同样拥有item回收复用的功能，但是RecyclerView可以直接把ViewHolder的实现封装起来，用户只要实现自己的ViewHoler就可以了。<br>RecyclerView新特性有：ViewHolder，ItemDecorator，LayoutManager，SmothScroller以及增加或删除item时item动画。</p><span id="more"></span><h1 id="RecyclerView-用法"><a href="#RecyclerView-用法" class="headerlink" title="RecyclerView 用法"></a>RecyclerView 用法</h1><pre><code class="hljs java">mRecyclerView = findViewById(R.id.recyclerview);<span class="hljs-comment">//设置布局管理器</span>mRecyclerView.setLayoutManager(layout);<span class="hljs-comment">//设置adapter</span>mRecyclerView.setAdapter(adapter)<span class="hljs-comment">//设置Item增加、移除动画</span>mRecyclerView.setItemAnimator(<span class="hljs-keyword">new</span> DefaultItemAnimator());<span class="hljs-comment">//添加分割线</span>mRecyclerView.addItemDecoration(<span class="hljs-keyword">new</span> DividerItemDecoration(                getActivity(), DividerItemDecoration.HORIZONTAL_LIST));</code></pre><blockquote><p>1、将 layout 抽象成了一个 LayoutManager，RecylerView 不负责子 View 的布局， 我们可以自定义 LayoutManager 来实现不同的布局效果， 目前只提供了LinearLayoutManager。 LinearLayoutManager 可以指定方向，默认是垂直， 可以指定水平等，能支持线性布局、网格布局、瀑布流布局三种，而且同时还能够控制横向还是纵向滚动。</p></blockquote><blockquote><p>2、标准化了 ViewHolder， 编写 Adapter 面向的是 ViewHoder 而不在是View 了， 复用的逻辑被封装了， 写起来更加简单。<br>3、局部刷新<br>4、动画效果：增加或删除item时item动画</p></blockquote><h1 id="RecyclerView-相对于ListView的优缺点"><a href="#RecyclerView-相对于ListView的优缺点" class="headerlink" title="RecyclerView 相对于ListView的优缺点"></a>RecyclerView 相对于ListView的优缺点</h1><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>1、它封装了viewholder的回收复用。RecyclerView.ViewHolder<br>2、RecyclerView使用布局管理器管理子view的位置（目前尚只提供了LinearLayoutManager），也就是说你再不用拘泥于ListView的线性展示方式，如果之后提供其他customLayoutManager的支持，你能够使用复杂的布局来展示一个动态组件。</p><pre><code class="hljs java">StaggeredGridLayoutManager mStaggeredGridLayoutManager =<span class="hljs-keyword">new</span> StaggeredGridLayoutManager(<span class="hljs-number">2</span>, StaggeredGridLayoutManager.VERTICAL);<span class="hljs-comment">//表示两列，并且是竖直方向的瀑布流</span>mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);</code></pre><p>在布局上支持三种StaggeredGridLayoutManager， GridLayoutManager LinearLayoutManager。<br>3、自带了ItemAnimation，可以设置加载和移除时的动画，方便做出各种动态浏览的效果。<br>4、将ListView中的getView分成了onCreateViewHolder和onBindViewHolder两个方法，更利于代码的维护。<br>5、相对简单<br>我们看下Listview他背后的继承关系</p><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbsListView</span> </span><span class="hljs-class"><span class="hljs-title">public</span> <span class="hljs-title">abstract</span> <span class="hljs-title">class</span> <span class="hljs-title">AbsListView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AdapterView</span>&lt;<span class="hljs-title">ListAdapter</span>&gt;</span><span class="hljs-class"><span class="hljs-title">public</span> <span class="hljs-title">abstract</span> <span class="hljs-title">class</span> <span class="hljs-title">AdapterView</span>&lt;<span class="hljs-title">T</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Adapter</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">ViewGroup</span></span></code></pre><p>三重继承，内容还挺多的，不是直接继承ViewGroup，而相反的RecycleView却是直接继承自ViewGroup的。</p><h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>1、不能简单的加头和尾。<br>2、不能简单的设置子item的点击事件。<br>    解决方案：自定义接口实现点击事件。</p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>ListView可以设置选择模式，并添加MultiChoiceModeListener</p><pre><code class="hljs java">listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);listView.setMultiChoiceModeListener(<span class="hljs-keyword">new</span> MultiChoiceModeListener() &#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onCreateActionMode</span><span class="hljs-params">(ActionMode mode, Menu menu)</span> </span>&#123; ... &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onItemCheckedStateChanged</span><span class="hljs-params">(ActionMode mode, <span class="hljs-keyword">int</span> position,</span></span><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">long</span> id, <span class="hljs-keyword">boolean</span> checked)</span> </span>&#123; ... &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onActionItemClicked</span><span class="hljs-params">(ActionMode mode, MenuItem item)</span> </span>&#123;        <span class="hljs-keyword">switch</span> (item.getItemId()) &#123;            <span class="hljs-keyword">case</span> R.id.menu_item_delete_crime:            CrimeAdapter adapter = (CrimeAdapter)getListAdapter();            CrimeLab crimeLab = CrimeLab.get(getActivity());            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = adapter.getCount() - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;                <span class="hljs-keyword">if</span> (getListView().isItemChecked(i)) &#123;                    crimeLab.deleteCrime(adapter.getItem(i));                &#125;          &#125;        mode.finish();        adapter.notifyDataSetChanged();        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        <span class="hljs-keyword">default</span>:            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;&#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onPrepareActionMode</span><span class="hljs-params">(ActionMode mode, Menu menu)</span> </span>&#123; ... &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onDestroyActionMode</span><span class="hljs-params">(ActionMode mode)</span> </span>&#123; ... &#125;&#125;);</code></pre><p>参考链接：<a href="http://blog.csdn.net/sanjay_f/article/details/48830311">http://blog.csdn.net/sanjay_f/article/details/48830311</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>基础</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>8-25</title>
+    <link href="/post"/>
+    <url>/post</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p> 感觉每天都过得非常快，都没有认真总结所学的。俗话说，好记性不如烂笔头，所以想每天挤出一点时间来写点总结。</p><span id="more"></span><h1 id="Android-中的数据库操作"><a href="#Android-中的数据库操作" class="headerlink" title="Android 中的数据库操作"></a>Android 中的数据库操作</h1><p>其实我们可以对数据进行的操作也就无非四种，即 CRUD。其中 C 代表添加 （Create）， R代表查询（Retrieve）， U代表更新（Update）， D代表删除（Delete）。每一种操 作又各自对应了一种 SQL命令，如果你比较熟悉 SQL语言的话，一定会知道添加数据时使 用 insert，查询数据时使用 select，更新数据时使用 update，删除数据时使用 delete。（引用第一行代码的一句话）<br>下面是以一个简单的数据表为例。<br>music 表<br>| id     | title  | artist |<br>| :—-: | :—-: | :—:  |<br>| 12345  | 歌名    | 歌手   |<br>| 12346  | 歌名    | 歌手   |</p><h2 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h2><h3 id="query-方法"><a href="#query-方法" class="headerlink" title="query()方法"></a>query()方法</h3><p> query()方法用于对数据进行查询。这个方法的参数非常复杂，最短的一个方法重载也需要传入七个参数。那我们就先来看一下 这七个参数各自的含义吧，第一个参数不用说，当然还是表名，表示我们希望从哪张表中查 询数据。第二个参数用于指定去查询哪几列，如果不指定则默认查询所有列。第三、第四个 参数用于去约束查询某一行或某几行的数据，不指定则默认是查询所有行的数据。第五个参 数用于指定需要去 group by的列，不指定则表示不对查询结果进行 group by操作。第六个参 数用于对 group by之后的数据进行进一步的过滤，不指定则表示不进行过滤。第七个参数用 于指定查询结果的排序方式，不指定则表示使用默认的排序方式。</p><pre><code class="hljs java">SQLiteDatabase db = dbHelper.getWritableDatabase();<span class="hljs-comment">// 查询music表中所有的数据   </span>Cursor cursor = db.query(<span class="hljs-string">&quot;music&quot;</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">null</span>); <span class="hljs-comment">//再遍历游标cursor，获取数据库中的值</span><span class="hljs-keyword">if</span>(cursor.moveToFirst()) &#123;...&#125;</code></pre><h4 id="query参数详情"><a href="#query参数详情" class="headerlink" title="query参数详情"></a>query参数详情</h4><table><thead><tr><th align="center">query()方法参数</th><th align="center">对应 SQL部分</th><th align="center">描述</th></tr></thead><tbody><tr><td align="center">table</td><td align="center">from table_name</td><td align="center">指定查询的表名</td></tr><tr><td align="center">columns</td><td align="center">select column1, column2</td><td align="center">指定查询的列名</td></tr><tr><td align="center">selection</td><td align="center">where column = value</td><td align="center">指定 where的约束条件</td></tr><tr><td align="center">selectionArgs</td><td align="center">-</td><td align="center">为 where中的占位符提供具体的值</td></tr><tr><td align="center">group By</td><td align="center">group by column</td><td align="center">指定需要 group by的列</td></tr><tr><td align="center">having</td><td align="center">where column = value</td><td align="center">指定 where的约束条件</td></tr><tr><td align="center">order By</td><td align="center">having column = value</td><td align="center">对 group by后的结果进一步约束</td></tr></tbody></table><h3 id="select-查询语句"><a href="#select-查询语句" class="headerlink" title="select 查询语句"></a>select 查询语句</h3><p>使用sql语句查询</p><pre><code class="hljs java">sql = <span class="hljs-string">&quot;select * from table_name&quot;</span>;db.execSQL(sql);</code></pre><p>过滤重复数据<br>select distinct  “字段名”  from  “表名” </p><pre><code class="hljs java"><span class="hljs-comment">//方法一：</span>sql = <span class="hljs-string">&quot;select distinct title from music &quot;</span>;db.execSQL(sql);</code></pre><h2 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h2><h3 id="insert-方法"><a href="#insert-方法" class="headerlink" title="insert()方法"></a>insert()方法</h3><p>insert()方法是专门用于添加数据，有三个参数，第一个参数是表名，我们希望向哪张表里添加数据，这里就传入该表的名字。第二个 参数用于在未指定添加数据的情况下给某些可为空的列自动赋值 NULL，一般我们用不到这 个功能，直接传入 null即可。第三个参数是一个 ContentValues对象，它提供了一系列的 put() 方法重载，用于向 ContentValues 中添加数据。</p><pre><code class="hljs java">ContentValues values = <span class="hljs-keyword">new</span> ContentValues(); <span class="hljs-comment">// 开始组装第一条数据   </span>values.put(<span class="hljs-string">&quot;title&quot;</span>, <span class="hljs-string">&quot;歌名1&quot;</span>);     values.put(<span class="hljs-string">&quot;artist&quot;</span>, <span class="hljs-string">&quot;歌手1&quot;</span>);     db.insert(<span class="hljs-string">&quot;music&quot;</span>, <span class="hljs-keyword">null</span>, values);</code></pre><h2 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h2><h3 id="delete-方法"><a href="#delete-方法" class="headerlink" title="delete()方法"></a>delete()方法</h3><p>delete()方法专门用于删除数据，这个方法接收三个参数，第一 个参数仍然是表名，这个已经没什么好说的了，第二、第三个参数又是用于去约束删除某一 行或某几行的数据，不指定的话默认就是删除所有行。 </p><pre><code class="hljs java">db.delete(<span class="hljs-string">&quot;music&quot;</span>, <span class="hljs-string">&quot;title = ?&quot;</span>, <span class="hljs-keyword">new</span> String[] &#123; <span class="hljs-string">&quot;歌名&quot;</span> &#125;);</code></pre><h2 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h2><h3 id="update-方法"><a href="#update-方法" class="headerlink" title="update()方法"></a>update()方法</h3><p> update()方法用于对数据进行更新，这个方法 接收四个参数，第一个参数和 insert()方法一样，也是表名，在这里指定去更新哪张表里的数 据。第二个参数是 ContentValues 对象，要把更新数据在这里组装进去。第三、第四个参数 用于去约束更新某一行或某几行中的数据，不指定的话默认就是更新所有行。 </p><pre><code class="hljs java">values.put(<span class="hljs-string">&quot;artist&quot;</span>,<span class="hljs-string">&quot;歌手2&quot;</span>);   db.update(<span class="hljs-string">&quot;music&quot;</span>, values, <span class="hljs-string">&quot;id = ?&quot;</span>, <span class="hljs-keyword">new</span> String[] &#123; <span class="hljs-string">&quot;12345&quot;</span> &#125;);</code></pre><h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>虽然现在有些流行开源的sql框架，但基础的sql还是需要的。持续更新中… </p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>基础</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>音乐接口</title>
+    <link href="/posts/28ffda2f.html"/>
+    <url>/posts/28ffda2f.html</url>
+    
+    <content type="html"><![CDATA[<p>有点想总结一下音乐接口，</p><h2 id="歌曲来源：百度音乐"><a href="#歌曲来源：百度音乐" class="headerlink" title="歌曲来源：百度音乐"></a>歌曲来源：百度音乐</h2><p>详情请访问原文<a href="http://blog.csdn.net/xyw_blog/article/details/38641793?utm_source=tuicool&utm_medium=referral">http://blog.csdn.net/xyw_blog/article/details/38641793?utm_source=tuicool&amp;utm_medium=referral</a></p><p>获取百度音乐排行榜的数据<br><a href="http://musicapi.qianqian.com/v1/restserver/ting?from=android&amp;version=6.0.7.1&amp;channel=huwei&amp;operator=1&amp;method=baidu.ting.billboard.billCategory&amp;format=json&amp;kflag=2">http://musicapi.qianqian.com/v1/restserver/ting?from=android&amp;version=6.0.7.1&amp;channel=huwei&amp;operator=1&amp;method=baidu.ting.billboard.billCategory&amp;format=json&amp;kflag=2</a></p><p>获取频道列表数据<br><a href="http://fm.baidu.com/dev/api/?tn=channellist">http://fm.baidu.com/dev/api/?tn=channellist</a><br>根据频道id获取频道音乐数据列表信息<br><a href="http://fm.baidu.com/dev/api/?tn=playlist&amp;id=public_tuijian_rege">http://fm.baidu.com/dev/api/?tn=playlist&amp;id=public_tuijian_rege</a><br>根据songIds获取歌曲信息，如果要获取多首信息，包括歌曲下载链接地址，songIds之间用逗号隔开，如songIds = 913288,872633,3388338<br><a href="http://fm.baidu.com/data/music/songlink?songIds=913288">http://fm.baidu.com/data/music/songlink?songIds=913288</a><br>根据songIds获取歌曲信息，如果要获取多首信息，songIds之间用逗号隔开，如songIds = 913288,872633,3388338 <a href="http://fm.baidu.com/data/music/songinfo?songIds=913288">http://fm.baidu.com/data/music/songinfo?songIds=913288</a></p><h2 id="歌曲来源：QQ音乐"><a href="#歌曲来源：QQ音乐" class="headerlink" title="歌曲来源：QQ音乐"></a>歌曲来源：QQ音乐</h2><p>来源于github 开源库<a href="https://github.com/LIU9293/musicAPI">MusicAPI</a></p><h2 id="歌曲来源：虾米音乐"><a href="#歌曲来源：虾米音乐" class="headerlink" title="歌曲来源：虾米音乐"></a>歌曲来源：虾米音乐</h2><p>来源于github 开源库<a href="https://github.com/LIU9293/musicAPI">MusicAPI</a></p><h2 id="歌曲来源：网易云音乐"><a href="#歌曲来源：网易云音乐" class="headerlink" title="歌曲来源：网易云音乐"></a>歌曲来源：网易云音乐</h2><p>来源于github 开源库<a href="https://binaryify.github.io/NeteaseCloudMusicApi/#/">NeteaseCloudMusicApi</a></p><h1 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h1><p>因为这些音乐接口都是加密的，而这些开源库是使用py或者js的一些解密算法解密，所有并不能直接调用这些音乐接口，还得解密。</p><h1 id="计划"><a href="#计划" class="headerlink" title="计划"></a>计划</h1><p>kotlin解析音乐API，生成一个库文件</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>接口</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>api</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>爱壁纸音乐api</title>
+    <link href="/posts/f296039d.html"/>
+    <url>/posts/f296039d.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>通过fildder抓取爱壁纸app的图片接口</p><pre><code class="hljs lasso">limit:<span class="hljs-number">10</span>  <span class="hljs-comment">//壁纸数量,</span><span class="hljs-keyword">order</span>:hot <span class="hljs-comment">//排序方式</span><span class="hljs-keyword">skip</span>:<span class="hljs-number">1</span> <span class="hljs-comment">//偏移量</span><span class="hljs-comment">//参数集合</span><span class="hljs-built_in">var</span> <span class="hljs-built_in">map</span>: <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, Any&gt; = mapOf(<span class="hljs-string">&quot;limit&quot;</span> <span class="hljs-keyword">to</span> limit,                <span class="hljs-string">&quot;skip&quot;</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">skip</span>,                <span class="hljs-string">&quot;order&quot;</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">order</span>,                <span class="hljs-string">&quot;adult&quot;</span> <span class="hljs-keyword">to</span> <span class="hljs-string">&quot;false&quot;</span>,                <span class="hljs-string">&quot;first&quot;</span> <span class="hljs-keyword">to</span> <span class="hljs-string">&quot;0&quot;</span>)</code></pre><p>主页获取壁纸图片 GET方式获取<br><a href="http://service.aibizhi.adesk.com/v3/homepage">http://service.aibizhi.adesk.com/v3/homepage</a> </p><p>例如：<br><a href="http://service.aibizhi.adesk.com/v3/homepage?limit=30&amp;adult=false&amp;did=867919026491418&amp;first=1&amp;order=hot">http://service.aibizhi.adesk.com/v3/homepage?limit=30&amp;adult=false&amp;did=867919026491418&amp;first=1&amp;order=hot</a></p><p>最新<br><a href="http://service.aibizhi.adesk.com/v1/vertical/vertical?limit=30&amp;adult=false&amp;first=1&amp;order=new">http://service.aibizhi.adesk.com/v1/vertical/vertical?limit=30&amp;adult=false&amp;first=1&amp;order=new</a></p><p>album<br><a href="http://service.aibizhi.adesk.com/v1/wallpaper/album/50b2e4de0a2ae035e5d7139b/wallpaper?limit=30&amp;adult=false&amp;first=1&amp;order=new">http://service.aibizhi.adesk.com/v1/wallpaper/album/50b2e4de0a2ae035e5d7139b/wallpaper?limit=30&amp;adult=false&amp;first=1&amp;order=new</a></p><p>热门<br><a href="http://service.aibizhi.adesk.com/v3/wallpaper?limit=30&amp;adult=false&amp;first=1&amp;order=hot">http://service.aibizhi.adesk.com/v3/wallpaper?limit=30&amp;adult=false&amp;first=1&amp;order=hot</a></p><p>分类<br><a href="http://service.aibizhi.adesk.com/v1/wallpaper/category?adult=false&amp;first=1">http://service.aibizhi.adesk.com/v1/wallpaper/category?adult=false&amp;first=1</a></p><p><a href="http://service.aibizhi.adesk.com/v1/vertical/category/4e4d610cdf714d2966000000/vertical?limit=10&amp;adult=false&amp;first=1&amp;order=new">http://service.aibizhi.adesk.com/v1/vertical/category/4e4d610cdf714d2966000000/vertical?limit=10&amp;adult=false&amp;first=1&amp;order=new</a></p><p>返回的数据类型如下</p><pre><code class="hljs json">&#123;    <span class="hljs-attr">&quot;msg&quot;</span>: <span class="hljs-string">&quot;success&quot;</span>,    <span class="hljs-attr">&quot;res&quot;</span>: &#123;        <span class="hljs-attr">&quot;ads&quot;</span>: [],        <span class="hljs-attr">&quot;vertical&quot;</span>: [            &#123;                <span class="hljs-attr">&quot;views&quot;</span>: <span class="hljs-number">0</span>,                <span class="hljs-attr">&quot;ncos&quot;</span>: <span class="hljs-number">0</span>,                <span class="hljs-attr">&quot;rank&quot;</span>: <span class="hljs-number">6</span>,                <span class="hljs-attr">&quot;tag&quot;</span>: [],                <span class="hljs-attr">&quot;wp&quot;</span>: <span class="hljs-string">&quot;http://img.aibizhi.adesk.com/5acb3d44e7bce73542df002d&quot;</span>,                <span class="hljs-attr">&quot;xr&quot;</span>: <span class="hljs-literal">false</span>,                <span class="hljs-attr">&quot;cr&quot;</span>: <span class="hljs-literal">false</span>,                <span class="hljs-attr">&quot;favs&quot;</span>: <span class="hljs-number">6</span>,                <span class="hljs-attr">&quot;atime&quot;</span>: <span class="hljs-number">1524575403</span>,                <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;5acb3d44e7bce73542df002d&quot;</span>,                <span class="hljs-attr">&quot;desc&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,                <span class="hljs-attr">&quot;thumb&quot;</span>: <span class="hljs-string">&quot;http://img.aibizhi.adesk.com/5acb3d44e7bce73542df002d?imageMogr2/thumbnail/!350x540r/gravity/Center/crop/350x540&quot;</span>,                <span class="hljs-attr">&quot;img&quot;</span>: <span class="hljs-string">&quot;http://img.aibizhi.adesk.com/5acb3d44e7bce73542df002d?imageMogr2/thumbnail/!720x1280r/gravity/Center/crop/720x1280&quot;</span>,                <span class="hljs-attr">&quot;cid&quot;</span>: [                    <span class="hljs-string">&quot;4e4d610cdf714d2966000002&quot;</span>                ],                <span class="hljs-attr">&quot;url&quot;</span>: [],                <span class="hljs-attr">&quot;rule&quot;</span>: <span class="hljs-string">&quot;?imageMogr2/thumbnail/!$&lt;Width&gt;x$&lt;Height&gt;r/gravity/Center/crop/$&lt;Width&gt;x$&lt;Height&gt;&quot;</span>,                <span class="hljs-attr">&quot;preview&quot;</span>: <span class="hljs-string">&quot;http://img.aibizhi.adesk.com/5acb3d44e7bce73542df002d&quot;</span>,                <span class="hljs-attr">&quot;store&quot;</span>: <span class="hljs-string">&quot;qiniu&quot;</span>            &#125;        ]    &#125;,    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">0</span>&#125;</code></pre><p>具体实现效果见<a href="https://github.com/caiyonglong/WallPaperApp">WallpaperAPP</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>接口</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>api</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Youtube api</title>
+    <link href="/posts/827e1383.html"/>
+    <url>/posts/827e1383.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="YouTube-Data-API-分析"><a href="#YouTube-Data-API-分析" class="headerlink" title="YouTube Data API 分析"></a>YouTube Data API 分析</h1><p>最近在对Youtube的开放api进行一些调研和分析，为了有了个更深的印象，所以总结一下，写得不好，欢迎指正！</p><p>对于获取数据有两种方式</p><ul><li>自己拼接请求地址，然后请求数据，</li><li>使用官方的jar，来实现<br>参考文档</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>接口</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>api</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>hexo常用命令</title>
+    <link href="/posts/33f59116.html"/>
+    <url>/posts/33f59116.html</url>
+    
+    <content type="html"><![CDATA[<span id="more"></span><h2 id="hexo常用命令"><a href="#hexo常用命令" class="headerlink" title="hexo常用命令"></a>hexo常用命令</h2><p><a href="http://www.jianshu.com/p/465830080ea9">使用hexo+github搭建属于自己的博客</a></p><h4 id="1、新建"><a href="#1、新建" class="headerlink" title="1、新建"></a>1、新建</h4><pre><code class="hljs java">hexo <span class="hljs-keyword">new</span> <span class="hljs-string">&quot;my blog&quot;</span>hexo n &quot;my blog&quot; #缩写</code></pre><p>新建一篇文章，文章标题如果存在空格，需要使用双引号,新建的文件在 hexo/source/_posts/my-blog.md</p><h4 id="2、编译"><a href="#2、编译" class="headerlink" title="2、编译"></a>2、编译</h4><pre><code class="hljs java">hexo generatehexo g #缩写</code></pre><p>一般部署上去的时候都需要编译一下，编译后，会出现一个 public 文件夹，将所有的md文件编译成html文件</p><h4 id="3、开启本地服务"><a href="#3、开启本地服务" class="headerlink" title="3、开启本地服务"></a>3、开启本地服务</h4><pre><code class="hljs java">hexo serverhexo s #缩写</code></pre><p>开启本地hexo服务,访问 localhost:4000</p><h4 id="4、部署"><a href="#4、部署" class="headerlink" title="4、部署"></a>4、部署</h4><pre><code class="hljs java">hexo deployhexo d #缩写</code></pre><p>部署到git上的时候，需要用这个命令</p><h4 id="5、清除"><a href="#5、清除" class="headerlink" title="5、清除"></a>5、清除</h4><pre><code class="hljs java">hexo cleanhexo c #缩写</code></pre><p>当 source 文件夹中的部分资源更改过之后，特别是对文件进行了删除或者路径的改变之后，需要执行这个命令，然后重新编译。</p><h4 id="6、常用总结"><a href="#6、常用总结" class="headerlink" title="6、常用总结"></a>6、常用总结</h4><pre><code class="hljs java">hexo n #写文章hexo g #生成hexo s #开启本地服务hexo d #部署 #可与hexo g合并为 hexo d -g</code></pre><p>以上都是一些常用的命令，命令详细请访问<a href="https://hexo.io/docs/commands.html">官网</a></p><h1 id="indigo样式修改"><a href="#indigo样式修改" class="headerlink" title="indigo样式修改"></a>indigo样式修改</h1><p>修改文章页面卡片宽 将 contentWidth的原始值960px改为90%</p><pre><code class="hljs awk">..<span class="hljs-regexp">/themes/i</span>ndigo<span class="hljs-regexp">/source/</span>css<span class="hljs-regexp">/_partial/</span>variable.less</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>博客</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>hexo</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>

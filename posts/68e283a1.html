@@ -1,0 +1,641 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" type="image/png" href="/img/favicon.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="这就是一个简单的描述">
+  <meta name="author" content="caiyonglong">
+  <meta name="keywords" content="">
+  <title>音频焦点管理 - caiyonglong&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Yonglong</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2018-04-24 10:04" pubdate>
+      2018年4月24日 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">音频焦点管理</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>#前言<br>随着Android版本的升级，以前用的一些api都提过时，项目中使用<br>AudioFocusRequest 顾名思义是一个音频焦点请求类。</p>
+<p>一个封装音频焦点请求信息的类,AudioFocusRequest通过Builder实例化，有两个方法requestAudioFocus和abandonAudioFocusRequest。</p>
+<p>#什么是焦点请求？</p>
+<p>音频焦点是API 8中引入的一个概念。它主要作用于用户在同一个时刻只能关注单个音频流，例如，不能在同一时间听音乐或广播。在某些情况下，可以同时播放多个音频流，但只有一个用户会真正听到（关注），而其他的是背景音。例如在驾驶时正在说话，低音量播放音乐。（又称为低音）。</p>
+<p>当应用程序请求音频焦点时，它表示它有意“拥有”音频焦点播放音频。我们来回顾一下不同类型的焦点请求，请求后的返回值，以及对损失的回应。</p>
+<p>注意：在授予焦点之前，应用程序不应播放任何内容。</p>
+<h3 id="不同类型的焦点请求"><a href="#不同类型的焦点请求" class="headerlink" title="不同类型的焦点请求"></a>不同类型的焦点请求</h3><ul>
+<li><p>AUDIOFOCUS_GAIN：用于指示音频焦点的增益或未知持续时间的音频焦点请求。</p>
+</li>
+<li><p>AUDIOFOCUS_GAIN_TRANSIENT：用于指示临时增益或音频焦点请求，预计持续时间短</p>
+</li>
+<li><p>AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK：用于指示音频焦点的临时请求，预计持续时间较短时间量，以及其他音频应用程序可以继续播放的位置降低产出水平后（也称为“回避”）。临时改变的例子是回放音乐播放的行车路线在后台是可以接受的。</p>
+</li>
+<li><p>AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE：用于指示音频焦点的临时请求，预计持续时间较短，没有其他应用程序或系统组件应该播放的时间量、任何东西。 独占和瞬态音频焦点请求的例子是语音、备忘记录和语音识别，在此期间系统不应该播放任何内容通知，媒体播放应暂停。</p>
+</li>
+<li><p>AUDIOFOCUS_LOSS：用于指示未知持续时间的音频焦点丢失。</p>
+</li>
+<li><p>AUDIOFOCUS_LOSS_TRANSIENT：用于指示音频焦点的瞬时丢失。</p>
+</li>
+<li><p>AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK：用于指示音频焦点的失败者可能发生的音频焦点的瞬时丢失，如果它想继续播放（也称为“躲避”），则降低其输出音量，新的焦点所有者不需要其他人保持沉默。</p>
+</li>
+</ul>
+<pre><code class="hljs php"><span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * Used to indicate no audio focus has been gained or lost, or requested.</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_NONE = <span class="hljs-number">0</span>;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * Used to indicate a gain of audio focus, or a request of audio focus, of unknown duration.</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@see</span> #requestAudioFocus(OnAudioFocusChangeListener, int, int)</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_GAIN = <span class="hljs-number">1</span>;
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * Used to indicate a temporary gain or request of audio focus, anticipated to last a short</span>
+<span class="hljs-comment">    * amount of time. Examples of temporary changes are the playback of driving directions, or an</span>
+<span class="hljs-comment">    * event notification.</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@see</span> #requestAudioFocus(OnAudioFocusChangeListener, int, int)</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_GAIN_TRANSIENT = <span class="hljs-number">2</span>;
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * Used to indicate a temporary request of audio focus, anticipated to last a short</span>
+<span class="hljs-comment">    * amount of time, and where it is acceptable for other audio applications to keep playing</span>
+<span class="hljs-comment">    * after having lowered their output level (also referred to as &quot;ducking&quot;).</span>
+<span class="hljs-comment">    * Examples of temporary changes are the playback of driving directions where playback of music</span>
+<span class="hljs-comment">    * in the background is acceptable.</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@see</span> #requestAudioFocus(OnAudioFocusChangeListener, int, int)</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK = <span class="hljs-number">3</span>;
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * Used to indicate a temporary request of audio focus, anticipated to last a short</span>
+<span class="hljs-comment">    * amount of time, during which no other applications, or system components, should play</span>
+<span class="hljs-comment">    * anything. Examples of exclusive and transient audio focus requests are voice</span>
+<span class="hljs-comment">    * memo recording and speech recognition, during which the system shouldn&#x27;t play any</span>
+<span class="hljs-comment">    * notifications, and media playback should have paused.</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@see</span> #requestAudioFocus(OnAudioFocusChangeListener, int, int)</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE = <span class="hljs-number">4</span>;
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * Used to indicate a loss of audio focus of unknown duration.</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_LOSS = <span class="hljs-number">-1</span> * AUDIOFOCUS_GAIN;
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * Used to indicate a transient loss of audio focus.</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_LOSS_TRANSIENT = <span class="hljs-number">-1</span> * AUDIOFOCUS_GAIN_TRANSIENT;
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * Used to indicate a transient loss of audio focus where the loser of the audio focus can</span>
+<span class="hljs-comment">    * lower its output volume if it wants to continue playing (also referred to as &quot;ducking&quot;), as</span>
+<span class="hljs-comment">    * the new focus owner doesn&#x27;t require others to be silent.</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK =
+           <span class="hljs-number">-1</span> * AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK;</code></pre>
+
+
+
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>初始化audio focus request</p>
+<pre><code class="hljs reasonml">mAudioManager = (AudioManager) <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Context</span>.</span></span>get<span class="hljs-constructor">SystemService(Context.AUDIO_SERVICE)</span>;
+mPlaybackAttributes = <span class="hljs-keyword">new</span> AudioAttributes.<span class="hljs-constructor">Builder()</span>
+        .set<span class="hljs-constructor">Usage(AudioAttributes.USAGE_MEDIA)</span>
+        .set<span class="hljs-constructor">ContentType(AudioAttributes.CONTENT_TYPE_SPEECH)</span>
+        .build<span class="hljs-literal">()</span>;
+mFocusRequest = <span class="hljs-keyword">new</span> AudioFocusRequest.<span class="hljs-constructor">Builder(AudioManager.AUDIOFOCUS_GAIN)</span>
+        .set<span class="hljs-constructor">AudioAttributes(<span class="hljs-params">mPlaybackAttributes</span>)</span>
+        .set<span class="hljs-constructor">AcceptsDelayedFocusGain(<span class="hljs-params">true</span>)</span>
+        .set<span class="hljs-constructor">WillPauseWhenDucked(<span class="hljs-params">true</span>)</span>
+        .set<span class="hljs-constructor">OnAudioFocusChangeListener(<span class="hljs-params">this</span>, <span class="hljs-params">mMyHandler</span>)</span>
+        .build<span class="hljs-literal">()</span>;
+mMediaPlayer = <span class="hljs-keyword">new</span> <span class="hljs-constructor">MediaPlayer()</span>;
+mMediaPlayer.set<span class="hljs-constructor">AudioAttributes(<span class="hljs-params">mPlaybackAttributes</span>)</span>;
+final Object mFocusLock = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Object()</span>;
+     
+boolean mPlaybackDelayed = <span class="hljs-literal">false</span>;
+
+<span class="hljs-comment">// requesting audio focus</span>
+<span class="hljs-built_in">int</span> res = mAudioManager.request<span class="hljs-constructor">AudioFocus(<span class="hljs-params">mFocusRequest</span>)</span>;
+synchronized (mFocusLock) &#123;
+    <span class="hljs-keyword">if</span> (res<span class="hljs-operator"> == </span>AUDIOFOCUS_REQUEST_FAILED) &#123;
+        mPlaybackDelayed = <span class="hljs-literal">false</span>;
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (res<span class="hljs-operator"> == </span>AUDIOFOCUS_REQUEST_GRANTED) &#123;
+        mPlaybackDelayed = <span class="hljs-literal">false</span>;
+        playback<span class="hljs-constructor">Now()</span>;
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (res<span class="hljs-operator"> == </span>AUDIOFOCUS_REQUEST_DELAYED) &#123;
+       mPlaybackDelayed = <span class="hljs-literal">true</span>;
+    &#125;
+&#125;</code></pre>
+<p>实现音频焦点监听，OnAudioFocusChangeListener</p>
+<pre><code class="hljs d">&amp;#<span class="hljs-number">64</span>;Override
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> onAudioFocusChange(<span class="hljs-keyword">int</span> focusChange) &#123;
+    <span class="hljs-keyword">switch</span> (focusChange) &#123;
+        <span class="hljs-keyword">case</span> AudioManager.AUDIOFOCUS_GAIN:
+            <span class="hljs-keyword">if</span> (mPlaybackDelayed || mResumeOnFocusGain) &#123;
+                <span class="hljs-keyword">synchronized</span> (mFocusLock) &#123;
+                    mPlaybackDelayed = <span class="hljs-literal">false</span>;
+                    mResumeOnFocusGain = <span class="hljs-literal">false</span>;
+                &#125;
+                playbackNow();
+            &#125;
+            <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">case</span> AudioManager.AUDIOFOCUS_LOSS:
+            <span class="hljs-keyword">synchronized</span> (mFocusLock) &#123;
+                <span class="hljs-comment">// 长久失去音频焦点，停止播放</span>
+                mResumeOnFocusGain = <span class="hljs-literal">false</span>;
+                mPlaybackDelayed = <span class="hljs-literal">false</span>;
+            &#125;
+            pausePlayback();
+            <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">case</span> AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+        <span class="hljs-keyword">case</span> AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+            <span class="hljs-comment">// 我们以同样的方式处理所有短暂的损失，因为我们从不聆听有声书</span>
+            <span class="hljs-keyword">synchronized</span> (mFocusLock) &#123;
+                <span class="hljs-comment">// we should only resume if playback was interrupted</span>
+                mResumeOnFocusGain = mMediaPlayer.isPlaying();
+                mPlaybackDelayed = <span class="hljs-literal">false</span>;
+            &#125;
+            pausePlayback();
+            <span class="hljs-keyword">break</span>;
+    &#125;
+&#125;</code></pre>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android/">Android</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a>
+                    
+                      <a class="hover-with-bg" href="/tags/AudioFocus/">AudioFocus</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/2d016662.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Flutter 学习</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/c8d0539d.html">
+                        <span class="hidden-mobile">总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">湘ICP备19015354号</a>
+    
+      <a
+        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=19015354"
+        rel="nofollow noopener"
+        class="beian-police"
+        target="_blank"
+      >
+        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
+        
+          <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
+        
+        <span>湘ICP备19015354号-1</span>
+      </a>
+     
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "音频焦点管理&nbsp;",
+      ],
+      cursorChar: "*",
+      typeSpeed: 100,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

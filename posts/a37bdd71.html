@@ -1,0 +1,541 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" type="image/png" href="/img/favicon.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="这就是一个简单的描述">
+  <meta name="author" content="caiyonglong">
+  <meta name="keywords" content="">
+  <title>Android 源码Launcher模块分析 - caiyonglong&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Yonglong</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2017-12-13 14:00" pubdate>
+      2017年12月13日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Android 源码Launcher模块分析</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="提纲"><a href="#提纲" class="headerlink" title="提纲"></a>提纲</h2><p>1.什么是Launcher ,Launcher2 和 Launcher3的区别</p>
+<p>2.Android 开机启动到Launcher运行的主要流程</p>
+<p>3.Launcher 主要类介绍</p>
+<p>4.Launcher 主要布局xml介绍</p>
+<p>5.Launcher 一般主要需修改的地方</p>
+<p>6.Launcher 动画，widget等</p>
+<p>7.Launcher 主菜单界面UI</p>
+<h2 id="Launcher启动的主要流程"><a href="#Launcher启动的主要流程" class="headerlink" title="Launcher启动的主要流程"></a>Launcher启动的主要流程</h2><p>手机开机-&gt;init进程-&gt;zygote进程-&gt;SystemServer-&gt;ActivityManagerService<br>-&gt;Launcher</p>
+<p>init进程:</p>
+<p>1.创建一些文件夹并挂载设备<br>2.初始化和启动属性服务<br>3.解析init.rc配置文件并启动zygote进程</p>
+<p>初始化init进程<br>system/core/init/init.cpp<br>启动zygote进程<br>system/core/rootdir/root.rc<br>{import /init.${ro.zygote}.rc}<br>不同的平台（32、64及64_32）<br>system/core/rootdir/init.zygote64.rc</p>
+<p>zygote进程:<br>zygote 进程在初始化时会启动虚拟机，并加载一些系统资源。<br>这样 zygote fork 出子进程后，子进程也继承了能正常工作的虚拟机和各种系统资源，<br>接下来只需装载 apk 文件的字节码就可以运行应用程序了，可以大大缩短应用的启动时间，<br>这就是 zygote 进程的主要作用。</p>
+<p>SystemServer：<br>1.启动Binder线程池，这样就可以与其他进程进行通信。<br>2.创建SystemServiceManager用于对系统的服务进行创建、启动和生命周期管理。<br>3.启动各种系统服务。</p>
+<p>Launcher<br>Launcher启动</p>
+<p>1.Launcher.java:launcher中主要的activity。系统第一个启动的应用程序,在AndroidManifest.xml中定义了<category android:name="android.intent.category.HOME" /></p>
+<p>2.LauncherApplication.java:应用程序全局初始化类,创建全局使用的应用程序缓存器Iconcache，创建全局使用的数据库加载类LauncherModel，注册事件监听器，注册数据库变化监听器</p>
+<p>(在AndroidManifest.xml定义的Application)</p>
+<p>3.IconCache.java:应用程序缓存器,通过一个HashMap&lt;ComponentName,CacheEntry&gt; mcache来缓存应用程序信息。内部类CachEntry对应存储应用程序的基本信息。makeDefaultIcon来创建默认的应用程序图标</p>
+<p>4.LauncherModel.java:模型文件,封装了对数据库的操作。包含几个线程，加载所有应用程序和workspace的时候使用(loadAndBindAllApps，loadAndBindWorkspace)。其他的函数就是对数据库的封装，接口Callbacks提供加载程序和快捷方式的抽象方法。</p>
+<p>5.LauncherProvider.java:launcher的数据库，里面存储了桌面的item的信息。在创建数据库的时候会调用loadFavorites(db)方法，解析xml目录下的default_workspace.xml文件，把其中的内容读出来写到数据库中，这样就得到了默认桌面的配置。</p>
+<p>6.ItemInfo.java:对item的抽象，所有类型item的父类，item包含的属性有id（标识item的id）,cellX(在横向位置上的位置，从0开始),cellY（在纵向位置上的位置，从0开始） ,spanX（在横向位置上所占的单位格）,spanY（在纵向位置上所占的单位格）,screen（在workspace的第几屏，从0开始）,itemType（4种item类型，有widget，user_folder，application，shortcut）,container（三种item存放的地方desktop,application,user_folder）。</p>
+<p>7.Workspace.java:抽象的桌面。由N个cellLayout组成, 从cellLayout更高一级的层面上对事件的处理。Launcher.java中通过bindItems添加cellLayout.实现了DropTarget, DragSource, DragScroller。既是拖拽源，又是拖拽目的地，还可以左右拖动。</p>
+<p>8.CellLayout.java：桌面的某一屏。是组成workspace的view,被划分成4X4的cell空间，用boolean[][]mOccupied来标识每个cell是否被占用.</p>
+<p>9.AllApp2D.java:显示和存储应用程序列表的视图。。android自带的AllApp2D包括一个GridView和一个HomeButton，MTK修改成PagerControl，HorizontalPager和4个imageview。</p>
+<p>10.HorizontalPager.java:AllApp2D中间的网格控件。由N个GridView组成,AllApps2D.java中通过addGridView添加GridView。</p>
+<p>11.DeleteZone.java:删除框。在平时是出于隐藏状态，在将item长按拖动的时候会显示出来，如果将item拖动到删除框位置时会删除item。DeleteZone实现了DropTarget和DragListener两个接口。</p>
+<ol start="12">
+<li><p>DragLayer.java:launcher.xml的rootview。DragLayer实际上也是一个抽象的界面，用来处理拖动和对事件进行初步处理然后按情况分发下去，角色是一个DragController。它首先用onInterceptTouchEvent(MotionEvent)来拦截所有的touch事件，如果是长按item拖动的话不把事件传下去，直接交由onTouchEvent()处理，这样就可以实现item的移动了，如果不是拖动item的话就把事件传到目标view，交有目标view的事件处理函数做相应处理。</p>
+</li>
+<li><p>DragController.java:为拖拽定义的一个接口。包含一个接口,一个方法和两个静态常量。</p>
+</li>
+</ol>
+<p>接口为DragListener（包含onDragStart()，onDragEnd()两个函数）,</p>
+<p>onDragStart()是在刚开始拖动的时候被调用，</p>
+<p>onDragEnd()是在拖动完成时被调用。</p>
+<p>在launcher中典型的应用是DeleteZone，在长按拖动item时调用onDragStart()显示，在拖动结束的时候调用onDragEnd()隐藏。</p>
+<p>一个函数包括用于在拖动是传递要拖动的item的信息以及拖动的方式</p>
+<p>两个常量为DRAG_ACTION_MOVE，DRAG_ACTION_COPY来标识拖动的方式，DRAG_ACTION_MOVE为移动，表示在拖动的时候需要删除原来的item，</p>
+<p>DRAG_ACTION_COPY为复制型的拖动，表示保留被拖动的item。</p>
+<p>14.UserFolder.java: 用户创建的文件夹。实现了DropTarget，是拖拽目的地，可以将item拖进文件夹，单击时打开文件夹，暂不能处可以重命名文件夹。</p>
+<p>15.LiveFolder.java:系统自带的文件夹。从系统中创建出的所有联系人的文件夹等。 </p>
+<p>16.AddAdapter.java:长按桌面弹出的”添加到主屏幕”对话框所对应的适配器。。 </p>
+<p>17.ShortcutAdapter.java:添加快捷方式的对话框所对应的适配器 </p>
+<p>18.LauncherSettings.java:数据库项的字符串定义，</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android/">Android</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Launcher/">Launcher</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">WallpaperPicker分析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/f1601c3e.html">
+                        <span class="hidden-mobile">单例模式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
+       rel="nofollow noopener">湘ICP备19015354号</a>
+    
+      <a
+        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=19015354"
+        rel="nofollow noopener"
+        class="beian-police"
+        target="_blank"
+      >
+        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
+        
+          <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
+        
+        <span>湘ICP备19015354号-1</span>
+      </a>
+     
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Android 源码Launcher模块分析&nbsp;",
+      ],
+      cursorChar: "*",
+      typeSpeed: 100,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
