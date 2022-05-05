@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 
 
 <body>
@@ -221,9 +221,9 @@
 <p>当应用程序请求音频焦点时，它表示它有意“拥有”音频焦点播放音频。我们来回顾一下不同类型的焦点请求，请求后的返回值，以及对损失的回应。</p>
 <p>注意：在授予焦点之前，应用程序不应播放任何内容。</p>
 <h3 id="不同类型的焦点请求"><a href="#不同类型的焦点请求" class="headerlink" title="不同类型的焦点请求"></a>不同类型的焦点请求</h3><ul>
-<li><p>AUDIOFOCUS_GAIN：用于指示音频焦点的增益或未知持续时间的音频焦点请求。</p>
+<li><p> AUDIOFOCUS_GAIN：用于指示音频焦点的增益或未知持续时间的音频焦点请求。</p>
 </li>
-<li><p>AUDIOFOCUS_GAIN_TRANSIENT：用于指示临时增益或音频焦点请求，预计持续时间短</p>
+<li><p> AUDIOFOCUS_GAIN_TRANSIENT：用于指示临时增益或音频焦点请求，预计持续时间短</p>
 </li>
 <li><p>AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK：用于指示音频焦点的临时请求，预计持续时间较短时间量，以及其他音频应用程序可以继续播放的位置降低产出水平后（也称为“回避”）。临时改变的例子是回放音乐播放的行车路线在后台是可以接受的。</p>
 </li>
@@ -278,12 +278,12 @@
 <span class="hljs-comment">    * Used to indicate a loss of audio focus of unknown duration.</span>
 <span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span>
 <span class="hljs-comment">    */</span>
-   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_LOSS = <span class="hljs-number">-1</span> * AUDIOFOCUS_GAIN;
+   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_LOSS = -<span class="hljs-number">1</span> * AUDIOFOCUS_GAIN;
    <span class="hljs-comment">/**</span>
 <span class="hljs-comment">    * Used to indicate a transient loss of audio focus.</span>
 <span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span>
 <span class="hljs-comment">    */</span>
-   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_LOSS_TRANSIENT = <span class="hljs-number">-1</span> * AUDIOFOCUS_GAIN_TRANSIENT;
+   <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_LOSS_TRANSIENT = -<span class="hljs-number">1</span> * AUDIOFOCUS_GAIN_TRANSIENT;
    <span class="hljs-comment">/**</span>
 <span class="hljs-comment">    * Used to indicate a transient loss of audio focus where the loser of the audio focus can</span>
 <span class="hljs-comment">    * lower its output volume if it wants to continue playing (also referred to as &quot;ducking&quot;), as</span>
@@ -291,7 +291,7 @@
 <span class="hljs-comment">    * <span class="hljs-doctag">@see</span> OnAudioFocusChangeListener#onAudioFocusChange(int)</span>
 <span class="hljs-comment">    */</span>
    <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK =
-           <span class="hljs-number">-1</span> * AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK;</code></pre>
+           -<span class="hljs-number">1</span> * AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK;</code></pre>
 
 
 

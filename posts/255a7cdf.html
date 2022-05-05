@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 
 
 <body>
@@ -220,7 +220,7 @@
 <p>只有全屏不透明的活动才能请求方向.主要是manifest中定义了android:screenOrientation=”portrait” 和设置半透明主题导致。</p>
 <p>3、使用Rxbus时，退出Activity。然后从通知栏进入程序崩溃。</p>
 <p>4、Retrofit gson解析数据QQ音乐歌词数据时，抛出异常，因为返回的数据不是一个完整的json数据。</p>
-<pre><code class="hljs sql">io.reactivex.exceptions.OnErrorNotImplementedException: <span class="hljs-keyword">Use</span> JsonReader.setLenient(<span class="hljs-literal">true</span>) <span class="hljs-keyword">to</span> <span class="hljs-keyword">accept</span> malformed <span class="hljs-keyword">JSON</span> <span class="hljs-keyword">at</span> line <span class="hljs-number">1</span> <span class="hljs-keyword">column</span> <span class="hljs-number">1</span> <span class="hljs-keyword">path</span> $
+<pre><code class="hljs reasonml">io.reactivex.exceptions.OnErrorNotImplementedException: Use <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">JsonReader</span>.</span></span>set<span class="hljs-constructor">Lenient(<span class="hljs-params">true</span>)</span> <span class="hljs-keyword">to</span> accept malformed JSON at line <span class="hljs-number">1</span> column <span class="hljs-number">1</span> path $
 ....</code></pre>
 <p>返回数据格式jsonp格式：MusicJsonCallback({…})。<br>通过下面的解决方法，不会抛出异常。但是获得的String 数据只有MusicJsonCallback( .这部分<br>重要部分不知道去哪了…</p>
 <pre><code class="hljs reasonml">Gson gson = <span class="hljs-keyword">new</span> <span class="hljs-constructor">GsonBuilder()</span>
@@ -288,34 +288,34 @@ player.set<span class="hljs-constructor">OnBufferingUpdateListener(<span class="
 <p>原因分析：<br>在LrcView中,因为调用了requestDisallowInterceptTouchEvent来区分左右滑动和上下滑动，<br>所以会导致父类的view多点触摸有些情况下会出现数组溢出的情况.<br>解决办法</p>
 <ul>
 <li>利用try{}catch(){}抛出异常</li>
-<li>重写ViewPager中的onTouchEvent 和onInterceptTouchEvent。<pre><code class="hljs aspectj"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MultiTouchViewPager</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ViewPager</span> </span>&#123;
+<li>重写ViewPager中的onTouchEvent 和onInterceptTouchEvent。<pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MultiTouchViewPager</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ViewPager</span> </span>&#123;
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MultiTouchViewPager</span><span class="hljs-params">(Context context)</span> </span>&#123;
-        <span class="hljs-keyword">super</span>(context);
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-title">MultiTouchViewPager</span>(<span class="hljs-params">Context context</span>)</span> &#123;
+        <span class="hljs-built_in">super</span>(context);
     &#125;
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MultiTouchViewPager</span><span class="hljs-params">(Context context, AttributeSet attrs)</span> </span>&#123;
-        <span class="hljs-keyword">super</span>(context, attrs);
-    &#125;
-
-    <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">onTouchEvent</span><span class="hljs-params">(MotionEvent ev)</span> </span>&#123;
-        <span class="hljs-keyword">try</span> &#123;
-            <span class="hljs-function"><span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.<span class="hljs-title">onTouchEvent</span><span class="hljs-params">(ev)</span></span>;
-        &#125; <span class="hljs-keyword">catch</span> (IllegalArgumentException ex) &#123;
-            ex.printStackTrace();
-        &#125;
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-title">MultiTouchViewPager</span>(<span class="hljs-params">Context context, AttributeSet attrs</span>)</span> &#123;
+        <span class="hljs-built_in">super</span>(context, attrs);
     &#125;
 
     <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">onInterceptTouchEvent</span><span class="hljs-params">(MotionEvent ev)</span> </span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">boolean</span> <span class="hljs-function"><span class="hljs-title">onTouchEvent</span>(<span class="hljs-params">MotionEvent ev</span>)</span> &#123;
         <span class="hljs-keyword">try</span> &#123;
-            <span class="hljs-function"><span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.<span class="hljs-title">onInterceptTouchEvent</span><span class="hljs-params">(ev)</span></span>;
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.onTouchEvent(ev);
         &#125; <span class="hljs-keyword">catch</span> (IllegalArgumentException ex) &#123;
             ex.printStackTrace();
         &#125;
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">boolean</span> <span class="hljs-function"><span class="hljs-title">onInterceptTouchEvent</span>(<span class="hljs-params">MotionEvent ev</span>)</span> &#123;
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.onInterceptTouchEvent(ev);
+        &#125; <span class="hljs-keyword">catch</span> (IllegalArgumentException ex) &#123;
+            ex.printStackTrace();
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
     &#125;
 &#125;</code></pre>
 
@@ -340,7 +340,8 @@ player.set<span class="hljs-constructor">OnBufferingUpdateListener(<span class="
 
      width = size.x;
 
-     height = size.y;</code></pre>
+     height = size.y;
+</code></pre>
 
             </div>
             <hr>

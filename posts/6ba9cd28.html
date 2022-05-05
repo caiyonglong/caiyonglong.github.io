@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 
 
 <body>
@@ -217,13 +217,13 @@
               <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>EventBus是适用于Android和Java的发布/订阅事件总线。<br><img src="/images/EventBus-Publish-Subscribe.png" srcset="/img/loading.gif"></p>
 <p>1、定义事件<br>2、准备订阅者，声明并注释订阅方法，也可以指定线程模式<br>注册和注销订阅者<br>3、发送事件</p>
 <h1 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h1><p>注册方法，Eventbus实例注册订阅者事件</p>
-<pre><code class="hljs aspectj"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">register</span><span class="hljs-params">(Object subscriber)</span> </span>&#123;
+<pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">register</span>(<span class="hljs-params"><span class="hljs-built_in">Object</span> subscriber</span>)</span> &#123;
         <span class="hljs-comment">//获取注册的对象的类型</span>
         Class&lt;?&gt; subscriberClass = subscriber.getClass();
         <span class="hljs-comment">//查找并获取注册的对象的订阅方法</span>
         List&lt;SubscriberMethod&gt; subscriberMethods = subscriberMethodFinder.findSubscriberMethods(subscriberClass);
         <span class="hljs-comment">//加锁，在同步锁中订阅方法</span>
-        <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;
+        synchronized (<span class="hljs-built_in">this</span>) &#123;
             <span class="hljs-keyword">for</span> (SubscriberMethod subscriberMethod : subscriberMethods) &#123;
                 <span class="hljs-comment">//对订阅方法进行注册</span>
                 subscribe(subscriber, subscriberMethod);
@@ -232,24 +232,24 @@
     &#125;</code></pre>
 
 <p>查找订阅者的订阅方法，METHOD_CACHE方法缓存，使用ConcurrentHashMap存储</p>
-<pre><code class="hljs php"><span class="hljs-keyword">List</span>&lt;SubscriberMethod&gt; findSubscriberMethods(<span class="hljs-class"><span class="hljs-keyword">Class</span>&lt;?&gt; <span class="hljs-title">subscriberClass</span>) </span>&#123;
+<pre><code class="hljs arduino"><span class="hljs-function">List&lt;SubscriberMethod&gt; <span class="hljs-title">findSubscriberMethods</span><span class="hljs-params">(Class&lt;?&gt; subscriberClass)</span> </span>&#123;
     <span class="hljs-comment">//从缓存中获取订阅方法</span>
-    <span class="hljs-keyword">List</span>&lt;SubscriberMethod&gt; subscriberMethods = METHOD_CACHE.get(subscriberClass);
-    <span class="hljs-keyword">if</span> (subscriberMethods != <span class="hljs-literal">null</span>) &#123;
+    List&lt;SubscriberMethod&gt; subscriberMethods = METHOD_CACHE.<span class="hljs-built_in">get</span>(subscriberClass);
+    <span class="hljs-keyword">if</span> (subscriberMethods != null) &#123;
         <span class="hljs-keyword">return</span> subscriberMethods;
     &#125;
 
     <span class="hljs-comment">//如果缓存中没有，则是否强制使用反射还是使用索引获取订阅方法</span>
     <span class="hljs-keyword">if</span> (ignoreGeneratedIndex) &#123;
-        subscriberMethods = findUsingReflection(subscriberClass);
+        subscriberMethods = <span class="hljs-built_in">findUsingReflection</span>(subscriberClass);
     &#125; <span class="hljs-keyword">else</span> &#123;
-        subscriberMethods = findUsingInfo(subscriberClass);
+        subscriberMethods = <span class="hljs-built_in">findUsingInfo</span>(subscriberClass);
     &#125;
-    <span class="hljs-keyword">if</span> (subscriberMethods.isEmpty()) &#123;
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> EventBusException(<span class="hljs-string">&quot;Subscriber &quot;</span> + subscriberClass
+    <span class="hljs-keyword">if</span> (subscriberMethods.<span class="hljs-built_in">isEmpty</span>()) &#123;
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">EventBusException</span>(<span class="hljs-string">&quot;Subscriber &quot;</span> + subscriberClass
                 + <span class="hljs-string">&quot; and its super classes have no public methods with the @Subscribe annotation&quot;</span>);
     &#125; <span class="hljs-keyword">else</span> &#123;
-        METHOD_CACHE.put(subscriberClass, subscriberMethods);
+        METHOD_CACHE.<span class="hljs-built_in">put</span>(subscriberClass, subscriberMethods);
         <span class="hljs-keyword">return</span> subscriberMethods;
     &#125;
 &#125;</code></pre>

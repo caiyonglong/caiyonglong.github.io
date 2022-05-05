@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 
 
 <body>
@@ -215,35 +215,35 @@
             
             <div class="markdown-body" id="post-body">
               <h1 id="模板方法模式"><a href="#模板方法模式" class="headerlink" title="模板方法模式"></a>模板方法模式</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>定义一个操作中的算法的框架，而将一些步骤延迟到子类中，使子类可以不改面一个算法的结构即可重定义该算法的某些特定步骤。<br>##使用场景<br>1、多个子类有公有方法，并且逻辑基本相同时。<br>2、重要、复杂的算法，可以吧核心算法设计为模板方法，周边的相关细节功能则由各个子类实现。<br>3、重构时，模板方法模式是一个经常使用的模式，把相同的代码抽取带父类中，然后通过钩子函数约束其行为。</p>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.dp.example.templatemethod;
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><pre><code class="hljs typescript">package com.dp.example.templatemethod;
 
 <span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * 抽象的Computer</span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mrsimple</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@author <span class="hljs-variable">mrsimple</span></span></span>
 <span class="hljs-comment"> *</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractComputer</span> </span>&#123;
 
-    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">powerOn</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">protected</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">powerOn</span>(<span class="hljs-params"></span>)</span> &#123;
         System.out.println(<span class="hljs-string">&quot;开启电源&quot;</span>);
     &#125;
 
-    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">checkHardware</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">protected</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">checkHardware</span>(<span class="hljs-params"></span>)</span> &#123;
         System.out.println(<span class="hljs-string">&quot;硬件检查&quot;</span>);
     &#125;
 
-    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">loadOS</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">protected</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">loadOS</span>(<span class="hljs-params"></span>)</span> &#123;
         System.out.println(<span class="hljs-string">&quot;载入操作系统&quot;</span>);
     &#125;
 
-    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">login</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">protected</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">login</span>(<span class="hljs-params"></span>)</span> &#123;
         System.out.println(<span class="hljs-string">&quot;小白的电脑无验证，直接进入系统&quot;</span>);
     &#125;
 
     <span class="hljs-comment">/**</span>
 <span class="hljs-comment">     * 启动电脑方法, 步骤固定为开启电源、系统检查、加载操作系统、用户登录。该方法为final， 防止算法框架被覆写.</span>
 <span class="hljs-comment">     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startUp</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">public</span> final <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">startUp</span>(<span class="hljs-params"></span>)</span> &#123;
         System.out.println(<span class="hljs-string">&quot;------ 开机 START ------&quot;</span>);
         powerOn();
         checkHardware();
@@ -254,48 +254,48 @@
 &#125;
 
 
-<span class="hljs-keyword">package</span> com.dp.example.templatemethod;
+package com.dp.example.templatemethod;
 
 <span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * 码农的计算机</span>
 <span class="hljs-comment"> * </span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mrsimple</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@author <span class="hljs-variable">mrsimple</span></span></span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CoderComputer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractComputer</span> </span>&#123;
     <span class="hljs-meta">@Override</span>
-    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">login</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">protected</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">login</span>(<span class="hljs-params"></span>)</span> &#123;
         System.out.println(<span class="hljs-string">&quot;码农只需要进行用户和密码验证就可以了&quot;</span>);
     &#125;
 &#125;
 
 
-<span class="hljs-keyword">package</span> com.dp.example.templatemethod;
+package com.dp.example.templatemethod;
 
 <span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * 军用计算机</span>
 <span class="hljs-comment"> * </span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mrsimple</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@author <span class="hljs-variable">mrsimple</span></span></span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MilitaryComputer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractComputer</span> </span>&#123;
     
  
     <span class="hljs-meta">@Override</span>
-    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">checkHardware</span><span class="hljs-params">()</span> </span>&#123;
-        <span class="hljs-keyword">super</span>.checkHardware();
+    <span class="hljs-keyword">protected</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">checkHardware</span>(<span class="hljs-params"></span>)</span> &#123;
+        <span class="hljs-built_in">super</span>.checkHardware();
         System.out.println(<span class="hljs-string">&quot;检查硬件防火墙&quot;</span>);
     &#125;
     
     <span class="hljs-meta">@Override</span>
-    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">login</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">protected</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">login</span>(<span class="hljs-params"></span>)</span> &#123;
         System.out.println(<span class="hljs-string">&quot;进行指纹之别等复杂的用户验证&quot;</span>);
     &#125;
 &#125;
 
 
-<span class="hljs-keyword">package</span> com.dp.example.templatemethod;
+package com.dp.example.templatemethod;
 
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">main</span>(<span class="hljs-params"><span class="hljs-built_in">String</span>[] args</span>)</span> &#123;
         AbstractComputer comp = <span class="hljs-keyword">new</span> CoderComputer();
         comp.startUp();
 

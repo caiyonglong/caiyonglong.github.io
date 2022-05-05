@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 
 
 <body>
@@ -220,14 +220,13 @@
 <p>Handler 发送消息，消息存入到消息队列中，然后Looper 循环执行消息队列。</p>
 <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="Handler-为什么会造成内存泄漏"><a href="#Handler-为什么会造成内存泄漏" class="headerlink" title="Handler 为什么会造成内存泄漏"></a>Handler 为什么会造成内存泄漏</h2><p>因为在Activity中，handler内部类引用了它，而该handler实例可能被MessageQueue引用着。比如发送了一个延时消息到队列中，那么就可能在队列中存在很长时间，而消息队列（MessageQueue）的生命周期等于它所在的线程。当大到Activity被finish()了后还在队列中时，就满足了上面的短生命周期引用长生命周期的条件。根据Java GC的规则，Activity的引用计数不为0，故不会回收</p>
 <ul>
-<li><p>解决办法</p>
-<p>  1、保证Activity被finish()时该线程的消息队列没有这个Activity的handler内部类的引用<br>  2、要么让这个handler不持有Activity等外部组件实例，让该Handler成为静态内部类。（静态内部类是不持有外部类的实例的，因而也就调用不了外部的实例方法了）<br>  3、在2方法的基础上，为了能调用外部的实例方法，传递一个外部的弱引用进来</p>
-</li>
+<li>解决办法  1、保证Activity被finish()时该线程的消息队列没有这个Activity的handler内部类的引用<br>  2、要么让这个handler不持有Activity等外部组件实例，让该Handler成为静态内部类。（静态内部类是不持有外部类的实例的，因而也就调用不了外部的实例方法了）<br>  3、在2方法的基础上，为了能调用外部的实例方法，传递一个外部的弱引用进来</li>
 </ul>
 <h2 id="为什么消息Handler能实现跨线程通信"><a href="#为什么消息Handler能实现跨线程通信" class="headerlink" title="为什么消息Handler能实现跨线程通信"></a>为什么消息Handler能实现跨线程通信</h2><h2 id="为什么Looper循环不会导致ANR"><a href="#为什么Looper循环不会导致ANR" class="headerlink" title="为什么Looper循环不会导致ANR"></a>为什么Looper循环不会导致ANR</h2><p>ANR的基本概念</p>
 <pre><code>1：5s内无法响应用户输入事件(例如键盘输入, 触摸屏幕等)
 2：BroadcastReceiver在10s内无法结束
-3：ServiceTimeout(20s) --小概率类型，Service在特定的时间内无法处理完成</code></pre>
+3：ServiceTimeout(20s) --小概率类型，Service在特定的时间内无法处理完成
+</code></pre>
 <p>Android是事件驱动的，在Loop.loop()中不断接收事件、处理事件，而Activity的生命周期都依靠于主线程的Loop.loop()来调度，所以可想而知它的存活周期和Activity也是一致的。当没有事件需要处理时，主线程就会阻塞；当子线程往消息队列发送消息，并且往管道文件写数据时，主线程就被唤醒。</p>
 <p>主线程在没有事件需要处理的时候就是处于阻塞的状态。想让主线程活动起来一般有两种方式：</p>
 <ul>
@@ -239,55 +238,55 @@
 <p>主线程Looper在哪里初始化</p>
 <p>ActivityThread 类里面</p>
 <pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">String</span>[] args)</span> </span>&#123;
-       Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, <span class="hljs-string">&quot;ActivityThreadMain&quot;</span>);
+       Trace.<span class="hljs-built_in">traceBegin</span>(Trace.TRACE_TAG_ACTIVITY_MANAGER, <span class="hljs-string">&quot;ActivityThreadMain&quot;</span>);
 
        <span class="hljs-comment">// CloseGuard defaults to true and can be quite spammy.  We</span>
        <span class="hljs-comment">// disable it here, but selectively enable it later (via</span>
        <span class="hljs-comment">// StrictMode) on debug builds, but using DropBox, not logs.</span>
-       CloseGuard.setEnabled(<span class="hljs-literal">false</span>);
+       CloseGuard.<span class="hljs-built_in">setEnabled</span>(<span class="hljs-literal">false</span>);
 
-       Environment.initForCurrentUser();
+       Environment.<span class="hljs-built_in">initForCurrentUser</span>();
 
        <span class="hljs-comment">// Set the reporter for event logging in libcore</span>
-       EventLogger.setReporter(<span class="hljs-keyword">new</span> EventLoggingReporter());
+       EventLogger.<span class="hljs-built_in">setReporter</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">EventLoggingReporter</span>());
 
        <span class="hljs-comment">// Make sure TrustedCertificateStore looks in the right place for CA certificates</span>
-       <span class="hljs-keyword">final</span> <span class="hljs-built_in">File</span> configDir = Environment.getUserConfigDirectory(UserHandle.myUserId());
-       TrustedCertificateStore.setDefaultUserDirectory(configDir);
+       <span class="hljs-keyword">final</span> <span class="hljs-built_in">File</span> configDir = Environment.<span class="hljs-built_in">getUserConfigDirectory</span>(UserHandle.<span class="hljs-built_in">myUserId</span>());
+       TrustedCertificateStore.<span class="hljs-built_in">setDefaultUserDirectory</span>(configDir);
 
-       <span class="hljs-built_in">Process</span>.setArgV0(<span class="hljs-string">&quot;&lt;pre-initialized&gt;&quot;</span>);
+       <span class="hljs-built_in">Process</span>.<span class="hljs-built_in">setArgV0</span>(<span class="hljs-string">&quot;&lt;pre-initialized&gt;&quot;</span>);
 
 
-       Looper.prepareMainLooper();
+       Looper.<span class="hljs-built_in">prepareMainLooper</span>();
 
        <span class="hljs-comment">// Find the value for &#123;@link #PROC_START_SEQ_IDENT&#125; if provided on the command line.</span>
        <span class="hljs-comment">// It will be in the format &quot;seq=114&quot;</span>
        <span class="hljs-keyword">long</span> startSeq = <span class="hljs-number">0</span>;
        <span class="hljs-keyword">if</span> (args != null) &#123;
            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = args.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; --i) &#123;
-               <span class="hljs-keyword">if</span> (args[i] != null &amp;&amp; args[i].startsWith(PROC_START_SEQ_IDENT)) &#123;
-                   startSeq = Long.parseLong(
-                           args[i].substring(PROC_START_SEQ_IDENT.length()));
+               <span class="hljs-keyword">if</span> (args[i] != null &amp;&amp; args[i].<span class="hljs-built_in">startsWith</span>(PROC_START_SEQ_IDENT)) &#123;
+                   startSeq = Long.<span class="hljs-built_in">parseLong</span>(
+                           args[i].<span class="hljs-built_in">substring</span>(PROC_START_SEQ_IDENT.<span class="hljs-built_in">length</span>()));
                &#125;
            &#125;
        &#125;
-       ActivityThread thread = <span class="hljs-keyword">new</span> ActivityThread();
+       ActivityThread thread = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ActivityThread</span>();
        thread.<span class="hljs-built_in">attach</span>(<span class="hljs-literal">false</span>, startSeq);
 
        <span class="hljs-keyword">if</span> (sMainThreadHandler == null) &#123;
-           sMainThreadHandler = thread.getHandler();
+           sMainThreadHandler = thread.<span class="hljs-built_in">getHandler</span>();
        &#125;
 
        <span class="hljs-keyword">if</span> (<span class="hljs-literal">false</span>) &#123;
-           Looper.myLooper().setMessageLogging(<span class="hljs-keyword">new</span>
-                   LogPrinter(Log.DEBUG, <span class="hljs-string">&quot;ActivityThread&quot;</span>));
+           Looper.<span class="hljs-built_in">myLooper</span>().<span class="hljs-built_in">setMessageLogging</span>(<span class="hljs-keyword">new</span>
+                   <span class="hljs-built_in">LogPrinter</span>(Log.DEBUG, <span class="hljs-string">&quot;ActivityThread&quot;</span>));
        &#125;
 
        <span class="hljs-comment">// End of event ActivityThreadMain.</span>
-       Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);
+       Trace.<span class="hljs-built_in">traceEnd</span>(Trace.TRACE_TAG_ACTIVITY_MANAGER);
        Looper.<span class="hljs-built_in">loop</span>();
 
-       <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;Main thread loop unexpectedly exited&quot;</span>);
+       <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RuntimeException</span>(<span class="hljs-string">&quot;Main thread loop unexpectedly exited&quot;</span>);
    &#125;</code></pre>
 
 

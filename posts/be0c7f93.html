@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 
 
 <body>
@@ -220,19 +220,19 @@
 <p>还有就是当cherry-pick多条记录后，突然想修改其中一条修改记录时。发现很难办。这时 git rebase 就很轻松了解决掉了这些难处。</p>
 <p>当然网上也有很多类似的介绍，也可以去借阅一下。</p>
 <h2 id="1-合并多条修改"><a href="#1-合并多条修改" class="headerlink" title="1. 合并多条修改"></a>1. 合并多条修改</h2><p>初始时，通过git log 查看 提交记录，记录一下commit hash值。</p>
-<pre><code class="hljs angelscript">@ubuntu:~/work/git$ git log
+<pre><code class="hljs less"><span class="hljs-variable">@ubuntu:</span>~/work/git$ git log
 commit e916213e3c4cc9c977ec20902ae27ae45352eef3
-Date:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20</span>:<span class="hljs-number">05</span>:<span class="hljs-number">32</span> <span class="hljs-number">2018</span> +<span class="hljs-number">0800</span>
+<span class="hljs-attribute">Date</span>:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20</span>:<span class="hljs-number">05</span>:<span class="hljs-number">32</span> <span class="hljs-number">2018</span> +<span class="hljs-number">0800</span>
 
     Third commit
 
 commit <span class="hljs-number">358371</span>a2b2b15d847bf89e44e94e7b926fed2da0
-Date:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20</span>:<span class="hljs-number">04</span>:<span class="hljs-number">48</span> <span class="hljs-number">2018</span> +<span class="hljs-number">0800</span>
+<span class="hljs-attribute">Date</span>:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20</span>:<span class="hljs-number">04</span>:<span class="hljs-number">48</span> <span class="hljs-number">2018</span> +<span class="hljs-number">0800</span>
 
     Second commit
 
 commit ba82e7007559afab14ff124ea51e19772dedfe2c
-Date:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20</span>:<span class="hljs-number">03</span>:<span class="hljs-number">32</span> <span class="hljs-number">2018</span> +<span class="hljs-number">0800</span>
+<span class="hljs-attribute">Date</span>:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20</span>:<span class="hljs-number">03</span>:<span class="hljs-number">32</span> <span class="hljs-number">2018</span> +<span class="hljs-number">0800</span>
 
     First commit
 </code></pre>
@@ -268,8 +268,8 @@ Date:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20<
 <li>exec </li>
 </ul>
 <p>合并修改使用，将 e916213 Third commit 前的pick 改成squash 即可，然后保存退出。</p>
-<pre><code class="hljs apache"><span class="hljs-attribute">pick</span> <span class="hljs-number">358371</span>a Second commit
-<span class="hljs-attribute">squash</span> e<span class="hljs-number">916213</span> Third commit</code></pre>
+<pre><code class="hljs sql">pick <span class="hljs-number">358371</span>a <span class="hljs-keyword">Second</span> <span class="hljs-keyword">commit</span>
+squash e916213 Third <span class="hljs-keyword">commit</span></code></pre>
 <p>修改完成后再次查看git log，已经合并到一起了。因为使用squash，所以两条记录得message都会合在一起。如果 使用fixup，则会放弃Third commit 的commit 信息。</p>
 <pre><code class="hljs apache"><span class="hljs-attribute">commit</span> <span class="hljs-number">940</span>fec<span class="hljs-number">9</span>ea<span class="hljs-number">88</span>c<span class="hljs-number">69</span>a<span class="hljs-number">195</span>c<span class="hljs-number">546</span>d<span class="hljs-number">48</span>e<span class="hljs-number">5209</span>c<span class="hljs-number">4</span>cdb<span class="hljs-number">6</span>abec
 <span class="hljs-attribute">Date</span>:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20</span>:<span class="hljs-number">04</span>:<span class="hljs-number">48</span> <span class="hljs-number">2018</span> +<span class="hljs-number">0800</span>
@@ -285,8 +285,8 @@ Date:   Tue Feb <span class="hljs-number">6</span> <span class="hljs-number">20<
 </code></pre>
 <h2 id="2-修改提交记录中的commit-信息"><a href="#2-修改提交记录中的commit-信息" class="headerlink" title="2. 修改提交记录中的commit 信息"></a>2. 修改提交记录中的commit 信息</h2><p>同上面，只要在需要修改的记录前 将pick 换成reword，即可进入编辑界面，编辑commit message，然后保存退出。这样就修改完成了。</p>
 <p>当使用edit时，虽然也可以修改，</p>
-<pre><code class="hljs sql">Stopped at 3af42b9... reword Second <span class="hljs-keyword">commit</span>
-You can amend the <span class="hljs-keyword">commit</span> <span class="hljs-keyword">now</span>, <span class="hljs-keyword">with</span>
+<pre><code class="hljs sql">Stopped <span class="hljs-keyword">at</span> <span class="hljs-number">3</span>af42b9... reword <span class="hljs-keyword">Second</span> <span class="hljs-keyword">commit</span>
+You can amend the <span class="hljs-keyword">commit</span> now, <span class="hljs-keyword">with</span>
 
 	git <span class="hljs-keyword">commit</span> <span class="hljs-comment">--amend</span>
 

@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.2"></head>
 
 
 <body>
@@ -214,8 +214,8 @@
             <h1 style="display: none">客户化定制开机logo、开机动画</h1>
             
             <div class="markdown-body" id="post-body">
-              <h2 id="设置开机logo"><a href="#设置开机logo" class="headerlink" title="设置开机logo"></a>设置开机logo</h2><h3 id="高通平台"><a href="#高通平台" class="headerlink" title="高通平台"></a>高通平台</h3><pre><code class="hljs angelscript"><span class="hljs-number">1</span>、修改的文件路径
-LINUX/android/bootable/bootloader/lk/splash
+              <h2 id="设置开机logo"><a href="#设置开机logo" class="headerlink" title="设置开机logo"></a>设置开机logo</h2><h3 id="高通平台"><a href="#高通平台" class="headerlink" title="高通平台"></a>高通平台</h3><pre><code class="hljs awk"><span class="hljs-number">1</span>、修改的文件路径
+LINUX<span class="hljs-regexp">/android/</span>bootable<span class="hljs-regexp">/bootloader/</span>lk/splash
 <span class="hljs-number">2</span>、准备好logo图片(png、bmp格式)
 <span class="hljs-number">3</span>、查看中原图片的分辨率，修改logo图片*保证分辨率一致*
 <span class="hljs-number">4</span>、生成splash.img镜像文件</code></pre>
@@ -223,14 +223,14 @@ LINUX/android/bootable/bootloader/lk/splash
 <pre><code class="hljs vim">The steps <span class="hljs-keyword">to</span> generate <span class="hljs-keyword">a</span> splash.<span class="hljs-keyword">im</span><span class="hljs-variable">g:</span>
 <span class="hljs-number">1</span> sudo apt-<span class="hljs-built_in">get</span> install <span class="hljs-keyword">python</span>-imaging
 <span class="hljs-number">2</span> <span class="hljs-keyword">python</span> ./logo_gen.<span class="hljs-keyword">py</span> boot_001.png (*.bmp)</code></pre>
-<h3 id="MTK平台"><a href="#MTK平台" class="headerlink" title="MTK平台"></a>MTK平台</h3><pre><code class="hljs latex">1、修改的文件路径
-vendor<span class="hljs-tag">\<span class="hljs-name">mediatek</span></span><span class="hljs-tag">\<span class="hljs-name">proprietary</span></span><span class="hljs-tag">\<span class="hljs-name">bootable</span></span><span class="hljs-tag">\<span class="hljs-name">bootloader</span></span><span class="hljs-tag">\<span class="hljs-name">lk</span></span><span class="hljs-tag">\<span class="hljs-name">dev</span></span><span class="hljs-tag">\<span class="hljs-name">logo</span></span>
+<h3 id="MTK平台"><a href="#MTK平台" class="headerlink" title="MTK平台"></a>MTK平台</h3><pre><code class="hljs taggerscript">1、修改的文件路径
+vendor<span class="hljs-symbol">\m</span>ediatek<span class="hljs-symbol">\p</span>roprietary<span class="hljs-symbol">\b</span>ootable<span class="hljs-symbol">\b</span>ootloader<span class="hljs-symbol">\l</span>k<span class="hljs-symbol">\d</span>ev<span class="hljs-symbol">\l</span>ogo
 2、准备好logo图片(bmp格式)
 3、查看中原图片的分辨率，修改logo图片*保证分辨率一致*替换相应格式的logo
 </code></pre>
 <h2 id="设置开关机动画"><a href="#设置开关机动画" class="headerlink" title="设置开关机动画"></a>设置开关机动画</h2><p>首先自己制作开关机动画包，如果有现成的压缩包那就不用了<br>，压缩包的压缩方式必须是存储方式的zip格式压缩。</p>
-<pre><code class="hljs css"><span class="hljs-selector-tag">bootanimation</span><span class="hljs-selector-class">.zip</span>
-<span class="hljs-selector-tag">shutdownanimation</span><span class="hljs-selector-class">.zip</span></code></pre>
+<pre><code class="hljs python">bootanimation.<span class="hljs-built_in">zip</span>
+shutdownanimation.<span class="hljs-built_in">zip</span></code></pre>
 <p>压缩包中有两个文件夹part0、part1和desc.txt文件</p>
 <p>part0和part1中主要存放一些开机动画的帧图片</p>
 <p>desc.txt中内容如下</p>
