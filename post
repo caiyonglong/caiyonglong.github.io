@@ -413,11 +413,11 @@ db.update(<span class="hljs-string">&quot;music&quot;</span>, values, <span clas
     
   <!-- 备案信息 -->
   <div class="beian">
-    <a href="http://beian.miit.gov.cn/" target="_blank"
+    <a href="https://beian.miit.gov.cn/" target="_blank"
        rel="nofollow noopener">湘ICP备19015354号</a>
     
       <a
-        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=19015354"
+        href="https://beian.miit.gov.cn/"
         rel="nofollow noopener"
         class="beian-police"
         target="_blank"
